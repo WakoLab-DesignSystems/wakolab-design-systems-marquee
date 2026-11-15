@@ -10,7 +10,7 @@ This repository is the **Marquee** design system. It must stay **autonomous**: e
 
 1. Read [README.md](README.md), [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS-SYNC.md](AGENTS-SYNC.md).
 2. Inspect the current branch, open pull requests and the issue you work on. Preserve other people's work.
-3. Work on a branch and open a pull request against `main`; do not merge, tag, release or change repository settings unless the issue explicitly authorizes it.
+3. For each issue, create a dedicated branch from the current `dev` and open a pull request against `dev`; do not merge, tag, release or change repository settings unless the issue explicitly authorizes it.
 
 ## Working rules
 
@@ -23,6 +23,8 @@ This repository is the **Marquee** design system. It must stay **autonomous**: e
 - Distinguish verified facts, proposals and decisions. Never claim a check, release or behaviour you did not observe.
 - Documentation, code comments and issues are in English.
 - No secrets, personal data or private conversation content in commits or logs.
+
+Follow the integration and promotion gates in [CONTRIBUTING.md](CONTRIBUTING.md#integration-and-promotion). Orc authorizes the reviewed HEAD and Rel executes the merge; integration does not grant staging, release or production approval.
 
 ## Coordination
 
