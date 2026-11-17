@@ -5,14 +5,15 @@
 // Icon path data is not part of this repository (EXTRACTION_MATRIX §10, E4): the capture script
 // may inject a set at run time through window.__MARQUEE_ICONS__.
 // Structure copied from wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
-// examples/parity/main.tsx; the screens follow the frontend's MarqueeHome, MarqueeProject and Marquee pages.
+// examples/parity/main.tsx; the screens follow the frontend's MarqueeHome (search in the top bar, shelves of
+// tiles), MarqueeProject (banner, card sections) and Marquee pages.
 import "wakolab-design-systems-marquee/marquee.css";
 import "./parity.css";
 import { createRoot } from "react-dom/client";
 import { useState, type ReactNode } from "react";
 import {
-  BackLink, Button, CollectionGroup, CollectionLayout, CollectionStatus, Cover, DetailLayout, DetailSection, Dialog, EntryContent,
-  FilterChips, MarqueeHeader, MarqueeRoot, MarqueeShell, Icon, ItemLink, KeyValueList, LogoSlot, MessagePage, Panel, Popover, SearchField,
+  BackLink, Button, CardSection, CollectionLayout, CollectionStatus, Cover, DetailLayout, Dialog,
+  FilterChips, Shelf, TileContent, MarqueeHeader, MarqueeRoot, MarqueeShell, Icon, ItemLink, KeyValueList, LogoSlot, MessagePage, Panel, Popover, SearchField,
   ToolButton, type IconSet, type Mode,
 } from "wakolab-design-systems-marquee";
 import { detail, groups, rows, text } from "./fixtures";
@@ -29,11 +30,13 @@ function Tool({ icon, label, value, compact, valueLang }: { icon: "palette" | "g
   );
 }
 function Shell({ children }: { children: ReactNode }) {
+  const [q, setQ] = useState("");
   return (
     <>
       <a href="#main" className="wl-skip">{text.skip}</a>
       <MarqueeShell header={
         <MarqueeHeader logo={<LogoSlot label={text.brand} accessibleName={text.brandName} />}
+          search={{ label: text.searchLabel, placeholder: text.searchPlaceholder, clearLabel: text.clear, value: q, onChange: setQ }}
           tools={<><Tool icon="palette" label={text.appearance} value={text.appearanceValue} /><Tool icon="globe" label={text.language} value="English" valueLang="en" compact />
             <Button id="sign-in" className="wl-signin">{text.signIn}</Button></>} />
       }>{children}</MarqueeShell>
@@ -41,28 +44,24 @@ function Shell({ children }: { children: ReactNode }) {
   );
 }
 function Collection({ state }: { state: "ready" | "loading" | "unavailable" }) {
-  const [q, setQ] = useState("");
   return (
     <Shell>
-      <CollectionLayout title={text.title} lead={text.lead}
-        filters={<>
-          <SearchField label={text.searchLabel} placeholder={text.searchPlaceholder} clearLabel={text.clear} value={q} onChange={setQ} />
-          <FilterChips items={groups.map((g) => ({ id: g.id, label: g.label }))} value="" onChange={() => {}} label={text.category} allLabel={text.all} subLabel="Subcategory" />
-        </>}
+      <CollectionLayout title={text.title} lead={text.lead} label={text.sectionLabel}
+        filters={<FilterChips items={groups.map((g) => ({ id: g.id, label: g.label }))} value="" onChange={() => {}} label={text.category} allLabel={text.all} subLabel="Subcategory" />}
         count={state === "ready" ? text.count : ""}>
-        {state === "loading" ? <CollectionStatus state={{ status: "loading", label: text.loading }} />
-          : state === "unavailable" ? <CollectionStatus state={{ status: "unavailable", title: text.unavailableTitle, body: text.unavailableBody, retryLabel: text.retry, onRetry: () => {} }} />
+        {state === "loading" ? <CollectionStatus tiles state={{ status: "loading", label: text.loading }} />
+          : state === "unavailable" ? <CollectionStatus tiles state={{ status: "unavailable", title: text.unavailableTitle, body: text.unavailableBody, retryLabel: text.retry, onRetry: () => {} }} />
           : groups.map((g) => (
-            <CollectionGroup key={g.id} title={g.label} titleId={`g-${g.id}`}>
+            <Shelf key={g.id} heading={g.label} headingId={`sh-${g.id}`}>
               {g.slugs.map((slug) => rows.find((r) => r.slug === slug)!).map((r) => (
-                <li key={r.slug} className="wl-entry">
-                  <ItemLink href={`?screen=detail&slug=${r.slug}`} itemId={r.slug} className="wl-entry-link">
-                    <EntryContent cover={<Cover name={r.name} />} title={r.name} summary={r.summary} summaryLang={r.lang}
-                      meta={<><span className="wl-path">{r.path}</span><span className="wl-meta"><Icon name={r.codeIcon} size={16} />{r.code}</span><span className="wl-meta">{r.access}</span></>} />
+                <li key={r.slug} className="min-w-0">
+                  <ItemLink href={`?screen=detail&slug=${r.slug}`} itemId={r.slug} className="wl-tile">
+                    <TileContent cover={<Cover name={r.name} />} title={r.name} summary={r.summary} summaryLang={r.lang}
+                      meta={<><span className="wl-meta"><Icon name={r.codeIcon} size={16} />{r.code}</span><span className="wl-meta">{r.access}</span></>} />
                   </ItemLink>
                 </li>
               ))}
-            </CollectionGroup>
+            </Shelf>
           ))}
       </CollectionLayout>
     </Shell>
@@ -71,8 +70,9 @@ function Collection({ state }: { state: "ready" | "loading" | "unavailable" }) {
 function Detail() {
   return (
     <Shell>
-      <DetailLayout back={<BackLink id="skip-profile" label={text.back} />} eyebrow={detail.facts[0].value} title={detail.title} lead={detail.lead} leadLang="en"
-        side={<>
+      <DetailLayout back={<BackLink id="skip-profile" label={text.back} />} banner={<Cover name={detail.title} eager />}
+        path={detail.facts[0].value} title={detail.title} lead={detail.lead} leadLang="en"
+        side={
           <Panel>
             <div className="wl-join grid gap-2">
               <p className="wl-join-title">{detail.joinTitle}</p>
@@ -84,12 +84,12 @@ function Detail() {
               <div><p className="font-semibold">{detail.accessTitle}</p><p className="wl-meta-text">{detail.access}</p></div>
             </div>
           </Panel>
-          <KeyValueList items={detail.facts.map((f) => ({ key: f.key, value: "lang" in f ? <span lang={f.lang}>{f.value}</span> : f.value }))} />
-        </>}>
-        <DetailSection id="about-h" heading={detail.about}>
+        }>
+        <CardSection id="about-h" heading={detail.about}>
           <p lang="en" className="wl-prose">{detail.body}</p>
+          <KeyValueList items={detail.facts.map((f) => ({ key: f.key, value: "lang" in f ? <span lang={f.lang}>{f.value}</span> : f.value }))} />
           <p className="wl-meta-text wl-with-icon"><Icon name="info" size={18} />{detail.note}</p>
-        </DetailSection>
+        </CardSection>
       </DetailLayout>
     </Shell>
   );

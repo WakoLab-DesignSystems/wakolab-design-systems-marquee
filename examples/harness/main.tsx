@@ -3,12 +3,12 @@
 // isolation (standard INDEPENDENCE_CHECK §3–§4). Original code; synthetic content only.
 // Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
 // examples/harness/main.tsx. Changes for Marquee: Marquee names; no keyboard layer (Marquee has none);
-// an editorial panel (declared panel roles) with a focusable element inside it.
+// a Marquee tile (cover, hover lift, card shadow) and a section card instead of Folio's editorial panel.
 // ?nocss=1 skips the Marquee stylesheet (used to compare host styles with and without it).
 import { createRoot, type Root } from "react-dom/client";
 import { useRef, useState } from "react";
 import {
-  Button, Dialog, EditorialPanel, MarqueeRoot, ItemLink, LogoSlot, Popover, registeredFaceSets, SearchField,
+  Button, CardSection, Cover, Dialog, MarqueeRoot, ItemLink, TileContent, LogoSlot, Popover, registeredFaceSets, SearchField,
   type MarqueeRootProps, type Diagnostic,
 } from "wakolab-design-systems-marquee";
 
@@ -42,10 +42,12 @@ function Content({ id }: { id: string }) {
         </Popover>
         <DialogDemo id={id} />
         <SearchField id={`${id}-search`} inputRef={search} label="Search" value="" onChange={() => {}} clearLabel="Clear" />
-        <aside data-surface="dark" className="registration-editorial" id={`${id}-panel`}>
-          <EditorialPanel label={`Root ${id}`} eyebrow="Eyebrow" title="Panel title" text="Panel text" />
-          <a href="#panel" id={`${id}-panel-link`}>Panel link</a>
-        </aside>
+        <ul className="wl-tiles" id={`${id}-tiles`}>
+          <li className="min-w-0"><ItemLink href="#tile" itemId={`${id}-tile`} className="wl-tile">
+            <TileContent cover={<Cover name="Tile title" />} title="Tile title" summary="Tile tagline" meta={<span className="wl-meta">Meta</span>} />
+          </ItemLink></li>
+        </ul>
+        <CardSection id={`${id}-card-h`} heading="Card section"><p id={`${id}-card-text`}>Card text</p></CardSection>
         <ul>{["one", "two", "three"].map((x) => <li key={x}><ItemLink href={`#${x}`} itemId={`${id}-${x}`} className="wl-row">{x}</ItemLink></li>)}</ul>
       </main>
     </div>

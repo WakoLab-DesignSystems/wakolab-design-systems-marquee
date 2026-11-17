@@ -45,70 +45,115 @@ test("menu: reaches every screen, marks the active one, keeps mode and configura
   await expect(page.locator(".wl-logo-mark")).toBeVisible();
 });
 
-test("identity: Marquee tokens, sans UI with a serif display, radii 8/12/pill, light-only card shadow, 150 ms motion, sticky filters and side card", async ({ page }) => {
+test("identity: Marquee tokens, DM Sans UI with Manrope 800 display, radii 10/16/pill and 12 covers, 180 ms motion, shelves of three tiles", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await open(page, "screen=collection&mode=light&config=default");
   const s = await page.evaluate(() => {
     const root = document.querySelector('[data-wds="marquee"]')!;
-    const cs = (sel: string, pseudo?: string) => getComputedStyle(document.querySelector(sel)!, pseudo);
+    const cs = (sel: string) => getComputedStyle(document.querySelector(sel)!);
     return {
       bg: getComputedStyle(root).backgroundColor, row: getComputedStyle(root).getPropertyValue("--wl-row-height").trim(),
-      motion: getComputedStyle(root).getPropertyValue("--wl-motion").trim(), dur: getComputedStyle(root).getPropertyValue("--wl-dur-base").trim(),
+      motion: getComputedStyle(root).getPropertyValue("--wl-motion").trim(), lift: getComputedStyle(root).getPropertyValue("--wl-hover-lift").trim(),
       ui: cs(".wl-entry-meta").fontFamily, h1: cs("h1").fontFamily, h1Weight: cs("h1").fontWeight, h1Tracking: cs("h1").letterSpacing, h1Size: cs("h1").fontSize,
-      title: cs(".wl-entry-title").fontFamily, group: cs(".wl-group-title").textTransform,
+      title: cs(".wl-tile-title").fontFamily, titleWeight: cs(".wl-tile-title").fontWeight,
       control: cs('input[type="search"]').borderTopLeftRadius, chip: cs('[aria-pressed]').borderTopLeftRadius,
-      sticky: cs(".wl-marquee-filters").position,
+      tile: cs(".wl-tile").borderTopLeftRadius, cover: cs(".wl-tile .wl-cover").borderTopLeftRadius,
+      shadow: cs(".wl-tile").boxShadow, columns: cs(".wl-shelf .wl-tiles").gridTemplateColumns.split(" ").length,
+      search: !!document.querySelector(".wl-topbar .wl-topbar-search input[type=search]"),
+      shelves: [...document.querySelectorAll(".wl-shelf")].map((sh) => [sh.querySelector("h2")!.textContent, sh.querySelectorAll(".wl-tile").length, sh.querySelector(".wl-shelf-head button")?.textContent ?? null]),
     };
   });
-  expect(s.bg).toBe("rgb(250, 249, 245)");
+  expect(s.bg).toBe("rgb(244, 242, 239)");
   expect(s.row).toBe("56px");
-  expect(s.dur).toBe("150ms");
+  expect(s.motion).toBe("180ms");
+  expect(s.lift).toBe("-3px");
   expect(s.ui).toMatch(/^"?wds-marquee-default-dm-sans"?,/);
-  expect(s.h1).toMatch(/^"?wds-marquee-default-source-serif-4"?,/);
-  expect(s.title).toMatch(/^"?wds-marquee-default-source-serif-4"?,/);
-  expect(s.h1Weight).toBe("600");
-  expect(parseFloat(s.h1Tracking)).toBeCloseTo(-0.01 * parseFloat(s.h1Size), 1);
-  expect(s.group).toBe("uppercase");
-  expect(s.control).toBe("8px");
-  expect(s.chip).toBe("999px");
-  expect(s.sticky).toBe("sticky");
-  await open(page, "screen=article&mode=light&config=default");
-  const light = await page.evaluate(() => ({ radius: getComputedStyle(document.querySelector(".wl-facts")!).borderTopLeftRadius,
-    shadow: getComputedStyle(document.querySelector(".wl-panel")!).boxShadow, side: getComputedStyle(document.querySelector(".wl-project-side")!).position }));
-  expect(light.radius).toBe("12px");
-  expect(light.shadow).toContain("rgba(21, 46, 55, 0.06)");
-  expect(light.side).toBe("sticky");
-  await open(page, "screen=article&mode=dark&config=default");
-  expect(await page.evaluate(() => getComputedStyle(document.querySelector(".wl-panel")!).boxShadow)).toBe("none");
-  await page.setViewportSize({ width: 800, height: 900 });
-  expect(await page.evaluate(() => getComputedStyle(document.querySelector(".wl-project-side")!).position)).toBe("static");
+  expect(s.h1).toMatch(/^"?wds-marquee-default-manrope"?,/);
+  expect(s.title).toMatch(/^"?wds-marquee-default-manrope"?,/);
+  expect([s.h1Weight, s.titleWeight]).toEqual(["800", "800"]);
+  expect(parseFloat(s.h1Size)).toBe(48); // clamp(2.25rem, 5vw, 3rem) at 1280px
+  expect(parseFloat(s.h1Tracking)).toBeCloseTo(-0.02 * parseFloat(s.h1Size), 1);
+  expect([s.control, s.chip, s.tile, s.cover]).toEqual(["10px", "999px", "16px", "12px"]);
+  expect(s.shadow).toContain("rgba(25, 24, 29, 0.08)");
+  expect(s.columns).toBe(3);
+  expect(s.search).toBe(true);
+  // Shelves of at most three tiles; "See all" only when a shelf has more.
+  expect(s.shelves).toEqual([["Science", 3, "See all Science"], ["Civic", 1, null], ["Culture", 1, null]]);
+  await page.getByRole("button", { name: "See all Science" }).click();
+  await expect(page.locator(".wl-shelf")).toHaveCount(0);
+  await expect(page.locator('section[aria-label="Datasets"] .wl-tile')).toHaveCount(5);
+  // Card shadow in dark mode too.
+  await open(page, "screen=collection&mode=dark&config=default");
+  expect(await page.evaluate(() => getComputedStyle(document.querySelector(".wl-tile")!).boxShadow)).toContain("rgba(0, 0, 0, 0.4)");
 });
 
-test("editorial panel: shipped panel, on-panel and panel-accent defaults in both modes, focus outline inside the panel, default monogram", async ({ page }) => {
-  for (const mode of ["light", "dark"]) {
+test("hover lift: a tile rises by 3 px and takes the pop shadow; reduced motion keeps it in place", async ({ browser }) => {
+  for (const reducedMotion of ["no-preference", "reduce"] as const) {
+    const ctx = await browser.newContext({ reducedMotion, viewport: { width: 1280, height: 900 } });
+    const page = await ctx.newPage();
+    await open(page, "screen=collection&mode=light&config=default");
+    const tile = page.locator(".wl-shelf .wl-tile").first();
+    expect(await tile.evaluate((e) => getComputedStyle(e).transitionDuration)).toBe(reducedMotion === "reduce" ? "0s" : "0.18s, 0.18s");
+    await tile.hover();
+    await expect.poll(() => tile.evaluate((e) => getComputedStyle(e).transform)).toBe(reducedMotion === "reduce" ? "none" : "matrix(1, 0, 0, 1, 0, -3)");
+    await expect.poll(() => tile.evaluate((e) => getComputedStyle(e).boxShadow)).toContain("rgba(25, 24, 29, 0.25)");
+    await ctx.close();
+  }
+});
+
+test("detail and form: bounded 21:9 banner or a 96 px initials band, chips, sticky side from 64rem, form on a raised card", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await open(page, "screen=article&mode=light&config=default");
+  const d = await page.evaluate(() => {
+    const banner = document.querySelector(".wl-banner")!;
+    const band = banner.querySelector(".wl-cover")!.getBoundingClientRect().height;
+    banner.classList.remove("wl-banner--none"); // the same banner with an image
+    const cover = getComputedStyle(banner.querySelector(".wl-cover")!);
+    const out = { band, none: true, ratio: cover.aspectRatio, max: cover.maxHeight, radius: getComputedStyle(banner).borderTopLeftRadius,
+      chips: [...document.querySelectorAll(".wl-chips span")].map((c) => c.textContent),
+      side: getComputedStyle(document.querySelector(".wl-project-side")!).position, h1: getComputedStyle(document.querySelector("h1")!).fontWeight,
+      card: getComputedStyle(document.querySelector(".wl-card-section")!).boxShadow };
+    banner.classList.add("wl-banner--none");
+    return out;
+  });
+  expect(d).toEqual({ band: 96, none: true, ratio: "21 / 9", max: "360px", radius: "16px", chips: ["Sensors", "CSV", "Weekly checks"], side: "sticky", h1: "800",
+    card: expect.stringContaining("rgba(25, 24, 29, 0.08)") });
+  await page.setViewportSize({ width: 800, height: 900 });
+  expect(await page.evaluate(() => getComputedStyle(document.querySelector(".wl-project-side")!).position)).toBe("static");
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await open(page, "screen=form&mode=dark&config=default");
+  const f = await page.evaluate(() => { const c = getComputedStyle(document.querySelector(".wl-form")!); return [c.borderTopLeftRadius, c.backgroundColor, c.boxShadow]; });
+  expect(f).toEqual(["16px", "rgb(24, 24, 28)", expect.stringContaining("rgba(0, 0, 0, 0.4)")]);
+});
+
+test("registration frame: Marquee editorial side and monogram tile, default focus = ink, link independent of action", async ({ page }) => {
+  const expected = {
+    light: { bg: "rgb(235, 231, 226)", ink: "rgb(25, 24, 29)", eyebrow: "rgb(178, 58, 28)", art: "rgb(178, 58, 28)", artInk: "rgb(255, 255, 255)" },
+    dark: { bg: "rgb(35, 35, 41)", ink: "rgb(243, 241, 237)", eyebrow: "rgb(255, 140, 102)", art: "rgb(255, 140, 102)", artInk: "rgb(29, 12, 6)" },
+  };
+  for (const mode of ["light", "dark"] as const) {
     await page.setViewportSize({ width: 1280, height: 900 });
     await open(page, `screen=registration&mode=${mode}&config=default`);
     const s = await page.evaluate(() => {
       const aside = document.querySelector(".registration-editorial")!;
-      return { bg: getComputedStyle(aside).backgroundColor, ink: getComputedStyle(aside).color, surface: aside.getAttribute("data-surface"),
+      const art = aside.querySelector(".editorial-art")!;
+      return { bg: getComputedStyle(aside).backgroundColor, ink: getComputedStyle(aside).color,
         eyebrow: getComputedStyle(aside.querySelector(".editorial-eyebrow")!).color,
-        art: getComputedStyle(aside.querySelector(".editorial-art")!).borderTopColor, mono: aside.querySelector(".editorial-monogram")!.textContent };
+        art: getComputedStyle(art).backgroundColor, artInk: getComputedStyle(art).color, mono: aside.querySelector(".editorial-monogram")!.textContent };
     });
-    expect(s).toEqual({ bg: "rgb(21, 46, 55)", ink: "rgb(237, 246, 238)", surface: "dark", eyebrow: "rgb(206, 241, 197)", art: "rgb(206, 241, 197)", mono: "F" });
+    expect(s).toEqual({ ...expected[mode], mono: "F" });
   }
-  // Focus inside the panel uses panel-accent (harness: a link inside the panel).
   await page.goto("/harness/index.html");
   await page.evaluate(() => (window as any).harness.ready);
   await page.evaluate(() => (window as any).harness.mount("a", "slot-a", { mode: "light" }));
   await page.locator("#a-primary").focus(); await page.keyboard.press("Shift+Tab"); await page.keyboard.press("Tab"); // keyboard modality
-  await page.locator("#a-panel-link").focus();
-  expect(await page.locator("#a-panel-link").evaluate((e) => getComputedStyle(e).outlineColor)).toBe("rgb(206, 241, 197)");
-  await page.locator("#a-link").focus(); // outside the panel: the focus role
-  expect(await page.locator("#a-link").evaluate((e) => getComputedStyle(e).outlineColor)).toBe("rgb(35, 107, 84)");
+  await page.locator("#a-link").focus();
+  const link = await page.locator("#a-link").evaluate((e) => [getComputedStyle(e).outlineColor, getComputedStyle(e).color]);
+  expect(link).toEqual(["rgb(25, 24, 29)", "rgb(163, 54, 26)"]); // focus default = ink; link (#a3361a) is not action (#b23a1c)
 });
 
 test("confirmation dialog, backdrop scrim and focus return, light and dark", async ({ page }) => {
-  for (const [mode, scrim] of [["light", "rgba(21, 46, 55, 0.45)"], ["dark", "rgba(0, 0, 0, 0.6)"]]) {
+  for (const [mode, scrim] of [["light", "rgba(25, 24, 29, 0.5)"], ["dark", "rgba(0, 0, 0, 0.65)"]]) {
     await open(page, `screen=article&mode=${mode}&config=default`);
     await page.locator("#request").focus(); await page.keyboard.press("Enter");
     const dialog = page.locator("dialog[open]");
@@ -140,7 +185,7 @@ test("popover: Escape inside closes and returns focus; outside pointer-down clos
   await expect(page.getByRole("group", { name: "More actions" })).toHaveCount(0);
 });
 
-test("reduced motion: no animation in the root; dialog appears without animation; 150 ms otherwise", async ({ browser }) => {
+test("reduced motion: no animation in the root; dialog appears without animation; 180 ms otherwise", async ({ browser }) => {
   const ctx = await browser.newContext({ reducedMotion: "reduce" });
   const page = await ctx.newPage();
   await open(page, "screen=components&mode=light&config=default");
@@ -153,7 +198,7 @@ test("reduced motion: no animation in the root; dialog appears without animation
   const p2 = await browser.newPage();
   await open(p2, "screen=components&mode=light&config=default");
   await p2.locator("#dialog-btn").click();
-  expect(await p2.locator("dialog[open]").evaluate((d) => [getComputedStyle(d).animationName, getComputedStyle(d).animationDuration])).toEqual(["wds-marquee-wl-rise", "0.15s"]);
+  expect(await p2.locator("dialog[open]").evaluate((d) => [getComputedStyle(d).animationName, getComputedStyle(d).animationDuration])).toEqual(["wds-marquee-wl-rise", "0.18s"]);
   await p2.close();
 });
 

@@ -5,8 +5,8 @@
  * web/prototype/fixtures.ts (project names, summaries, categories, access) and the English
  * catalog strings of web/src/i18n. Synthetic data only; used by examples/parity, never shipped.
  * Copied from wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
- * examples/parity/fixtures.ts; Marquee adds the index groups (the prototype's Marquee home groups entries
- * by top category, in this order) and its Marquee-specific labels. */
+ * examples/parity/fixtures.ts; the groups are the prototype's Marquee shelves (one per category facet, in
+ * this order, at most three tiles each). */
 export const text = {
   skip: "Skip to projects",
   brand: "WakoLab", brandName: "WakoLab, projects home",

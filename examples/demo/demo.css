@@ -15,7 +15,8 @@ html, body { margin: 0; }
 .demo-swatches { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); }
 .demo-swatch { display: grid; gap: 4px; padding: 8px; border: 1px solid var(--wl-border); border-radius: var(--wl-radius-control); font-size: 0.875rem; }
 .demo-swatch > span:first-child { height: 40px; border-radius: var(--wl-radius-control); border: 1px solid var(--wl-border); }
-.demo-panel { display: grid; gap: 8px; padding: 24px; border-radius: var(--wl-radius-card); background: var(--wl-panel); color: var(--wl-on-panel); }
-.demo-panel .demo-eyebrow { color: var(--wl-panel-accent); font-weight: 600; }
+.demo-shadow { padding: 20px; border-radius: var(--wl-radius-card); background: var(--wl-surface); font-family: var(--wl-font-code); font-size: 0.875rem; }
+.demo-shadow--card { box-shadow: var(--wl-shadow-card); }
+.demo-shadow--pop { box-shadow: var(--wl-shadow-pop); }
 .demo-code { overflow-x: auto; margin: 0; padding: 12px 16px; border-radius: var(--wl-radius-control); background: var(--wl-surface-2); font-size: 0.875rem; }
 .demo-list { display: grid; gap: 6px; margin: 0; padding-left: 1.25rem; font-family: var(--wl-font-prose); line-height: 1.6; }

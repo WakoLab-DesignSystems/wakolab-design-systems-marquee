@@ -1,4 +1,5 @@
-// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/fixture/folio-sys.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/fixture/folio-sys.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply;
+// the theme select keeps the frontend's three options, console, folio and marquee, with marquee selected).
 // Candidate adapter of the parity fixture: the built Marquee package. Original code, copied from
 // wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936
 // (examples/parity/fixture/console-sys.tsx); the registration side uses Marquee's EditorialPanel, whose
@@ -31,7 +32,7 @@ export function Registration({ texts: t, children }: { texts: typeof registratio
       brand={<a href="/" className="inline-flex items-center gap-3 font-bold text-xl no-underline"><span aria-hidden="true" className="grid place-content-center size-10 rounded-control bg-brand text-on-brand">W</span>WakoLab</a>}
       tools={<>
         <div className="appearance-controls flex flex-wrap gap-3">
-          <Select id="theme" label={t.theme} defaultValue="marquee"><option value="console">Console</option><option value="marquee">Marquee</option><option value="marquee">Marquee</option></Select>
+          <Select id="theme" label={t.theme} defaultValue="marquee"><option value="console">Console</option><option value="folio">Folio</option><option value="marquee">Marquee</option></Select>
           <Select id="appearance-mode" label={t.mode} value={resolvedMode} onChange={() => {}}><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></Select>
         </div>
         <Select id="language" label={t.language} defaultValue="en"><option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="zh-Hans">简体中文</option><option value="hi">हिन्दी</option></Select>

@@ -13,11 +13,11 @@ import "./demo.css";
 import { StrictMode, useEffect, useState, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  Alert, BackLink, Badge, Button, Card, Checkbox, ChoiceGroup, CodeField, CollectionGroup, CollectionLayout, CollectionStatus,
-  ConfirmDialog, ConnectionRow, Cover, DetailLayout, DetailSection, Dialog, EditorialPanel, EmptyState, EntryContent, FilterChips,
+  Alert, BackLink, Badge, Button, Card, CardSection, Checkbox, ChoiceGroup, CodeField, CollectionLayout, CollectionStatus,
+  ConfirmDialog, ConnectionRow, Cover, DetailLayout, Dialog, EditorialPanel, EmptyState, FilterChips, HighlightSection,
   MarqueeHeader, MarqueeRoot, MarqueeShell, FormPage, IconButton, ItemLink, KeyValueList, LoadMore, LoadingState, LogoSlot, MessagePage,
-  ModeMenu, Page, Panel, Popover, ProblemState, RegistrationFrame, SearchField, Select, Shortlist, ShortlistContent, Skeleton,
-  Stepper, TabPanel, Tabs, TextField, Toast, ToggleChip, ToolButton, type DesignConfig, type FilterItem, type IconSet, type Mode,
+  ModeMenu, Page, Panel, Popover, ProblemState, RegistrationFrame, SearchField, Select, Shelf, Skeleton,
+  Stepper, TabPanel, Tabs, TextField, TileContent, TileGrid, Toast, ToggleChip, ToolButton, type DesignConfig, type FilterItem, type IconSet, type Mode,
 } from "wakolab-design-systems-marquee";
 
 /* ───────── State in the hash ───────── */
@@ -46,13 +46,18 @@ const ITEMS = [
   { id: "pollinator-counts", name: "Pollinator counts", summary: "Weekly counts from community gardens, with photos and notes.", cat: "science/biology", path: "Science › Biology", access: "Public data" },
   { id: "bus-punctuality", name: "Bus punctuality", summary: "Departures and delays per stop, updated every hour.", cat: "civic/transport", path: "Civic › Transport", access: "Restricted data" },
   { id: "library-loans", name: "Library loans", summary: "Anonymous loan counts per branch and month.", cat: "culture", path: "Culture", access: "Public data" },
-  { id: "long-title", name: "A deliberately long dataset title that wraps on narrow screens without hiding any word", summary: "A long summary to check wrapping in the editorial index.", cat: "science/climate", path: "Science › Climate", access: "Public data" },
+  { id: "long-title", name: "A deliberately long dataset title that wraps on narrow screens without hiding any word", summary: "A long summary to check wrapping in a tile: the tagline is clamped to two lines under the title.", cat: "science/climate", path: "Science › Climate", access: "Public data" },
+  { id: "river-levels", name: "River levels", summary: "Gauge readings every fifteen minutes at nine stations.", cat: "science/climate", path: "Science › Climate", access: "Public data" },
+  { id: "street-trees", name: "Street trees", summary: "Species, planting year and health notes for each tree.", cat: "science/biology", path: "Science › Biology", access: "Public data" },
 ];
+const TAGS = ["Sensors", "CSV", "Weekly checks"];
 
 /* ───────── Shell and menu ───────── */
-function Header({ state, go }: { state: DemoState; go: (s: Partial<DemoState>) => void }) {
+function Header({ state, go, search }: { state: DemoState; go: (s: Partial<DemoState>) => void; search: { value: string; onChange: (v: string) => void } }) {
   return (
     <MarqueeHeader
+      search={{ label: "Search datasets", placeholder: "Dataset name or summary", clearLabel: "Clear search", value: search.value,
+        onChange: (v) => { search.onChange(v); if (state.screen !== "collection") go({ screen: "collection" }); } }}
       logo={<LogoSlot label="Field Lab" accessibleName="Field Lab, overview" href={hashOf({ ...state, screen: "overview" })} onHome={() => go({ screen: "overview" })} />}
       tools={<>
         <ModeMenu label="Appearance" modeLabel="Mode" labels={{ light: "Light", dark: "Dark", system: "System" }} />
@@ -74,8 +79,8 @@ function Menu({ state, go }: { state: DemoState; go: (s: Partial<DemoState>) => 
     </nav>
   );
 }
-function Shell({ state, go, children }: { state: DemoState; go: (s: Partial<DemoState>) => void; children: ReactNode }) {
-  return <MarqueeShell header={<><Header state={state} go={go} /><Menu state={state} go={go} /></>}>{children}</MarqueeShell>;
+function Shell({ state, go, search, children }: { state: DemoState; go: (s: Partial<DemoState>) => void; search: { value: string; onChange: (v: string) => void }; children: ReactNode }) {
+  return <MarqueeShell header={<><Header state={state} go={go} search={search} /><Menu state={state} go={go} /></>}>{children}</MarqueeShell>;
 }
 
 /* ───────── Screens ───────── */
@@ -86,7 +91,7 @@ function Overview({ state, go }: { state: DemoState; go: (s: Partial<DemoState>)
       <header className="wl-form-head">
         <p className="wl-eyebrow">Design system</p>
         <h1>Marquee</h1>
-        <p className="wl-lead">An editorial system: sans interface type with a serif display face, a grouped index under group titles, articles with a sticky side card, softer radii and calm 150 ms motion. Everything below is rendered with Marquee's own components.</p>
+        <p className="wl-lead">A bold, visual system: covers first, thematic shelves of three tiles, a bounded 21:9 banner on detail pages, forms on a raised card and large heavy headings. Sans interface type with a heavy display face, card shadows in light and dark mode, 180 ms motion with a small hover lift. Everything below is rendered with Marquee's own components.</p>
       </header>
       <section className="demo-card" aria-labelledby="ov-config">
         <h2 id="ov-config">Configuration</h2>
@@ -99,12 +104,15 @@ function Overview({ state, go }: { state: DemoState; go: (s: Partial<DemoState>)
       <section className="demo-card" aria-labelledby="ov-colours">
         <h2 id="ov-colours">Colour roles</h2>
         <div className="demo-swatches">{["bg", "surface", "surface-2", "ink", "muted", "border", "control", "action", "action-hover", "link", "focus", "success", "warning", "danger", "info"].map(swatch)}</div>
-        <h3>Editorial panel (Marquee-declared roles)</h3>
-        <div className="demo-panel"><p className="demo-eyebrow">panel-accent</p><p>on-panel text on the panel background. Each of the three roles keeps its own default when omitted.</p></div>
+        <h3>Independent roles</h3>
+        <p className="wl-meta-text"><code>link</code> is its own role: <a href="#link-sample" onClick={(e) => e.preventDefault()}>a text link</a> keeps its colour when only <code>action</code> is configured. <code>focus</code> is independent of <code>ink</code>.</p>
+        <h3>Shadows</h3>
+        <div className="demo-row"><div className="demo-shadow demo-shadow--card">shadow-card</div><div className="demo-shadow demo-shadow--pop">shadow-pop</div></div>
+        <p className="wl-meta-text"><code>accent</code> is accepted by the configuration but no Marquee element uses it, so changing it has no visible effect.</p>
       </section>
       <section className="demo-card" aria-labelledby="ov-type">
         <h2 id="ov-type">Typography</h2>
-        <p style={{ fontFamily: "var(--wl-font-display)", fontSize: "2rem", fontWeight: 600, letterSpacing: "-0.01em" }}>Display — Source Serif 4</p>
+        <p style={{ fontFamily: "var(--wl-font-display)", fontSize: "2rem", fontWeight: "var(--wl-heading-weight)", letterSpacing: "var(--wl-heading-tracking)" }}>Display — Manrope 800</p>
         <p style={{ fontFamily: "var(--wl-font-ui)" }}>Interface — DM Sans, 16 px, rows of at least 56 px.</p>
         <p className="wl-prose">Prose — DM Sans with a 1.65 line height and a 68-character measure, for leads and long descriptions.</p>
       </section>
@@ -121,42 +129,40 @@ function Overview({ state, go }: { state: DemoState; go: (s: Partial<DemoState>)
   );
 }
 
-function CollectionScreen({ go }: { go: (s: Partial<DemoState>) => void }) {
-  const [query, setQuery] = useState("");
+function CollectionScreen({ go, query, setQuery }: { go: (s: Partial<DemoState>) => void; query: string; setQuery: (v: string) => void }) {
   const [cat, setCat] = useState(""); const [sub, setSub] = useState("");
+  const filtered = Boolean(cat || query);
   const items = ITEMS.filter((i) => (!cat || i.cat.startsWith(sub || cat)) && (!query || (i.name + " " + i.summary).toLowerCase().includes(query.toLowerCase())));
-  const groups = cat || query ? [{ id: "results", label: "", items }]
-    : CATEGORIES.map((c) => ({ id: c.id, label: c.label, items: items.filter((i) => i.cat.startsWith(c.id)) })).filter((g) => g.items.length);
-  const entry = (i: (typeof ITEMS)[number]) => (
-    <li key={i.id} className="wl-entry">
-      <ItemLink href="#screen=article" itemId={i.id} className="wl-entry-link" onOpen={() => go({ screen: "article" })}>
-        <EntryContent cover={<Cover name={i.name} />} title={i.name} summary={i.summary} summaryLang="en"
+  const shelves = CATEGORIES.map((c) => ({ c, items: items.filter((i) => i.cat.startsWith(c.id)) })).filter((x) => x.items.length);
+  const tile = (i: (typeof ITEMS)[number], large?: boolean, prefix = "") => (
+    <li key={prefix + i.id} className="min-w-0">
+      <ItemLink href="#screen=article" itemId={prefix + i.id} className={`wl-tile${large ? " wl-tile--large" : ""}`} onOpen={() => go({ screen: "article" })}>
+        <TileContent cover={<Cover name={i.name} />} title={i.name} summary={i.summary} summaryLang="en"
           meta={<><span className="wl-path">{i.path}</span><span className="wl-meta">{i.access}</span></>} />
       </ItemLink>
     </li>
   );
   return (
-    <CollectionLayout title="Datasets" lead="Synthetic datasets for the Marquee demo, grouped by topic. Nothing here is real."
-      action={<Button variant="ghost">Suggest a dataset</Button>}
-      shortlist={<Shortlist heading="Following">
-        {ITEMS.slice(0, 2).map((i) => (
-          <li key={i.id} className="wl-mine-entry">
-            <ItemLink href="#screen=article" itemId={`f-${i.id}`} className="wl-mine-link" onOpen={() => go({ screen: "article" })}>
-              <ShortlistContent cover={<Cover name={i.name} />} title={i.name} meta={<span className="wl-meta">Updated weekly</span>} />
-            </ItemLink>
-          </li>
-        ))}
-      </Shortlist>}
-      filters={<>
-        <SearchField label="Search datasets" placeholder="Dataset name or summary" clearLabel="Clear search" value={query} onChange={setQuery} />
-        <FilterChips items={CATEGORIES} value={cat} subValue={sub} onChange={(v, s) => { setCat(v); setSub(s); }} label="Category" allLabel="All" subLabel="Subcategory" />
-      </>}
+    <CollectionLayout title="Datasets" lead="Synthetic datasets for the Marquee demo, on shelves by topic. Nothing here is real."
+      action={<Button variant="secondary">Suggest a dataset</Button>}
+      highlight={<HighlightSection heading="Following">
+        <TileGrid highlight>{ITEMS.slice(0, 2).map((i) => tile(i, true, "f-"))}</TileGrid>
+      </HighlightSection>}
+      label="Datasets"
+      filters={<FilterChips items={CATEGORIES} value={cat} subValue={sub} onChange={(v, s) => { setCat(v); setSub(s); }} label="Category" allLabel="All" subLabel="Subcategory" />}
       count={`${items.length} dataset${items.length === 1 ? "" : "s"}`}>
-      <CollectionStatus state={items.length === 0
+      <CollectionStatus tiles state={items.length === 0
         ? { status: "noResults", title: "No dataset matches", body: "Try another word or clear the filters.", clearLabel: "Clear filters", onClear: () => { setCat(""); setSub(""); setQuery(""); } }
         : { status: "ready" }} />
-      {groups.map((g) => <CollectionGroup key={g.id} title={g.label || undefined} titleId={`g-${g.id}`}>{g.items.map(entry)}</CollectionGroup>)}
-      {items.length > 0 && <LoadMore shownLabel={`Showing ${items.length} of 12`} more actionLabel="Show more datasets" onMore={() => {}} />}
+      {filtered
+        ? items.length > 0 && <TileGrid>{items.map((i) => tile(i))}</TileGrid>
+        : shelves.map(({ c, items: shelf }) => (
+          <Shelf key={c.id} heading={c.label} headingId={`sh-${c.id}`}
+            action={shelf.length > 3 && <Button variant="ghost" size="sm" onClick={() => { setCat(c.id); setSub(""); }}>See all {c.label}</Button>}>
+            {shelf.slice(0, 3).map((i) => tile(i))}
+          </Shelf>
+        ))}
+      {filtered && items.length > 0 && <LoadMore shownLabel={`Showing ${items.length} of 12`} more actionLabel="Show more datasets" onMore={() => {}} />}
     </CollectionLayout>
   );
 }
@@ -168,7 +174,7 @@ function ArticleScreen({ go }: { go: (s: Partial<DemoState>) => void }) {
   return (
     <>
       <DetailLayout back={<BackLink href="#screen=collection" label="Back to datasets" onBack={() => go({ screen: "collection" })} />}
-        eyebrow={item.path} title={item.name} lead={item.summary} leadLang="en"
+        banner={<Cover name={item.name} eager />} path={item.path} title={item.name} lead={item.summary} leadLang="en" chips={TAGS}
         side={<>
           <Panel>
             <p className="wl-meta-text">Open to edits. Requests are answered by the maintainers.</p>
@@ -176,9 +182,9 @@ function ArticleScreen({ go }: { go: (s: Partial<DemoState>) => void }) {
           </Panel>
           <KeyValueList items={[{ key: "Category", value: item.path }, { key: "Access", value: item.access }, { key: "Updated", value: "2026-11-02" }, { key: "Language", value: <span lang="en">English</span> }]} />
         </>}>
-        <DetailSection id="about-h" heading="About"><p className="wl-prose" lang="en">Readings are collected by volunteers at dawn and checked every week. Each buoy reports temperature, salinity and wave height. Synthetic text for the Marquee demo.</p></DetailSection>
-        <DetailSection id="method-h" heading="Method"><p className="wl-prose" lang="en">Values outside the expected range are flagged, never removed. A short note explains each flag.</p></DetailSection>
-        <DetailSection id="files-h" heading="Files"><EmptyState icon="doc" title="No file yet">Files you add appear here.</EmptyState></DetailSection>
+        <CardSection id="about-h" heading="About"><p className="wl-prose" lang="en">Readings are collected by volunteers at dawn and checked every week. Each buoy reports temperature, salinity and wave height. Synthetic text for the Marquee demo.</p></CardSection>
+        <CardSection id="method-h" heading="Method"><p className="wl-prose" lang="en">Values outside the expected range are flagged, never removed. A short note explains each flag.</p></CardSection>
+        <CardSection id="files-h" heading="Files"><EmptyState icon="doc" title="No file yet">Files you add appear here.</EmptyState></CardSection>
       </DetailLayout>
       <ConfirmDialog open={confirm} title={`Request access to ${item.name}?`} body="The maintainers review each request. You can withdraw it later."
         confirmLabel="Send request" cancelLabel="Not now" closeLabel="Close" onCancel={() => setConfirm(false)}
@@ -309,6 +315,7 @@ function RegistrationScreen({ state, go }: { state: DemoState; go: (s: Partial<D
 /* ───────── App ───────── */
 function App() {
   const [state, setState] = useState<DemoState>(readHash);
+  const [query, setQuery] = useState("");
   const [config, setConfig] = useState<DesignConfig | undefined>();
   useEffect(() => {
     const onHash = () => setState(readHash());
@@ -330,7 +337,7 @@ function App() {
   // Test-only hook: icon path data can be injected by a test harness (no icon artwork ships here).
   const icons = (window as unknown as { __MARQUEE_ICONS__?: IconSet }).__MARQUEE_ICONS__;
   const screens: Record<Screen, () => ReactNode> = {
-    overview: () => <Overview state={state} go={go} />, collection: () => <CollectionScreen go={go} />, article: () => <ArticleScreen go={go} />,
+    overview: () => <Overview state={state} go={go} />, collection: () => <CollectionScreen go={go} query={query} setQuery={setQuery} />, article: () => <ArticleScreen go={go} />,
     form: () => <FormScreen go={go} />, message: () => <MessageScreen go={go} />, states: () => <StatesScreen />,
     components: () => <ComponentsScreen />, registration: () => <RegistrationScreen state={state} go={go} />,
   };
@@ -338,7 +345,7 @@ function App() {
     <MarqueeRoot mode={state.mode} onModeChange={(mode) => go({ mode })} config={config} assetBase="/design/" icons={icons} className="demo-root">
       {state.screen === "registration"
         ? <><Menu state={state} go={go} />{screens.registration()}</>
-        : <Shell state={state} go={go}>{screens[state.screen]()}</Shell>}
+        : <Shell state={state} go={go} search={{ value: query, onChange: setQuery }}>{screens[state.screen]()}</Shell>}
     </MarqueeRoot>
   );
 }
