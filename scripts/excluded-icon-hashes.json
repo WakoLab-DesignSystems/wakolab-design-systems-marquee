@@ -1,0 +1,32 @@
+{
+  "about": "SHA-256 of the whitespace-normalized SVG path data of each icon in web/src/components/ui/icons.tsx of WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272. The path data itself is excluded from this repository (provenance unresolved, standard EXTRACTION_MATRIX §10, E4); only these one-way hashes are kept, so that scripts/check-artwork.mjs can detect an accidental copy.",
+  "source": "WakoLab/wakolab-front@e492bec9ced8893d6940879aa8186ac75a48a272:web/src/components/ui/icons.tsx",
+  "normalization": "collapse whitespace runs to one space, then trim",
+  "hashes": {
+    "search": "7c4e6a0e1fa5434151720716f6ffae28d3de807c1055edcfd9f03fcc43a5e358",
+    "x": "011bea26bacb4f0f7f2e7387a0cb7125fbc6d2de37ae1a9d08c09cdb0243ffe0",
+    "check": "11ebfc76b1bf7a82e0b50ebe5856ba8b02c1439264fa621cb780120b99fa9a85",
+    "chevronRight": "932ed758ef9f33f9fefdc8509e20536256995fa366958af146125514246aef78",
+    "chevronLeft": "f8a5d6714a6d1c1b750d57a86c857ef5b1e9f2254caec5e817972b49395329a9",
+    "chevronDown": "5597157429d8ac4f7ae2dc65ce9bacd14b8250148d5860202b09a644a07a9795",
+    "human": "18a196f039895eb3f50eafc80c49018ced05d1526287410c100613f439679470",
+    "agent": "20327e6cad3b1732702a786b4e3a51922eeee150d818bc4bd52018b6c361949f",
+    "lock": "510dde1345d23c5ea694d6fa6ff8bf7cf513926b0c2293fedb8c1926f151d0bf",
+    "repo": "7c52bb93dff0621478f1027928b5e9e4697b7370eafd7cfdcee6552858089cdc",
+    "clock": "979f5873359f5cf43bf4a8462d72caa7c59ceccc9a34c2d1d039320a9d42692f",
+    "alert": "16349bcb733626f076801e37b4374281b70890ac05a5c1617ed92d203af8525f",
+    "info": "51b5b98b70ab851480d400c8264a1d0c156c80a67e83648633e55fa91b1ea782",
+    "offline": "2a8d07ff7de18c1d9fbcea74fb51a42e24b2e4469ca801397a0af24d9dded00f",
+    "mail": "5fd8c4cb2e96264a0f364aef083cfd85b197671bb5d2ea80141a081050eef673",
+    "globe": "e2e6541c423d45411767c2f0924b1f36c69be723c0503de293e3f862e5f32d48",
+    "sun": "f390b923247e40916b73179ca450e6c695b601c3e75c8842db927071ce72205a",
+    "moon": "f92674113da8c736ee81ba3b2a1c91cab29b6931a8b7032f6ed5340095e7c3ce",
+    "palette": "6b038d54b55f0f63e81beccdbfb51bdf3dc4da7e001e904f08123b86ad3856a0",
+    "spark": "576bdab1171144fb5e1ab836257d5442793be4ee145dbdf10df678fbceb4438c",
+    "play": "a2f60cd5caf55383e2b8069f37d984cca90aa426505c2e173e9da9311b00ea22",
+    "doc": "4c2b5d80d64a7ff405c06b02fd95a5ec4e299ddec168feaa28b825f4abff873b",
+    "external": "9c6297e7f671bf5a1313959e51d193378d1d1a0ec8b2eae33e9a1a8498051bb3",
+    "list": "1003c66e556bd069d71a7ff8fc6d0944199e21b6aa817d638c400bcccede2873",
+    "user": "76a5dc600b59faab02b06dbe9e6caf23d53b07c33ed8503d27a528c435758cac"
+  }
+}

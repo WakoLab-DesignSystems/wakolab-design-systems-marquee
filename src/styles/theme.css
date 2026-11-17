@@ -1,0 +1,73 @@
+/* Folio foundations: Tailwind theme mapping and base rules.
+ * Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/theme.css,
+ * through Console's adaptation (wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
+ * src/styles/theme.css). Changes for standalone use (standard EXTRACTION_MATRIX §5.1; KIT_PROPOSAL §8):
+ *  - the `@import "tailwindcss"`, `@source` and themes imports move to folio.css;
+ *  - the editorial panel literals become the Folio-declared roles: --color-panel → var(--wl-panel),
+ *    --color-on-panel → var(--wl-on-panel), and the [data-surface="dark"] focus outline uses
+ *    var(--wl-panel-accent) instead of the --color-accent literal (#cef1c5), which had no other use;
+ *  - removed the WakoLab --color-agent* roles;
+ *  - --color-brand-active maps to --wl-action-pressed (default: the effective action-hover);
+ *  - the :root block (fallback stack, durations) moved into tokens.css on the Folio root;
+ *  - `body` and `:root` rules are mapped to the Folio root by the build (scripts/build.mjs). */
+@theme inline {
+  --color-on-brand: var(--wl-on-action);
+  --color-on-danger: var(--wl-on-danger);
+  --color-canvas: var(--wl-bg);
+  --color-surface: var(--wl-surface);
+  --color-surface-subtle: var(--wl-surface-2);
+  --color-ink: var(--wl-ink);
+  --color-muted: var(--wl-muted);
+  --color-brand: var(--wl-action);
+  --color-brand-hover: var(--wl-action-hover);
+  --color-brand-active: var(--wl-action-pressed);
+  --color-panel: var(--wl-panel);
+  --color-on-panel: var(--wl-on-panel);
+  --color-border: var(--wl-border);
+  --color-control-border: var(--wl-control);
+  --color-focus: var(--wl-focus);
+  --color-danger: var(--wl-danger);
+  --color-danger-soft: var(--wl-danger-soft);
+  --color-success: var(--wl-success);
+  --color-success-soft: var(--wl-success-soft);
+  --color-warning: var(--wl-warning);
+  --color-warning-soft: var(--wl-warning-soft);
+  --color-info: var(--wl-info);
+  --color-info-soft: var(--wl-info-soft);
+  /* Added for catalog compositions (four directions). */
+  --color-link: var(--wl-link);
+  --color-highlight: var(--wl-accent);
+  --font-prose: var(--wl-font-prose);
+  --radius-chip: var(--wl-radius-chip);
+  --radius-cover: var(--wl-radius-cover);
+  --font-sans: var(--wl-font-ui);
+  --font-heading: var(--wl-font-display);
+  --spacing: 0.25rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+  --container-page: 80rem;
+  --container-auth: 72rem;
+  --container-form: 28rem;
+  --radius-control: var(--wl-radius-control);
+  --radius-card: var(--wl-radius-card);
+  --radius-shell: var(--wl-radius-card);
+  --shadow-card: var(--wl-shadow-card);
+  --shadow-dialog: var(--wl-shadow-pop);
+}
+@layer base {
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  [data-surface="dark"] :focus-visible {
+    outline-color: var(--wl-panel-accent);
+  }
+}

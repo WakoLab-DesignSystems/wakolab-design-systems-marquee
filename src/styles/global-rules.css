@@ -1,0 +1,21 @@
+/* Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/compositions.css:
+ * Copied through wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (same file), with Console → Folio in comments.
+ * the universal reduced-motion rule and the heading tracking rules for Chinese and Hindi.
+ * Scoped to the Folio root by the build (`*` → root descendants, `:root` → the root itself). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+:root:lang(zh-Hans) h1,
+:root:lang(zh-Hans) h2,
+:root:lang(zh-Hans) h3,
+:root:lang(hi) h1,
+:root:lang(hi) h2,
+:root:lang(hi) h3 {
+  letter-spacing: normal;
+}

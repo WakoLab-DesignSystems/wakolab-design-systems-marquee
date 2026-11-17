@@ -1,0 +1,48 @@
+/* Folio base rules.
+ * Copied through wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (same file), with Console → Folio in comments.
+ * Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, web/src/style.css (the base layer).
+ * Changes for standalone use: font package imports are replaced by the Folio font aliases
+ * (emitted by the build); `*` and `body` are scoped to the Folio root by the build. */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+    font-weight: var(--wl-heading-weight);
+    letter-spacing: var(--wl-heading-tracking);
+    overflow-wrap: anywhere;
+  }
+  h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    line-height: 1.2;
+  }
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+  p,
+  button,
+  label {
+    overflow-wrap: anywhere;
+  }
+  input,
+  select,
+  button {
+    font: inherit;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+}

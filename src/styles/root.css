@@ -1,0 +1,11 @@
+/* Original rules for standalone use (not in the frontend source).
+ * Copied through wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (same file), with Console → Folio in comments.
+ * The Folio root replaces <body> as the page ground: the build maps the source's `body` rules
+ * (background, colour, font) onto it. The logo slot (configuration `logo`, standard §5.7 M3): sized to
+ * the top bar; below 40em only the mark is shown when there is one. Without logo files the slot
+ * renders the source's text fallback, so these rules do not apply. */
+.wl-brand--logo { gap: 8px; }
+.wl-brand--logo img { display: block; height: 28px; width: auto; max-width: 12rem; }
+@media (max-width: 39.99rem) {
+  .wl-brand--has-mark .wl-logo-wordmark { display: none; }
+}

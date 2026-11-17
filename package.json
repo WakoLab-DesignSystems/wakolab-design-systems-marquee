@@ -1,0 +1,68 @@
+{
+  "name": "wakolab-design-systems-folio",
+  "version": "0.1.0",
+  "description": "Folio: an editorial design system with expressive typography and configurable light/dark colors, fonts and logos.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./folio.css": "./dist/folio.css",
+    "./config.default.json": "./config.default.json",
+    "./config.schema.json": "./config.schema.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "config.default.json",
+    "config.schema.json",
+    "THIRD_PARTY_NOTICES.md",
+    "licenses",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepare": "node scripts/build.mjs",
+    "check": "tsc --noEmit -p tsconfig.json",
+    "test": "node scripts/check-dist.mjs && node scripts/check-artwork.mjs && node scripts/check-schema.mjs && node scripts/theme-tokens.mjs && playwright test --trace off",
+    "example": "vite --config examples/vite.config.ts",
+    "consumer": "node scripts/external-consumer.mjs",
+    "parity": "node scripts/parity.mjs"
+  },
+  "peerDependencies": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@fontsource-variable/dm-sans": "5.3.0",
+    "@fontsource-variable/noto-sans-devanagari": "5.3.0",
+    "@fontsource-variable/noto-sans-sc": "5.3.1",
+    "@fontsource-variable/source-serif-4": "5.3.1",
+    "@playwright/test": "1.56.1",
+    "@tailwindcss/postcss": "4.1.16",
+    "@types/node": "24.10.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "ajv": "8.17.1",
+    "axe-core": "4.11.0",
+    "postcss": "8.5.6",
+    "postcss-selector-parser": "7.1.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "tailwindcss": "4.1.16",
+    "typescript": "5.9.3",
+    "vite": "7.3.7"
+  }
+}

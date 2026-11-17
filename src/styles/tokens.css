@@ -1,0 +1,111 @@
+/* Folio tokens: light and dark palettes and structural values.
+ * Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/themes.css lines 82–160
+ * (the three [data-direction="folio"] blocks), and the :root block of design-system/theme.css
+ * (fallback stack and durations, now on the Folio root).
+ * Structure and the changes below follow Console's tokens.css (wakolab-design-systems-console at
+ * 018fe3214e0a118162d202c2f39f1236f37b1936). Changes for standalone use:
+ *  - selector [data-direction="folio"] → [data-wds="folio"] (the Folio root, never :root);
+ *  - removed the WakoLab product roles --wl-agent and --wl-agent-soft (both modes);
+ *  - default font families renamed to internal aliases of the same files (wds-folio-default-*),
+ *    emitted by the build from the declared @fontsource-variable packages;
+ *  - added --wl-action-pressed (default: the effective --wl-action-hover, as the source's
+ *    brand-active), --wl-font-code (own default, see below) and the three Folio-declared panel
+ *    roles --wl-panel, --wl-on-panel, --wl-panel-accent with the source's values in both modes.
+ * Values are otherwise unchanged. */
+/* ───────────── B · Folio ───────────── */
+[data-wds="folio"] {
+  --wl-font-ui: "wds-folio-default-dm-sans", var(--wl-fallback-sans);
+  --wl-font-display:
+    "wds-folio-default-source-serif-4", "Noto Serif", Georgia, var(--wl-fallback-sans);
+  --wl-font-prose: "wds-folio-default-dm-sans", var(--wl-fallback-sans);
+  --wl-heading-weight: 600;
+  --wl-heading-tracking: -0.01em;
+  --wl-ui-size: 1rem;
+  --wl-radius-control: 8px;
+  --wl-radius-card: 12px;
+  --wl-radius-chip: 999px;
+  --wl-radius-cover: 8px;
+  --wl-border-width: 1px;
+  --wl-row-height: 56px;
+  --wl-motion: var(--wl-dur-base);
+  --wl-hover-lift: 0px;
+  /* Added for standalone use (configuration). The common code role has no visible consumer in
+     Folio (the source has no code or key-hint element); its default is its own stack, the ui
+     default, never an alias of --wl-font-ui. Fallback stack and durations come from the :root
+     block of design-system/theme.css. */
+  --wl-font-code: "wds-folio-default-dm-sans", var(--wl-fallback-sans);
+  --wl-fallback-sans: "wds-folio-default-noto-sans-sc", "wds-folio-default-noto-sans-devanagari", system-ui, sans-serif;
+  --wl-dur-fast: 100ms;
+  --wl-dur-base: 150ms;
+  --wl-dur-slow: 180ms;
+}
+[data-wds="folio"][data-mode="light"] {
+  color-scheme: light;
+  --wl-on-danger: #ffffff;
+  --wl-bg: #faf9f5;
+  --wl-surface: #ffffff;
+  --wl-surface-2: #eff2ee;
+  --wl-ink: #172b36;
+  --wl-muted: #52656d;
+  --wl-border: #dde3e1;
+  --wl-control: #75877f;
+  --wl-action: #236b54;
+  --wl-action-hover: #195841;
+  --wl-action-pressed: var(--wl-action-hover);
+  --wl-on-action: #ffffff;
+  --wl-link: #236b54;
+  --wl-focus: #236b54;
+  --wl-accent: #cef1c5;
+  --wl-success: #226139;
+  --wl-success-soft: #eaf5eb;
+  --wl-warning: #795313;
+  --wl-warning-soft: #fff4de;
+  --wl-danger: #a32f41;
+  --wl-danger-soft: #fff0ef;
+  --wl-info: #245a79;
+  --wl-info-soft: #edf5fa;
+  --wl-shadow-card: 0 1px 2px rgb(21 46 55 / 0.06);
+  --wl-shadow-pop: 0 24px 64px rgb(21 46 55 / 0.2);
+  --wl-scrim: rgb(21 46 55 / 0.45);
+  /* Folio-declared roles (standard CONFIGURATION §2.1, KIT_PROPOSAL §8): the editorial panel. The
+     source used shared literals in design-system/theme.css lines 17–19 (--color-panel,
+     --color-on-panel, --color-accent), the same in both modes. */
+  --wl-panel: #152e37;
+  --wl-on-panel: #edf6ee;
+  --wl-panel-accent: #cef1c5;
+}
+[data-wds="folio"][data-mode="dark"] {
+  color-scheme: dark;
+  --wl-on-danger: #19090d;
+  --wl-bg: #0f1a1e;
+  --wl-surface: #16242a;
+  --wl-surface-2: #1e3037;
+  --wl-ink: #e8efec;
+  --wl-muted: #a2b4b1;
+  --wl-border: #2b3e45;
+  --wl-control: #74898b;
+  --wl-action: #7fcdaa;
+  --wl-action-hover: #a2ddc2;
+  --wl-action-pressed: var(--wl-action-hover);
+  --wl-on-action: #0a2018;
+  --wl-link: #7fcdaa;
+  --wl-focus: #cef1c5;
+  --wl-accent: #2f5c4c;
+  --wl-success: #8cd3a0;
+  --wl-success-soft: #15291d;
+  --wl-warning: #e9c47a;
+  --wl-warning-soft: #2b2414;
+  --wl-danger: #f4a1aa;
+  --wl-danger-soft: #301a1e;
+  --wl-info: #93c5e4;
+  --wl-info-soft: #13263a;
+  --wl-shadow-card: none;
+  --wl-shadow-pop: 0 24px 64px rgb(0 0 0 / 0.5);
+  --wl-scrim: rgb(0 0 0 / 0.6);
+  /* Folio-declared roles (standard CONFIGURATION §2.1, KIT_PROPOSAL §8): the editorial panel. The
+     source used shared literals in design-system/theme.css lines 17–19 (--color-panel,
+     --color-on-panel, --color-accent), the same in both modes. */
+  --wl-panel: #152e37;
+  --wl-on-panel: #edf6ee;
+  --wl-panel-accent: #cef1c5;
+}

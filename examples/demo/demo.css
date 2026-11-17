@@ -1,0 +1,20 @@
+/* Styles of the demo page itself (the consumer's own CSS), not part of Folio. Original. */
+html, body { margin: 0; }
+.demo-root { min-height: 100vh; }
+.demo-menu { max-width: 1280px; margin: 0 auto; padding: 12px 16px 0; }
+.demo-menu ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.demo-menu a[aria-current="page"] { background: var(--wl-surface-2); border-color: var(--wl-action); }
+.demo-grid { display: grid; gap: 24px; }
+.demo-card { display: grid; gap: 12px; padding: 20px; border: 1px solid var(--wl-border); border-radius: var(--wl-radius-card); background: var(--wl-surface); box-shadow: var(--wl-shadow-card); }
+.demo-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.demo-end { justify-content: flex-end; }
+.demo-cover { width: 10rem; flex-shrink: 0; }
+.demo-stack { display: grid; flex: 1; gap: 8px; }
+.demo-left { text-align: left; }
+.demo-swatches { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); }
+.demo-swatch { display: grid; gap: 4px; padding: 8px; border: 1px solid var(--wl-border); border-radius: var(--wl-radius-control); font-size: 0.875rem; }
+.demo-swatch > span:first-child { height: 40px; border-radius: var(--wl-radius-control); border: 1px solid var(--wl-border); }
+.demo-panel { display: grid; gap: 8px; padding: 24px; border-radius: var(--wl-radius-card); background: var(--wl-panel); color: var(--wl-on-panel); }
+.demo-panel .demo-eyebrow { color: var(--wl-panel-accent); font-weight: 600; }
+.demo-code { overflow-x: auto; margin: 0; padding: 12px 16px; border-radius: var(--wl-radius-control); background: var(--wl-surface-2); font-size: 0.875rem; }
+.demo-list { display: grid; gap: 6px; margin: 0; padding-left: 1.25rem; font-family: var(--wl-font-prose); line-height: 1.6; }

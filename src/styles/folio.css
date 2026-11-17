@@ -1,0 +1,16 @@
+/* Folio stylesheet entry (source of dist/folio.css).
+ * Same composition as WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272
+ * (web/src/style.css → design-system/theme.css → themes.css, catalog.css, compositions.css),
+ * reduced to Folio; structure copied from Console's console.css (wakolab-design-systems-console at
+ * 018fe3214e0a118162d202c2f39f1236f37b1936). The build (scripts/build.mjs) compiles it with Tailwind
+ * CSS 4.1.16, prefixes every selector with the Folio root, renames global symbols and cascade layers,
+ * and adds the default font aliases (standard EXTRACTION_MATRIX §4, §9). */
+@import "tailwindcss" source(none);
+@source "../**/*.tsx";
+@import "./tokens.css";
+@import "./theme.css";
+@import "./base.css";
+@import "./folio-parts.css";
+@import "./registration.css";
+@import "./global-rules.css";
+@import "./root.css";

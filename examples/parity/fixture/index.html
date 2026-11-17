@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Folio parity fixture</title>
+<script>
+  // Used by the frontend baseline adapter only (its ThemeProvider reads this key at import).
+  try { const m = new URLSearchParams(location.search).get("mode") || "light"; localStorage.setItem("wakolab_appearance_v1", JSON.stringify({ theme: "folio", mode: m })); } catch {}
+</script>
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="./main.tsx"></script>
+</body>
+</html>

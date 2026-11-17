@@ -1,0 +1,18 @@
+/* Host styles of the parity fixture (candidate side). Not part of the Folio package. Copied from
+ * wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (examples/parity/fixture/fixture.css),
+ * Folio root selector.
+ *  - The host page has no margin and the Folio root fills the viewport, as <body> does in the
+ *    frontend baseline (where the theme colours the body). Original.
+ *  - Utilities used by the registration slot content that the frontend's RegistrationShell
+ *    hard-codes (brand square, editorial heading). A consuming app supplies its own content and
+ *    styles; these rules are copied from the Tailwind CSS 4.1.16 output of the frontend baseline
+ *    build (MIT, Tailwind Labs), with theme variables resolved. */
+body { margin: 0; }
+#app > [data-wds="folio"] { min-height: 100vh; }
+@layer wds-fixture-utilities {
+  [data-wds="folio"] .font-bold { font-weight: 700; }
+  [data-wds="folio"] .leading-tight { --fx-leading: 1.25; line-height: 1.25; }
+  [data-wds="folio"] .no-underline { text-decoration-line: none; }
+  [data-wds="folio"] .place-content-center { place-content: center; }
+  [data-wds="folio"] .text-4xl { font-size: 2.25rem; line-height: var(--fx-leading, calc(2.5 / 2.25)); }
+}

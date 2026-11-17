@@ -1,0 +1,185 @@
+/* Folio compositions and generic parts.
+ * Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/catalog.css,
+ * following the method of Console's console-parts.css (wakolab-design-systems-console at
+ * 018fe3214e0a118162d202c2f39f1236f37b1936). Kept, unchanged: the shared parts used by Folio's
+ * components and compositions, the "B · Folio" block, Folio's responsive rules, the pages framing
+ * (article, form, message) with Folio's theme framing, and the reduced-motion rule.
+ * Removed (Console and Marquee rules, product rules that stay in the frontend, the sign-in dialog,
+ * Console-only parts such as the tree rail, prompt, key hint and table rows, and the development
+ * gallery), source lines: 1–4, 34, 36–37, 48–56, 58, 64, 69–73, 79–80, 82–102, 128–145, 158, 163–164, 168–171, 176–177, 192–199, 205–214, 216–218, 220, 222–227, 230–233, 257–280, 283–285, 292–296, 304–307, 312–316, 320–326, 331.
+ * Selectors, keyframes and layers are scoped to the Folio root by the build (scripts/build.mjs). */
+/* ───────── Shared parts ───────── */
+.wl-home { min-height: 100vh; background: var(--wl-bg); color: var(--wl-ink); font-family: var(--wl-font-ui); }
+.wl-skip { position: absolute; left: -999px; top: 8px; z-index: 80; padding: 12px 16px; border-radius: var(--wl-radius-control); background: var(--wl-surface); color: var(--wl-ink); }
+.wl-skip:focus { left: 8px; }
+.wl-home h1, .wl-home h2, .wl-home h3, .wl-dialog h2 { margin: 0; }
+.wl-home ul, .wl-home ol { list-style: none; margin: 0; padding: 0; }
+.wl-home p { margin: 0; }
+.wl-topbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.wl-topbar-search { flex: 1 1 260px; min-width: 0; position: relative; }
+.wl-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-left: auto; }
+.wl-tool { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; min-width: 44px; justify-content: center; padding: 0 12px;
+  border: 1px solid var(--wl-control); border-radius: var(--wl-radius-control); background: var(--wl-surface); color: var(--wl-ink); font: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; }
+.wl-tool:hover { background: var(--wl-surface-2); }
+.wl-tool-value { max-width: 12ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wl-avatar { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 999px; background: var(--wl-ink); color: var(--wl-bg); font-size: 0.875rem; }
+.wl-label { font-family: var(--wl-font-display); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wl-muted); }
+.wl-option { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 10px; border-radius: var(--wl-radius-control); border: 0; background: none; color: var(--wl-ink); font: inherit; cursor: pointer; }
+.wl-option:hover { background: var(--wl-surface-2); }
+.wl-option:has(input:focus-visible) { outline: 2px solid var(--wl-focus); outline-offset: 2px; }
+.wl-option input { accent-color: var(--wl-action); width: 18px; height: 18px; margin: 0; }
+.wl-segmented { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+.wl-segmented .wl-option { justify-content: center; flex-direction: column; gap: 2px; padding: 6px 4px; font-size: 0.8125rem; text-align: center; }
+.wl-segmented .wl-option:has(input:checked) { background: var(--wl-ink); color: var(--wl-bg); }
+.wl-segmented input { position: absolute; opacity: 0; pointer-events: none; }
+.wl-lead { color: var(--wl-muted); font-family: var(--wl-font-prose); line-height: 1.6; max-width: 68ch; }
+.wl-count { color: var(--wl-muted); font-size: 0.875rem; min-height: 1.25rem; }
+.wl-meta { display: inline-flex; align-items: center; gap: 6px; font-size: 0.875rem; color: var(--wl-ink); }
+.wl-meta svg { color: var(--wl-muted); flex-shrink: 0; }
+.wl-path { font-size: 0.875rem; color: var(--wl-muted); }
+.wl-entry-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
+.wl-cover { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--wl-radius-cover); background: var(--wl-surface-2); }
+.wl-cover--none { display: grid; place-items: center; border: 1px solid var(--wl-border);
+  background-image: radial-gradient(var(--wl-border) 1.4px, transparent 1.4px); background-size: 16px 16px; }
+.wl-cover--none span { font-family: var(--wl-font-display); font-weight: 700; font-size: 1.75rem; color: var(--wl-muted); }
+.wl-state { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px 16px; padding: 20px; border-radius: var(--wl-radius-card); }
+.wl-state--error { background: var(--wl-danger-soft); color: var(--wl-danger); }
+.wl-state--error h3 { font-size: 1.125rem; }
+.wl-state--error p { color: var(--wl-ink); }
+.wl-state > div { flex: 1 1 260px; }
+.wl-note { font-size: 0.75rem; }
+.wl-section { display: grid; gap: 12px; }
+.wl-skeleton { position: relative; overflow: hidden; }
+.wl-skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.16), transparent); animation: wl-shimmer 1.4s ease-in-out infinite; }
+.wl-skeleton-tiles { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.wl-toast { animation: wl-rise var(--wl-motion, 150ms) ease-out; }
+@keyframes wl-shimmer { to { transform: translateX(100%); } }
+@keyframes wl-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* Sign-in dialog (shared) */
+.wl-spinner { display: inline-block; width: 16px; height: 16px; border-radius: 999px; border: 2px solid currentColor; border-right-color: transparent; animation: wl-spin 0.8s linear infinite; }
+@keyframes wl-spin { to { transform: rotate(360deg); } }
+.wl-dialog { animation: wl-rise var(--wl-motion, 150ms) ease-out; }
+.wl-dialog::backdrop { background: var(--wl-scrim); }
+
+.wl-brand { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--wl-ink); text-decoration: none; font-weight: 700; }
+
+/* ───────── B · Folio ───────── */
+.wl-folio .wl-topbar { max-width: 1280px; margin: 0 auto; padding: 16px; border-bottom: 1px solid var(--wl-border); }
+.wl-brand--serif { font-family: var(--wl-font-display); font-size: 1.625rem; font-weight: 600; letter-spacing: -0.01em; }
+.wl-folio-main { max-width: 1280px; margin: 0 auto; padding: 40px 16px 80px; display: grid; gap: 56px; }
+.wl-folio-intro { display: grid; gap: 16px; max-width: 46rem; }
+.wl-folio h1 { font-size: clamp(2.25rem, 5vw, 3.25rem); line-height: 1.1; }
+.wl-folio-intro .wl-lead { font-size: 1.125rem; }
+.wl-folio h2 { font-size: 1.5rem; }
+.wl-folio-mine { display: grid; gap: 20px; }
+.wl-mine-list { display: grid; gap: 0 40px; }
+.wl-mine-link { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-top: 1px solid var(--wl-border); color: var(--wl-ink); text-decoration: none; }
+.wl-mine-link .wl-cover { width: 96px; flex-shrink: 0; }
+.wl-mine-link:hover .wl-entry-title { text-decoration: underline; }
+.wl-folio-catalog { display: grid; gap: 32px; }
+.wl-folio-filters { display: grid; gap: 16px; align-content: start; }
+.wl-folio-index { display: grid; gap: 40px; min-width: 0; }
+.wl-group { display: grid; gap: 4px; }
+.wl-folio .wl-group-title { font-family: var(--wl-font-ui); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wl-muted); }
+.wl-entry-link { display: grid; gap: 16px; padding: 20px 0; border-top: 1px solid var(--wl-border); color: var(--wl-ink); text-decoration: none; }
+.wl-entry-text { display: grid; gap: 6px; min-width: 0; }
+.wl-entry-title { font-family: var(--wl-font-display); font-weight: var(--wl-heading-weight); font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+.wl-entry-link:hover .wl-entry-title { text-decoration: underline; text-underline-offset: 4px; }
+.wl-entry-tagline { color: var(--wl-muted); font-family: var(--wl-font-prose); line-height: 1.6; max-width: 62ch; }
+
+/* ───────── Responsive ───────── */
+@media (max-width: 39.99rem) {
+  /* Phones: tools collapse to icons; text stays available to assistive technology. */
+  .wl-tools .wl-tool > span:not(.wl-avatar):not(.sr-only) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .wl-tools .wl-tool { padding: 0; }
+  .wl-topbar { flex-wrap: nowrap; }
+  .wl-topbar-search { order: 3; flex-basis: 100%; }
+  .wl-topbar:has(.wl-topbar-search) { flex-wrap: wrap; }
+  .wl-tools { gap: 6px; }
+}
+@media (min-width: 40rem) {
+  .wl-mine-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wl-folio .wl-topbar, .wl-folio-main { padding-inline: 24px; }
+}
+@media (min-width: 48rem) {
+  .wl-entry-link { grid-template-columns: 180px minmax(0, 1fr); align-items: start; }
+}
+@media (min-width: 64rem) {
+  .wl-folio .wl-topbar, .wl-folio-main { padding-inline: 32px; }
+  .wl-folio-catalog { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 48px; }
+  .wl-folio-filters { position: sticky; top: 24px; align-self: start; }
+  .wl-mine-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ───────── Pages beyond the home (project, proposals, profile, messages) ───────── */
+.wl-page { max-width: 1280px; margin: 0 auto; padding: 24px 16px 80px; display: grid; gap: 24px; align-content: start; }
+.wl-back { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; width: fit-content; font-weight: 600; color: var(--wl-link); text-decoration: none; }
+.wl-back:hover { text-decoration: underline; text-underline-offset: 3px; }
+.wl-prose { font-family: var(--wl-font-prose); line-height: 1.65; max-width: 68ch; }
+.wl-meta-text { color: var(--wl-muted); font-size: 0.875rem; }
+.wl-with-icon { display: flex; align-items: center; gap: 8px; }
+.wl-project-grid { display: grid; gap: 24px; min-width: 0; }
+.wl-project-head { display: grid; gap: 10px; min-width: 0; }
+.wl-project-body, .wl-project-side { display: grid; gap: 20px; align-content: start; min-width: 0; }
+.wl-panel { display: grid; gap: 16px; padding: 20px; border: 1px solid var(--wl-border); border-radius: var(--wl-radius-card); background: var(--wl-surface); box-shadow: var(--wl-shadow-card); }
+.wl-facts { display: grid; margin: 0; border: 1px solid var(--wl-border); border-radius: var(--wl-radius-card); background: var(--wl-surface); font-size: 0.875rem; }
+.wl-facts > div { display: grid; grid-template-columns: minmax(7rem, 35%) minmax(0, 1fr); gap: 12px; padding: 12px 16px; }
+.wl-facts > div + div { border-top: 1px solid var(--wl-border); }
+.wl-facts dt { color: var(--wl-muted); }
+.wl-facts dd { margin: 0; overflow-wrap: anywhere; }
+.wl-badge { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: var(--wl-radius-chip); border: 1px solid var(--wl-control); color: var(--wl-ink); }
+.wl-tabpanel { padding-top: 20px; }
+.wl-cover-bounded .wl-cover { max-height: 420px; }
+/* Bounded keyset pagination below a list. */
+.wl-more { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding-block: 8px; }
+.wl-block { display: grid; gap: 12px; }
+.wl-eyebrow { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wl-muted); }
+.wl-message { display: grid; justify-items: start; gap: 14px; max-width: 40rem; padding: 48px 0; }
+.wl-message h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+.wl-dialog--confirm { max-width: 28rem; }
+
+/* Forms (proposal, profile) and lists (proposals) */
+.wl-form-page { max-width: 1280px; }
+.wl-form-head { display: grid; gap: 10px; max-width: 46rem; }
+.wl-form-head--row { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; max-width: none; }
+.wl-form { display: grid; gap: 22px; max-width: 46rem; min-width: 0; }
+.wl-textarea, .wl-select { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid var(--wl-control); border-radius: var(--wl-radius-control); background: var(--wl-surface); color: var(--wl-ink); font: inherit; font-size: 1rem; }
+.wl-textarea { resize: vertical; line-height: 1.5; }
+.wl-textarea[aria-invalid="true"], .wl-select[aria-invalid="true"] { border: 2px solid var(--wl-danger); }
+.wl-form-row { display: grid; gap: 22px; }
+.wl-fieldset { display: grid; gap: 6px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.wl-fieldset legend { margin-bottom: 6px; font-weight: 500; }
+.wl-radio { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border: 1px solid var(--wl-control); border-radius: var(--wl-radius-control); cursor: pointer; }
+.wl-radio:has(input:checked) { border-color: var(--wl-action); box-shadow: inset 0 0 0 1px var(--wl-action); }
+.wl-radio:has(input:focus-visible) { outline: 2px solid var(--wl-focus); outline-offset: 2px; }
+.wl-radio input { width: 18px; height: 18px; margin: 0; accent-color: var(--wl-action); }
+.wl-readonly { display: grid; gap: 4px; padding: 14px 16px; border-radius: var(--wl-radius-control); background: var(--wl-surface-2); }
+.wl-readonly p { margin: 0; }
+
+/* Theme framing of the shared pages */
+.wl-folio .wl-page { padding-inline: 16px; }
+.wl-folio .wl-project-head h1, .wl-folio .wl-form-head h1 { font-size: clamp(2.25rem, 5vw, 3rem); line-height: 1.1; }
+.wl-folio .wl-lead--display { font-family: var(--wl-font-display); font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
+.wl-folio .wl-block h2 { font-size: 1.5rem; }
+.wl-folio .wl-form-page .wl-form-head, .wl-folio .wl-form-page .wl-form { margin-inline: auto; width: 100%; }
+.wl-folio .wl-form-page > .wl-back { margin-inline: auto; width: min(46rem, 100%); }
+
+@media (min-width: 40rem) {
+  .wl-page { padding-inline: 24px; }
+  .wl-form-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 64rem) {
+  .wl-page { padding-inline: 32px; }
+  .wl-project--folio .wl-project-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 40px; row-gap: 32px; }
+  .wl-project--folio .wl-project-head { grid-column: 1 / span 8; grid-row: 1; }
+  .wl-project--folio .wl-project-body { grid-column: 1 / span 8; grid-row: 2; gap: 40px; }
+  .wl-project--folio .wl-project-side { grid-column: 9 / span 4; grid-row: 2; position: sticky; top: 24px; align-self: start; }
+  .wl-folio .wl-page { padding-inline: 32px; }
+}
+
+/* ───────── Reduced motion: same layout, no movement ───────── */
+@media (prefers-reduced-motion: reduce) {
+  .wl-home *, .wl-home *::after, .wl-dialog, .wl-toast, .wl-skeleton::after { animation: none !important; transition: none !important; }
+  .wl-skeleton::after { display: none; }
+}

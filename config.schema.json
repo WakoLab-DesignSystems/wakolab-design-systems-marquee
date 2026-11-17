@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "wakolab-design-systems-folio/config.schema.json",
+  "title": "Folio design-config.json",
+  "description": "Structure only. Values are applied exactly as written; nothing is derived or judged.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "system",
+    "systemVersion"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "system": {
+      "const": "folio"
+    },
+    "systemVersion": {
+      "type": "string"
+    },
+    "colors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "light": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "bg": {
+              "type": "string"
+            },
+            "surface": {
+              "type": "string"
+            },
+            "surface-2": {
+              "type": "string"
+            },
+            "ink": {
+              "type": "string"
+            },
+            "muted": {
+              "type": "string"
+            },
+            "border": {
+              "type": "string"
+            },
+            "control": {
+              "type": "string"
+            },
+            "action": {
+              "type": "string"
+            },
+            "action-hover": {
+              "type": "string"
+            },
+            "on-action": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            },
+            "focus": {
+              "type": "string"
+            },
+            "accent": {
+              "type": "string"
+            },
+            "success": {
+              "type": "string"
+            },
+            "success-soft": {
+              "type": "string"
+            },
+            "warning": {
+              "type": "string"
+            },
+            "warning-soft": {
+              "type": "string"
+            },
+            "danger": {
+              "type": "string"
+            },
+            "danger-soft": {
+              "type": "string"
+            },
+            "info": {
+              "type": "string"
+            },
+            "info-soft": {
+              "type": "string"
+            },
+            "on-danger": {
+              "type": "string"
+            },
+            "scrim": {
+              "type": "string"
+            },
+            "shadow-card": {
+              "type": "string"
+            },
+            "shadow-pop": {
+              "type": "string"
+            },
+            "action-pressed": {
+              "type": "string"
+            },
+            "panel": {
+              "type": "string",
+              "description": "Folio-declared role (editorial panel); keeps its own default when omitted."
+            },
+            "on-panel": {
+              "type": "string",
+              "description": "Folio-declared role (editorial panel); keeps its own default when omitted."
+            },
+            "panel-accent": {
+              "type": "string",
+              "description": "Folio-declared role (editorial panel); keeps its own default when omitted."
+            }
+          }
+        },
+        "dark": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "bg": {
+              "type": "string"
+            },
+            "surface": {
+              "type": "string"
+            },
+            "surface-2": {
+              "type": "string"
+            },
+            "ink": {
+              "type": "string"
+            },
+            "muted": {
+              "type": "string"
+            },
+            "border": {
+              "type": "string"
+            },
+            "control": {
+              "type": "string"
+            },
+            "action": {
+              "type": "string"
+            },
+            "action-hover": {
+              "type": "string"
+            },
+            "on-action": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            },
+            "focus": {
+              "type": "string"
+            },
+            "accent": {
+              "type": "string"
+            },
+            "success": {
+              "type": "string"
+            },
+            "success-soft": {
+              "type": "string"
+            },
+            "warning": {
+              "type": "string"
+            },
+            "warning-soft": {
+              "type": "string"
+            },
+            "danger": {
+              "type": "string"
+            },
+            "danger-soft": {
+              "type": "string"
+            },
+            "info": {
+              "type": "string"
+            },
+            "info-soft": {
+              "type": "string"
+            },
+            "on-danger": {
+              "type": "string"
+            },
+            "scrim": {
+              "type": "string"
+            },
+            "shadow-card": {
+              "type": "string"
+            },
+            "shadow-pop": {
+              "type": "string"
+            },
+            "action-pressed": {
+              "type": "string"
+            },
+            "panel": {
+              "type": "string",
+              "description": "Folio-declared role (editorial panel); keeps its own default when omitted."
+            },
+            "on-panel": {
+              "type": "string",
+              "description": "Folio-declared role (editorial panel); keeps its own default when omitted."
+            },
+            "panel-accent": {
+              "type": "string",
+              "description": "Folio-declared role (editorial panel); keeps its own default when omitted."
+            }
+          }
+        }
+      }
+    },
+    "fonts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ui": {
+          "$ref": "#/$defs/font"
+        },
+        "display": {
+          "$ref": "#/$defs/font"
+        },
+        "prose": {
+          "$ref": "#/$defs/font"
+        },
+        "code": {
+          "$ref": "#/$defs/font"
+        }
+      }
+    },
+    "logo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mark": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Absolute URL, root-relative path, or a path relative to assetBase."
+        },
+        "wordmark": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "description": "Absolute URL, root-relative path, or a path relative to assetBase."
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "light": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Absolute URL, root-relative path, or a path relative to assetBase."
+                },
+                "dark": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Absolute URL, root-relative path, or a path relative to assetBase."
+                }
+              }
+            }
+          ]
+        },
+        "alt": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "font": {
+      "type": "object",
+      "required": [
+        "family"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "src"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "src": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Absolute URL, root-relative path, or a path relative to assetBase."
+              },
+              "weight": {
+                "type": "string"
+              },
+              "style": {
+                "type": "string"
+              },
+              "stretch": {
+                "type": "string"
+              },
+              "unicodeRange": {
+                "type": "string"
+              }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}

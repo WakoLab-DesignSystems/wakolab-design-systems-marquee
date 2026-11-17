@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Console test harness</title>
+<style>
+  /* Typical host reset and host content, outside any Console root. */
+  .host { font-family: Georgia, serif; color: rgb(10, 20, 30); margin: 12px; }
+  .host button { font: inherit; }
+  .roots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+</style>
+</head>
+<body>
+<section class="host" id="host">
+  <h1 id="host-h1">Host heading</h1>
+  <p id="host-p">Host paragraph outside the Console roots.</p>
+  <button type="button" id="host-btn">Host button</button>
+  <input id="host-input" aria-label="Host input">
+  <div id="host-anim" class="host-anim">Host animated element</div>
+  <span id="host-font" style="font-family: 'Example Sans', monospace">Host text using the label Example Sans</span>
+</section>
+<div class="roots"><div id="slot-a"></div><div id="slot-b"></div></div>
+<script type="module" src="./main.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+/* Folio rules of the editorial registration frame (RegistrationFrame).
+ * Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272,
+ * design-system/compositions.css: the shared frame rules (lines 2–28: .registration-layout,
+ * .registration-editorial, .editorial-eyebrow, .registration-workspace, .editorial-art), the
+ * [data-direction="folio"] rules (lines 63–68 and, inside the 64rem query, 98–100 and 101–117),
+ * following Console's registration.css (wakolab-design-systems-console at
+ * 018fe3214e0a118162d202c2f39f1236f37b1936).
+ * Changes for standalone use (standard KIT_PROPOSAL §8, Folio): `[data-direction="folio"]` prefixes
+ * are dropped (the build scopes every rule to the Folio root); the panel literals become the
+ * Folio-declared roles (--color-panel → var(--wl-panel), --color-on-panel → var(--wl-on-panel),
+ * --color-accent → var(--wl-panel-accent)); the profile-page rules (.home-composition, .home-profile)
+ * and the Console and Marquee rules are not copied. Values are otherwise unchanged. */
+.registration-layout {
+  display: grid;
+  margin: auto;
+  max-width: 72rem;
+  background: var(--wl-surface);
+  border: 1px solid var(--wl-border);
+  border-radius: var(--wl-radius-card);
+  overflow: hidden;
+  box-shadow: var(--wl-shadow-card);
+}
+.registration-editorial {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem;
+  min-width: 0;
+  background: var(--wl-surface-2);
+  color: var(--wl-ink);
+}
+.editorial-eyebrow {
+  color: var(--wl-action);
+}
+.registration-workspace {
+  padding: 1.5rem;
+  min-width: 0;
+}
+.editorial-art {
+  display: none;
+}
+.registration-editorial {
+  background: var(--wl-panel);
+  color: var(--wl-on-panel);
+}
+.editorial-eyebrow {
+  color: var(--wl-panel-accent);
+}
+@media (min-width: 64rem) {
+  .registration-workspace {
+    padding: 3rem;
+  }
+  .registration-layout {
+    grid-template-columns: 5fr 7fr;
+  }
+  .registration-editorial {
+    padding: 3rem;
+  }
+  .editorial-art {
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--wl-panel-accent);
+    border-radius: 50%;
+    aspect-ratio: 1;
+    margin: 2rem 0;
+  }
+  .editorial-monogram {
+    font: 700 4rem var(--wl-font-display);
+  }
+}

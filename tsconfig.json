@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "types": [],
+    "paths": {
+      "parity-sys": [
+        "./examples/parity/fixture/folio-sys.tsx"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "examples",
+    "tests/fixtures"
+  ],
+  "exclude": [
+    "examples/parity/front-baseline"
+  ]
+}
