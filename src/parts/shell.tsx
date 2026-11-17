@@ -58,14 +58,16 @@ export function LogoSlot({ label, accessibleName, href = "./", onHome }: {
   );
 }
 
-/** Header tool trigger (source: `.wl-tool` buttons of the header menus). */
-export function ToolButton({ icon, label, value, compact, valueLang, ...rest }: {
-  icon?: IconName; label: string; value?: ReactNode; compact?: boolean; valueLang?: string;
+/** Header tool trigger (source: `.wl-tool` buttons of the header menus). `compact` hides the label
+ *  visually (source: AppearanceMenu compact); `hideValue` hides the value visually (source: LanguageMenu
+ *  compact, Marquee adaptation). Both stay in the accessible name. */
+export function ToolButton({ icon, label, value, compact, hideValue, valueLang, ...rest }: {
+  icon?: IconName; label: string; value?: ReactNode; compact?: boolean; hideValue?: boolean; valueLang?: string;
 } & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "value"> & { ref?: Ref<HTMLButtonElement> }) {
   return (
     <button type="button" className="wl-tool" {...rest}>
       {icon && <Icon name={icon} />}<span className={compact ? "sr-only" : ""}>{label}</span>
-      {value !== undefined && <span className="wl-tool-value" lang={valueLang}>{value}</span>}
+      {value !== undefined && <span className={hideValue ? "wl-tool-value sr-only" : "wl-tool-value"} lang={valueLang}>{value}</span>}
     </button>
   );
 }

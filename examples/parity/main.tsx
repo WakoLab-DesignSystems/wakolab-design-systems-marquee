@@ -22,9 +22,9 @@ const params = new URLSearchParams(location.search);
 const screen = params.get("screen") ?? "collection";
 const mode = (params.get("mode") as Mode) || "light";
 
-function Tool({ icon, label, value, compact, valueLang }: { icon: "palette" | "globe"; label: string; value?: string; compact?: boolean; valueLang?: string }) {
+function Tool({ icon, label, value, compact, hideValue, valueLang }: { icon: "palette" | "globe"; label: string; value?: string; compact?: boolean; hideValue?: boolean; valueLang?: string }) {
   return (
-    <Popover label={label} trigger={(p) => <ToolButton {...p} icon={icon} label={label} value={value} compact={compact} valueLang={valueLang} />}>
+    <Popover label={label} trigger={(p) => <ToolButton {...p} icon={icon} label={label} value={value} compact={compact} hideValue={hideValue} valueLang={valueLang} />}>
       {() => null}
     </Popover>
   );
@@ -37,7 +37,7 @@ function Shell({ children }: { children: ReactNode }) {
       <MarqueeShell header={
         <MarqueeHeader logo={<LogoSlot label={text.brand} accessibleName={text.brandName} />}
           search={{ label: text.searchLabel, placeholder: text.searchPlaceholder, clearLabel: text.clear, value: q, onChange: setQ }}
-          tools={<><Tool icon="palette" label={text.appearance} value={text.appearanceValue} /><Tool icon="globe" label={text.language} value="English" valueLang="en" compact />
+          tools={<><Tool icon="palette" label={text.appearance} value={text.appearanceValue} compact /><Tool icon="globe" label={text.language} value="English" valueLang="en" compact hideValue />
             <Button id="sign-in" className="wl-signin">{text.signIn}</Button></>} />
       }>{children}</MarqueeShell>
     </>

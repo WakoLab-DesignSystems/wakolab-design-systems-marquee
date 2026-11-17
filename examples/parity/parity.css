@@ -1,5 +1,5 @@
 /* Parity page host styles. Original, except where noted. */
- * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/parity.css; Folio names → Marquee names (Marquee adaptations noted where they apply).
+/* Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/parity.css; Folio names → Marquee names (Marquee adaptations noted where they apply). */
 body { margin: 0; }
 /* Product content that the frontend composes into the detail side slot (JoinPanel, Access).
  * These rules stay in the frontend (standard EXTRACTION_MATRIX §6); they are copied here, unchanged,

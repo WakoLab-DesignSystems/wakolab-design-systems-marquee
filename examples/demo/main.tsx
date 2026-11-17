@@ -60,8 +60,8 @@ function Header({ state, go, search }: { state: DemoState; go: (s: Partial<DemoS
         onChange: (v) => { search.onChange(v); if (state.screen !== "collection") go({ screen: "collection" }); } }}
       logo={<LogoSlot label="Field Lab" accessibleName="Field Lab, overview" href={hashOf({ ...state, screen: "overview" })} onHome={() => go({ screen: "overview" })} />}
       tools={<>
-        <ModeMenu label="Appearance" modeLabel="Mode" labels={{ light: "Light", dark: "Dark", system: "System" }} />
-        <ToolButton icon="globe" label="Language" value="English" compact valueLang="en" />
+        <ModeMenu label="Appearance" modeLabel="Mode" labels={{ light: "Light", dark: "Dark", system: "System" }} compact />
+        <ToolButton icon="globe" label="Language" value="English" compact hideValue valueLang="en" />
       </>} />
   );
 }

@@ -42,7 +42,7 @@ The icons file (`icons.tsx`) keeps the wrapper and the icon names only; **no pat
 |---|---|---|---|
 | `collection.tsx` | `web/src/features/catalog/parts.tsx` (CategoryChips, Cover, ProjectLink, CatalogStatus with tile skeletons, LoadMore), via Folio | Adapted | Unchanged from Folio |
 | `page.tsx` | `project-parts.tsx` (Facts, MessageBlock, BackToProjects, ProjectLoading, ProjectProblem), via Folio | Adapted | Unchanged from Folio |
-| `shell.tsx` | `parts.tsx` (Brand, tool triggers, mode part of AppearanceMenu), via Folio | Adapted | LogoSlot uses the source's **bold** brand variant (`wl-brand wl-brand--bold`, label only, as `MarqueeHeader`); ToolButton, ModeMenu |
+| `shell.tsx` | `parts.tsx` (Brand, tool triggers, mode part of AppearanceMenu), via Folio | Adapted | LogoSlot uses the source's **bold** brand variant (`wl-brand wl-brand--bold`, label only, as `MarqueeHeader`); ToolButton gains `hideValue` (the source's LanguageMenu `compact`: value visually hidden), used with `compact` as in the source's `Tools compact`; ModeMenu |
 
 ## Compositions
 

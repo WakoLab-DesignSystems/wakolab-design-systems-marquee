@@ -1,5 +1,5 @@
+/* Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/root/context.ts; Folio names → Marquee names (Marquee adaptations noted where they apply). */
 /* Marquee root context. Original code for standalone use (replaces the document-level
- * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/root/context.ts; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * ThemeProvider of WakoLab/wakolab-front web/src/theme/ThemeProvider.tsx at
  * e492bec9ced8893d6940879aa8186ac75a48a272; standard EXTRACTION_MATRIX §4 Provider).
  * Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936, src/root/context.ts; Console names → Marquee names. */

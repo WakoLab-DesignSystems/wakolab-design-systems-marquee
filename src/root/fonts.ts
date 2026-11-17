@@ -1,5 +1,5 @@
+/* Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/root/fonts.ts; Folio names → Marquee names (Marquee adaptations noted where they apply). */
 /* Runtime font registration for configured font roles. Original code implementing the standard's
- * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/root/fonts.ts; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * isolation rule for fonts (EXTRACTION_MATRIX §4 Fonts, R2, at 6dc2a7a):
  *  - one internal family per complete face set (all files with their descriptors), never the
  *    consumer's `family` label;
