@@ -1,4 +1,5 @@
 /* Synthetic, neutral texts for the parity fixture (form, components, registration frame).
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/fixture/texts.ts; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * Original content, except where noted. */
 export const form = {
   title: "Request access", lead: "Fill in the form to request access to the shared workspace. Fields marked optional can stay empty.",

@@ -1,9 +1,10 @@
-/* Icon slot for Folio.
- * Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (same path); Console → Folio in comments.
+/* Icon slot for Marquee.
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/components/icons.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (same path); Console → Marquee in comments.
  * Wrapper copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272,
  * web/src/components/ui/icons.tsx (the <svg> element and its attributes, and the icon names).
  * The SVG path data is NOT copied: its provenance is unresolved (standard EXTRACTION_MATRIX §10, E4;
- * console#1, folio#1). Consumers pass their own icon set (name → SVG path data) to <FolioRoot icons>.
+ * console#1, folio#1). Consumers pass their own icon set (name → SVG path data) to <MarqueeRoot icons>.
  * Without a path for a name, the wrapper renders empty at the same size and carries
  * data-icon-missing: the layout is kept, no glyph is drawn and no substitute artwork is used.
  */

@@ -1,4 +1,5 @@
 /* Neutral page parts.
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/parts/page.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * Adapted from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272,
  * web/src/features/catalog/project-parts.tsx: Facts, MessageBlock, BackToProjects, ProjectLoading,
  * ProjectProblem (unavailable branch) (standard EXTRACTION_MATRIX §5.3, N1).

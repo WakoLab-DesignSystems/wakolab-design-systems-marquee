@@ -1,16 +1,17 @@
 /* Synthetic texts for the visual parity check (standard EXTRACTION_MATRIX §8 at 6dc2a7a).
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/fixtures.ts; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * Copied from what the review prototype of WakoLab/wakolab-front at
- * e492bec9ced8893d6940879aa8186ac75a48a272 renders in English, signed out, MVP variant, Folio:
+ * e492bec9ced8893d6940879aa8186ac75a48a272 renders in English, signed out, MVP variant, Marquee:
  * web/prototype/fixtures.ts (project names, summaries, categories, access) and the English
  * catalog strings of web/src/i18n. Synthetic data only; used by examples/parity, never shipped.
  * Copied from wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
- * examples/parity/fixtures.ts; Folio adds the index groups (the prototype's Folio home groups entries
- * by top category, in this order) and its Folio-specific labels. */
+ * examples/parity/fixtures.ts; Marquee adds the index groups (the prototype's Marquee home groups entries
+ * by top category, in this order) and its Marquee-specific labels. */
 export const text = {
   skip: "Skip to projects",
   brand: "WakoLab", brandName: "WakoLab, projects home",
   searchLabel: "Search projects", searchPlaceholder: "Project name or summary", clear: "Clear search",
-  appearance: "Appearance", appearanceValue: "Folio", language: "Language", signIn: "Sign in",
+  appearance: "Appearance", appearanceValue: "Marquee", language: "Language", signIn: "Sign in",
   category: "Category", all: "All", hint: "Keys: / search · j k move · Enter open",
   title: "Projects", count: "6 projects", sectionLabel: "Projects",
   lead: "Projects published on WakoLab by people and their agents. A project's code can stay private.",

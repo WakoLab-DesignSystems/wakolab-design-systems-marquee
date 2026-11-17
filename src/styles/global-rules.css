@@ -1,7 +1,8 @@
 /* Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/compositions.css:
- * Copied through wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (same file), with Console → Folio in comments.
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/styles/global-rules.css; Folio names → Marquee names (Marquee adaptations noted where they apply).
+ * Copied through wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (same file), with Console → Marquee in comments.
  * the universal reduced-motion rule and the heading tracking rules for Chinese and Hindi.
- * Scoped to the Folio root by the build (`*` → root descendants, `:root` → the root itself). */
+ * Scoped to the Marquee root by the build (`*` → root descendants, `:root` → the root itself). */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -1,7 +1,8 @@
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, tests/isolation.spec.ts; Folio names → Marquee names (Marquee adaptations noted where they apply).
 // Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
-// tests/isolation.spec.ts; Folio names, fonts, scrims and prefix; the keyboard-layer cases are removed
-// (Folio has no keyboard layer).
-// Isolation of Folio roots in a host page (standard EXTRACTION_MATRIX R1–R3, N2, E2 and
+// tests/isolation.spec.ts; Marquee names, fonts, scrims and prefix; the keyboard-layer cases are removed
+// (Marquee has no keyboard layer).
+// Isolation of Marquee roots in a host page (standard EXTRACTION_MATRIX R1–R3, N2, E2 and
 // INDEPENDENCE_CHECK §4 at 6dc2a7a). Original code; synthetic content only.
 import { test, expect, type Page } from "@playwright/test";
 
@@ -39,7 +40,7 @@ async function hostSnapshot(page: Page) {
   });
 }
 
-test("host page untouched: html, body and host content compute the same with and without Folio", async ({ page }) => {
+test("host page untouched: html, body and host content compute the same with and without Marquee", async ({ page }) => {
   await open(page, "?nocss=1");
   await addHostCss(page);
   const without = await hostSnapshot(page);
@@ -62,14 +63,14 @@ for (const order of ["host stylesheet first", "host stylesheet last"]) {
     // Host keeps its keyframes and registered properties.
     expect(await page.locator("#host-anim").evaluate((e) => [getComputedStyle(e).animationName, getComputedStyle(e).opacity])).toEqual(["wl-rise", "0.25"]);
     expect(await page.locator("#host-p").evaluate((e) => [getComputedStyle(e).getPropertyValue("--tw-ring-offset-width"), getComputedStyle(e).getPropertyValue("--tw-shadow").trim()])).toEqual(["7px", "host-shadow"]);
-    // Folio uses its prefixed names only.
+    // Marquee uses its prefixed names only.
     const sk = await page.locator("#a-skeleton").evaluate((e) => getComputedStyle(e, "::after").animationName);
-    expect(sk).toBe("wds-folio-wl-shimmer");
-    const ring = await page.locator("#a-primary").evaluate((e) => [getComputedStyle(e).getPropertyValue("--wds-folio-tw-ring-offset-width"), getComputedStyle(e).getPropertyValue("--tw-ring-offset-width")]);
+    expect(sk).toBe("wds-marquee-wl-shimmer");
+    const ring = await page.locator("#a-primary").evaluate((e) => [getComputedStyle(e).getPropertyValue("--wds-marquee-tw-ring-offset-width"), getComputedStyle(e).getPropertyValue("--tw-ring-offset-width")]);
     expect(ring[0]).toBe("0px");
-    // A host face named like the source's default family does not reach Folio.
-    expect(await page.locator("#a-ui").evaluate((e) => getComputedStyle(e).fontFamily)).toMatch(/^"?wds-folio-default-dm-sans"?,/);
-    expect(await page.locator("#a-display").evaluate((e) => getComputedStyle(e).fontFamily)).toMatch(/^"?wds-folio-default-source-serif-4"?,/);
+    // A host face named like the source's default family does not reach Marquee.
+    expect(await page.locator("#a-ui").evaluate((e) => getComputedStyle(e).fontFamily)).toMatch(/^"?wds-marquee-default-dm-sans"?,/);
+    expect(await page.locator("#a-display").evaluate((e) => getComputedStyle(e).fontFamily)).toMatch(/^"?wds-marquee-default-source-serif-4"?,/);
     for (const id of ["#a-ui", "#a-display"]) expect(await page.locator(id).evaluate((e) => getComputedStyle(e).fontFamily)).not.toMatch(/DM Sans Variable|Source Serif 4 Variable/);
   });
 }
@@ -77,13 +78,13 @@ for (const order of ["host stylesheet first", "host stylesheet last"]) {
 test("fonts: same label with different files, multi-file face sets, sharing, replacement and cleanup", async ({ page }) => {
   await open(page);
   const fam = (id: string) => page.locator(`#${id}-ui`).evaluate((e) => getComputedStyle(e).fontFamily.split(",")[0].replace(/"/g, ""));
-  const faces = () => page.evaluate(() => [...document.fonts].filter((f) => f.family.replace(/"/g, "").startsWith("wds-folio-font-")).map((f) => `${f.family.replace(/"/g, "")}/${f.weight}`).sort());
+  const faces = () => page.evaluate(() => [...document.fonts].filter((f) => f.family.replace(/"/g, "").startsWith("wds-marquee-font-")).map((f) => `${f.family.replace(/"/g, "")}/${f.weight}`).sort());
   // (a) same label, different files → different internal families
   await mount(page, "a", "slot-a", { config: font("/design/fonts/example-sans.woff2?a") });
   await mount(page, "b", "slot-b", { config: font("/design/fonts/example-sans.woff2?b") });
   await page.waitForTimeout(100);
   const [fa, fb] = [await fam("a"), await fam("b")];
-  expect(fa).toMatch(/^wds-folio-font-[0-9a-f]{8}$/); expect(fb).toMatch(/^wds-folio-font-[0-9a-f]{8}$/);
+  expect(fa).toMatch(/^wds-marquee-font-[0-9a-f]{8}$/); expect(fb).toMatch(/^wds-marquee-font-[0-9a-f]{8}$/);
   expect(fa).not.toBe(fb);
   // (c) same face set → one family, shared, counted twice
   await update(page, "b", { config: font("/design/fonts/example-sans.woff2?a") });
@@ -107,7 +108,7 @@ test("fonts: same label with different files, multi-file face sets, sharing, rep
   await unmount(page, "a"); await unmount(page, "b");
   expect(await page.evaluate(() => (window as any).harness.faceSets())).toEqual({});
   expect(await faces()).toEqual([]);
-  // (f) host text with the configured label is not served by Folio's file
+  // (f) host text with the configured label is not served by Marquee's file
   expect(await page.locator("#host-font").evaluate((e) => document.fonts.check(`16px "Example Sans"`) && [...document.fonts].some((f) => f.family.replace(/"/g, "") === "Example Sans"))).toBe(false);
 });
 
@@ -195,7 +196,7 @@ test("modal dialog: rest of the page inert", async ({ page }) => {
   await expect(page.locator("#a-open-dialog")).toBeFocused();
 });
 
-test("reduced motion applies inside Folio roots only", async ({ page }) => {
+test("reduced motion applies inside Marquee roots only", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await open(page);
   await addHostCss(page);

@@ -1,7 +1,8 @@
-// Shipped defaults on the Folio demo (standard INDEPENDENCE_CHECK §2 "Shipped defaults"; CHECKLIST).
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, tests/defaults.spec.ts; Folio names → Marquee names (Marquee adaptations noted where they apply).
+// Shipped defaults on the Marquee demo (standard INDEPENDENCE_CHECK §2 "Shipped defaults"; CHECKLIST).
 // Structure copied from WakoLab-DesignSystems/wakolab-design-systems-console at
-// 018fe3214e0a118162d202c2f39f1236f37b1936, tests/defaults.spec.ts; every expected value is Folio's own
-// (src/styles/tokens.css, from the frontend's Folio blocks at e492bec). Folio has no keyboard layer.
+// 018fe3214e0a118162d202c2f39f1236f37b1936, tests/defaults.spec.ts; every expected value is Marquee's own
+// (src/styles/tokens.css, from the frontend's Marquee blocks at e492bec). Marquee has no keyboard layer.
 import { test, expect } from "@playwright/test";
 import { axe, noOverflow, open } from "./helpers";
 
@@ -11,7 +12,7 @@ for (const mode of ["light", "dark"])
     for (const screen of screens) {
       await page.setViewportSize({ width: 1280, height: 900 });
       await open(page, `screen=${screen}&mode=${mode}&config=default`);
-      await expect(page.locator('[data-wds="folio"]')).toHaveAttribute("data-mode", mode);
+      await expect(page.locator('[data-wds="marquee"]')).toHaveAttribute("data-mode", mode);
       expect(await axe(page), `${screen}`).toEqual([]);
       for (const width of [320, 390, 768, 1024, 1440]) {
         await page.setViewportSize({ width, height: 900 });
@@ -26,29 +27,29 @@ test("menu: reaches every screen, marks the active one, keeps mode and configura
     const link = page.getByRole("navigation", { name: "Demo screens" }).getByRole("link", { name: label, exact: true });
     await link.click();
     await expect(link).toHaveAttribute("aria-current", "page");
-    await expect(page.locator('[data-wds="folio"]')).toHaveAttribute("data-mode", "dark");
+    await expect(page.locator('[data-wds="marquee"]')).toHaveAttribute("data-mode", "dark");
     await expect(page).toHaveURL(/mode=dark&config=example/);
   }
   await page.getByRole("navigation", { name: "Demo screens" }).getByRole("link", { name: "Article", exact: true }).click();
   await page.reload();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Coastal temperatures");
-  await expect(page.locator('[data-wds="folio"]')).toHaveAttribute("data-mode", "dark");
+  await expect(page.locator('[data-wds="marquee"]')).toHaveAttribute("data-mode", "dark");
   await expect(page.locator(".wl-logo-mark")).toBeVisible(); // the example configuration is applied again
   // Review F-R2 on #5: the editorial frame's home link keeps mode and configuration.
   await page.getByRole("navigation", { name: "Demo screens" }).getByRole("link", { name: "Editorial frame", exact: true }).click();
   await page.locator(".registration-page").waitFor();
   await page.getByRole("link", { name: "Field Lab, overview" }).click();
   await expect(page).toHaveURL(/#screen=overview&mode=dark&config=example$/);
-  await expect(page.locator('[data-wds="folio"]')).toHaveAttribute("data-mode", "dark");
-  await expect(page.getByRole("heading", { level: 1, name: "Folio" })).toBeVisible();
+  await expect(page.locator('[data-wds="marquee"]')).toHaveAttribute("data-mode", "dark");
+  await expect(page.getByRole("heading", { level: 1, name: "Marquee" })).toBeVisible();
   await expect(page.locator(".wl-logo-mark")).toBeVisible();
 });
 
-test("identity: Folio tokens, sans UI with a serif display, radii 8/12/pill, light-only card shadow, 150 ms motion, sticky filters and side card", async ({ page }) => {
+test("identity: Marquee tokens, sans UI with a serif display, radii 8/12/pill, light-only card shadow, 150 ms motion, sticky filters and side card", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await open(page, "screen=collection&mode=light&config=default");
   const s = await page.evaluate(() => {
-    const root = document.querySelector('[data-wds="folio"]')!;
+    const root = document.querySelector('[data-wds="marquee"]')!;
     const cs = (sel: string, pseudo?: string) => getComputedStyle(document.querySelector(sel)!, pseudo);
     return {
       bg: getComputedStyle(root).backgroundColor, row: getComputedStyle(root).getPropertyValue("--wl-row-height").trim(),
@@ -56,15 +57,15 @@ test("identity: Folio tokens, sans UI with a serif display, radii 8/12/pill, lig
       ui: cs(".wl-entry-meta").fontFamily, h1: cs("h1").fontFamily, h1Weight: cs("h1").fontWeight, h1Tracking: cs("h1").letterSpacing, h1Size: cs("h1").fontSize,
       title: cs(".wl-entry-title").fontFamily, group: cs(".wl-group-title").textTransform,
       control: cs('input[type="search"]').borderTopLeftRadius, chip: cs('[aria-pressed]').borderTopLeftRadius,
-      sticky: cs(".wl-folio-filters").position,
+      sticky: cs(".wl-marquee-filters").position,
     };
   });
   expect(s.bg).toBe("rgb(250, 249, 245)");
   expect(s.row).toBe("56px");
   expect(s.dur).toBe("150ms");
-  expect(s.ui).toMatch(/^"?wds-folio-default-dm-sans"?,/);
-  expect(s.h1).toMatch(/^"?wds-folio-default-source-serif-4"?,/);
-  expect(s.title).toMatch(/^"?wds-folio-default-source-serif-4"?,/);
+  expect(s.ui).toMatch(/^"?wds-marquee-default-dm-sans"?,/);
+  expect(s.h1).toMatch(/^"?wds-marquee-default-source-serif-4"?,/);
+  expect(s.title).toMatch(/^"?wds-marquee-default-source-serif-4"?,/);
   expect(s.h1Weight).toBe("600");
   expect(parseFloat(s.h1Tracking)).toBeCloseTo(-0.01 * parseFloat(s.h1Size), 1);
   expect(s.group).toBe("uppercase");
@@ -152,7 +153,7 @@ test("reduced motion: no animation in the root; dialog appears without animation
   const p2 = await browser.newPage();
   await open(p2, "screen=components&mode=light&config=default");
   await p2.locator("#dialog-btn").click();
-  expect(await p2.locator("dialog[open]").evaluate((d) => [getComputedStyle(d).animationName, getComputedStyle(d).animationDuration])).toEqual(["wds-folio-wl-rise", "0.15s"]);
+  expect(await p2.locator("dialog[open]").evaluate((d) => [getComputedStyle(d).animationName, getComputedStyle(d).animationDuration])).toEqual(["wds-marquee-wl-rise", "0.15s"]);
   await p2.close();
 });
 
@@ -172,14 +173,14 @@ test("icons: rendered icon slots carry no path data and are marked missing (pack
   expect(r.paths).toBe(0);
 });
 
-// The parity fixture's form, component sheet, registration frame and overlays rendered with Folio
+// The parity fixture's form, component sheet, registration frame and overlays rendered with Marquee
 // only (no frontend modules): axe A/AA and reflow, light and dark. Icon slots stay empty here.
 for (const mode of ["light", "dark"])
   test(`${mode}: parity fixture screens are axe A/AA clean and reflow from 320px`, async ({ page }) => {
     for (const screen of ["registration", "form", "components", "overlays"]) {
       await page.setViewportSize({ width: 1280, height: 900 });
       await page.goto(`/parity/fixture/index.html?screen=${screen}&mode=${mode}`);
-      await expect(page.locator(`[data-wds="folio"][data-mode="${mode}"]`)).toBeVisible();
+      await expect(page.locator(`[data-wds="marquee"][data-mode="${mode}"]`)).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
       expect(await axe(page), screen).toEqual([]);
       for (const width of [320, 768, 1440]) {

@@ -1,15 +1,16 @@
-// Contrast check of Folio's SHIPPED DEFAULTS only (consumer configurations are never checked).
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, scripts/theme-tokens.mjs; Folio names → Marquee names (Marquee adaptations noted where they apply).
+// Contrast check of Marquee's SHIPPED DEFAULTS only (consumer configurations are never checked).
 // Adapted from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, scripts/theme-tokens.mjs.
-// Changes for standalone use: Folio palettes only (src/styles/tokens.css), with the Folio-declared panel pairs; the agent pairs are
+// Changes for standalone use: Marquee palettes only (src/styles/tokens.css); the agent pairs are
 // dropped (product roles); no tokens.json export (config.default.json holds the defaults and is
 // checked against the stylesheet here); values that are var() references are skipped as pairs.
 // Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
-// scripts/theme-tokens.mjs; Folio root selector, panel pairs added, comments stripped from blocks.
+// scripts/theme-tokens.mjs; Marquee root selector, comments stripped from blocks (Folio's panel pairs removed: Marquee has no panel roles).
 import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 const css = readFileSync("src/styles/tokens.css", "utf8");
 const tokens = {};
-for (const match of css.matchAll(/\[data-wds="folio"\]\[data-mode="(\w+)"\]\s*\{([^}]*)\}/g))
+for (const match of css.matchAll(/\[data-wds="marquee"\]\[data-mode="(\w+)"\]\s*\{([^}]*)\}/g))
   tokens[match[1]] = Object.fromEntries([...match[2].replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/--wl-([\w-]+):\s*([^;]+);/g)].map((m) => [m[1], m[2].trim()]));
 assert.deepEqual(Object.keys(tokens).sort(), ["dark", "light"], "light and dark palettes");
 const defaults = JSON.parse(readFileSync("config.default.json", "utf8"));
@@ -28,8 +29,6 @@ const pairs = [
   ["danger", "surface", 4.5], ["on-danger", "danger", 4.5], ["link", "bg", 4.5], ["link", "surface", 4.5],
   ["warning", "surface", 4.5], ["success", "surface", 4.5],
   ...["danger", "success", "warning", "info"].map((t) => [t, `${t}-soft`, 4.5]),
-  // Folio editorial panel (declared roles): text, eyebrow text and focus outline on the panel.
-  ["on-panel", "panel", 4.5], ["panel-accent", "panel", 4.5],
 ];
 let count = 0;
 for (const [mode, values] of Object.entries(tokens)) {

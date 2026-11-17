@@ -1,15 +1,16 @@
-/* Folio foundations: Tailwind theme mapping and base rules.
+/* Marquee foundations: Tailwind theme mapping and base rules.
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/styles/theme.css; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/theme.css,
  * through Console's adaptation (wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
  * src/styles/theme.css). Changes for standalone use (standard EXTRACTION_MATRIX §5.1; KIT_PROPOSAL §8):
- *  - the `@import "tailwindcss"`, `@source` and themes imports move to folio.css;
- *  - the editorial panel literals become the Folio-declared roles: --color-panel → var(--wl-panel),
- *    --color-on-panel → var(--wl-on-panel), and the [data-surface="dark"] focus outline uses
- *    var(--wl-panel-accent) instead of the --color-accent literal (#cef1c5), which had no other use;
+ *  - the `@import "tailwindcss"`, `@source` and themes imports move to marquee.css;
+ *  - Marquee adaptation: the Folio editorial-panel literals (--color-accent, --color-panel,
+ *    --color-on-panel) and the [data-surface="dark"] focus rule are not copied: no Marquee element uses
+ *    them (Marquee has no panel roles; its editorial frame is styled by registration.css);
  *  - removed the WakoLab --color-agent* roles;
  *  - --color-brand-active maps to --wl-action-pressed (default: the effective action-hover);
- *  - the :root block (fallback stack, durations) moved into tokens.css on the Folio root;
- *  - `body` and `:root` rules are mapped to the Folio root by the build (scripts/build.mjs). */
+ *  - the :root block (fallback stack, durations) moved into tokens.css on the Marquee root;
+ *  - `body` and `:root` rules are mapped to the Marquee root by the build (scripts/build.mjs). */
 @theme inline {
   --color-on-brand: var(--wl-on-action);
   --color-on-danger: var(--wl-on-danger);
@@ -21,8 +22,6 @@
   --color-brand: var(--wl-action);
   --color-brand-hover: var(--wl-action-hover);
   --color-brand-active: var(--wl-action-pressed);
-  --color-panel: var(--wl-panel);
-  --color-on-panel: var(--wl-on-panel);
   --color-border: var(--wl-border);
   --color-control-border: var(--wl-control);
   --color-focus: var(--wl-focus);
@@ -66,8 +65,5 @@
   :focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;
-  }
-  [data-surface="dark"] :focus-visible {
-    outline-color: var(--wl-panel-accent);
   }
 }

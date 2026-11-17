@@ -1,10 +1,11 @@
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/front-baseline/front-sys.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
 // Baseline adapter of the parity fixture: the WakoLab frontend's own modules at
 // e492bec9ced8893d6940879aa8186ac75a48a272, imported READ ONLY from a separate checkout through the
 // "@front" alias (front-baseline/vite.config.mjs). Never built or type-checked in this repository.
 // Original code, copied from wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936
 // (examples/parity/front-baseline/front-sys.tsx); it only wires the frontend's modules to the fixture's names:
 //  - components: web/src/components/ui (the frontend's index re-exports);
-//  - Root: the frontend's ThemeProvider and style.css, Folio direction (set by fixture/index.html);
+//  - Root: the frontend's ThemeProvider and style.css, Marquee direction (set by fixture/index.html);
 //  - FormPage: the `.wl-form-page` framing of web/src/features/catalog/pages.tsx (Page + header);
 //  - Registration: the frontend's real RegistrationShell, with a synthetic flow object whose
 //    translation function returns the fixture texts.

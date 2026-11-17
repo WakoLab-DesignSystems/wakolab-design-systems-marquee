@@ -1,23 +1,24 @@
-// Test harness: mounts Folio roots on demand so that tests can check configuration and
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/harness/main.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
+// Test harness: mounts Marquee roots on demand so that tests can check configuration and
 // isolation (standard INDEPENDENCE_CHECK §3–§4). Original code; synthetic content only.
 // Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
-// examples/harness/main.tsx. Changes for Folio: Folio names; no keyboard layer (Folio has none);
+// examples/harness/main.tsx. Changes for Marquee: Marquee names; no keyboard layer (Marquee has none);
 // an editorial panel (declared panel roles) with a focusable element inside it.
-// ?nocss=1 skips the Folio stylesheet (used to compare host styles with and without it).
+// ?nocss=1 skips the Marquee stylesheet (used to compare host styles with and without it).
 import { createRoot, type Root } from "react-dom/client";
 import { useRef, useState } from "react";
 import {
-  Button, Dialog, EditorialPanel, FolioRoot, ItemLink, LogoSlot, Popover, registeredFaceSets, SearchField,
-  type FolioRootProps, type Diagnostic,
-} from "wakolab-design-systems-folio";
+  Button, Dialog, EditorialPanel, MarqueeRoot, ItemLink, LogoSlot, Popover, registeredFaceSets, SearchField,
+  type MarqueeRootProps, type Diagnostic,
+} from "wakolab-design-systems-marquee";
 
 const params = new URLSearchParams(location.search);
-const ready = params.get("nocss") ? Promise.resolve() : import("wakolab-design-systems-folio/folio.css");
+const ready = params.get("nocss") ? Promise.resolve() : import("wakolab-design-systems-marquee/marquee.css");
 
 function Content({ id }: { id: string }) {
   const search = useRef<HTMLInputElement>(null);
   return (
-    <div className="wl-home wl-folio">
+    <div className="wl-home wl-marquee">
       <header className="wl-topbar"><LogoSlot label={`Root ${id}`} /></header>
       <main className="wl-page" id={`${id}-main`}>
         <p className="wl-lead" id={`${id}-lead`}>Synthetic content of root {id}.</p>
@@ -66,23 +67,23 @@ function DialogDemo({ id }: { id: string }) {
   );
 }
 
-const roots = new Map<string, { root: Root; props: Partial<FolioRootProps> }>();
+const roots = new Map<string, { root: Root; props: Partial<MarqueeRootProps> }>();
 const diagnostics: (Diagnostic & { id: string })[] = [];
 function render(id: string) {
   const entry = roots.get(id)!;
   entry.root.render(
-    <FolioRoot {...entry.props} id={`root-${id}`} onDiagnostic={(d) => diagnostics.push({ id, ...d })}>
+    <MarqueeRoot {...entry.props} id={`root-${id}`} onDiagnostic={(d) => diagnostics.push({ id, ...d })}>
       <Content id={id} />
-    </FolioRoot>,
+    </MarqueeRoot>,
   );
 }
 const api = {
   ready,
-  mount(id: string, slot: string, props: Partial<FolioRootProps> = {}) {
+  mount(id: string, slot: string, props: Partial<MarqueeRootProps> = {}) {
     const root = createRoot(document.getElementById(slot)!);
     roots.set(id, { root, props }); render(id);
   },
-  update(id: string, props: Partial<FolioRootProps>) { roots.get(id)!.props = props; render(id); },
+  update(id: string, props: Partial<MarqueeRootProps>) { roots.get(id)!.props = props; render(id); },
   unmount(id: string) { roots.get(id)?.root.unmount(); roots.delete(id); },
   faceSets: () => registeredFaceSets(),
   diagnostics,

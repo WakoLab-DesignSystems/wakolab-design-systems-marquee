@@ -1,19 +1,20 @@
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/main.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
 // Candidate screens for the visual parity check (standard EXTRACTION_MATRIX §8; KIT_PROPOSAL §8): the
-// same synthetic texts as the frontend's Folio baselines, rendered with the built Folio package.
+// same synthetic texts as the frontend's Marquee baselines, rendered with the built Marquee package.
 // ?screen=collection|detail|notFound|message|loading|unavailable|dialog  &mode=light|dark
 // Icon path data is not part of this repository (EXTRACTION_MATRIX §10, E4): the capture script
-// may inject a set at run time through window.__FOLIO_ICONS__.
+// may inject a set at run time through window.__MARQUEE_ICONS__.
 // Structure copied from wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
-// examples/parity/main.tsx; the screens follow the frontend's FolioHome, FolioProject and Folio pages.
-import "wakolab-design-systems-folio/folio.css";
+// examples/parity/main.tsx; the screens follow the frontend's MarqueeHome, MarqueeProject and Marquee pages.
+import "wakolab-design-systems-marquee/marquee.css";
 import "./parity.css";
 import { createRoot } from "react-dom/client";
 import { useState, type ReactNode } from "react";
 import {
   BackLink, Button, CollectionGroup, CollectionLayout, CollectionStatus, Cover, DetailLayout, DetailSection, Dialog, EntryContent,
-  FilterChips, FolioHeader, FolioRoot, FolioShell, Icon, ItemLink, KeyValueList, LogoSlot, MessagePage, Panel, Popover, SearchField,
+  FilterChips, MarqueeHeader, MarqueeRoot, MarqueeShell, Icon, ItemLink, KeyValueList, LogoSlot, MessagePage, Panel, Popover, SearchField,
   ToolButton, type IconSet, type Mode,
-} from "wakolab-design-systems-folio";
+} from "wakolab-design-systems-marquee";
 import { detail, groups, rows, text } from "./fixtures";
 
 const params = new URLSearchParams(location.search);
@@ -31,11 +32,11 @@ function Shell({ children }: { children: ReactNode }) {
   return (
     <>
       <a href="#main" className="wl-skip">{text.skip}</a>
-      <FolioShell header={
-        <FolioHeader logo={<LogoSlot label={text.brand} accessibleName={text.brandName} />}
+      <MarqueeShell header={
+        <MarqueeHeader logo={<LogoSlot label={text.brand} accessibleName={text.brandName} />}
           tools={<><Tool icon="palette" label={text.appearance} value={text.appearanceValue} /><Tool icon="globe" label={text.language} value="English" valueLang="en" compact />
             <Button id="sign-in" className="wl-signin">{text.signIn}</Button></>} />
-      }>{children}</FolioShell>
+      }>{children}</MarqueeShell>
     </>
   );
 }
@@ -110,7 +111,7 @@ const screens: Record<string, () => ReactNode> = {
   detail: () => <Detail />, notFound: () => <Message icon="search" title={text.notFoundTitle} body={text.notFoundBody} />,
   message: () => <Message icon="doc" title={text.proposeTitle} body={text.proposeBody} />, dialog: () => <WithDialog />,
 };
-const icons = (window as unknown as { __FOLIO_ICONS__?: IconSet }).__FOLIO_ICONS__;
+const icons = (window as unknown as { __MARQUEE_ICONS__?: IconSet }).__MARQUEE_ICONS__;
 createRoot(document.getElementById("app")!).render(
-  <FolioRoot mode={mode} icons={icons}>{(screens[screen] ?? screens.collection)()}</FolioRoot>,
+  <MarqueeRoot mode={mode} icons={icons}>{(screens[screen] ?? screens.collection)()}</MarqueeRoot>,
 );

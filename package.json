@@ -1,7 +1,7 @@
 {
-  "name": "wakolab-design-systems-folio",
+  "name": "wakolab-design-systems-marquee",
   "version": "0.1.0",
-  "description": "Folio: an editorial design system with expressive typography and configurable light/dark colors, fonts and logos.",
+  "description": "Marquee: a bold, expressive design system with configurable light/dark colors, fonts and logos.",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -15,7 +15,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./folio.css": "./dist/folio.css",
+    "./marquee.css": "./dist/marquee.css",
     "./config.default.json": "./config.default.json",
     "./config.schema.json": "./config.schema.json",
     "./package.json": "./package.json"
@@ -47,9 +47,9 @@
   },
   "devDependencies": {
     "@fontsource-variable/dm-sans": "5.3.0",
+    "@fontsource-variable/manrope": "5.3.0",
     "@fontsource-variable/noto-sans-devanagari": "5.3.0",
     "@fontsource-variable/noto-sans-sc": "5.3.1",
-    "@fontsource-variable/source-serif-4": "5.3.1",
     "@playwright/test": "1.56.1",
     "@tailwindcss/postcss": "4.1.16",
     "@types/node": "24.10.0",

@@ -1,6 +1,7 @@
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/front-baseline/vite.config.mjs; Folio names → Marquee names (Marquee adaptations noted where they apply).
 // Builds the BASELINE side of the parity fixture from a separate, read-only checkout of
 // Copied from wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936
-// (examples/parity/front-baseline/vite.config.mjs), unchanged; the Folio direction comes from fixture/index.html.
+// (examples/parity/front-baseline/vite.config.mjs), unchanged; the Marquee direction comes from fixture/index.html.
 // WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272. Nothing is written into that
 // checkout: the build output and a two-line stylesheet go to the given output folder.
 //   FRONT=<checkout> OUT=<folder> node <FRONT>/node_modules/vite/bin/vite.js build --config examples/parity/front-baseline/vite.config.mjs

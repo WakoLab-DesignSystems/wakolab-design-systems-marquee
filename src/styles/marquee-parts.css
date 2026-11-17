@@ -1,13 +1,15 @@
-/* Folio compositions and generic parts.
+/* Marquee compositions and generic parts.
  * Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/catalog.css,
- * following the method of Console's console-parts.css (wakolab-design-systems-console at
- * 018fe3214e0a118162d202c2f39f1236f37b1936). Kept, unchanged: the shared parts used by Folio's
- * components and compositions, the "B · Folio" block, Folio's responsive rules, the pages framing
- * (article, form, message) with Folio's theme framing, and the reduced-motion rule.
- * Removed (Console and Marquee rules, product rules that stay in the frontend, the sign-in dialog,
+ * following the method of Folio's folio-parts.css (wakolab-design-systems-folio at
+ * 0856c723bcf1047b61b093b9bf92d36d71f7a402) and Console's console-parts.css (018fe32). Kept, unchanged: the
+ * shared parts used by Marquee's components and compositions, the "C · Marquee" block (tiles, shelves),
+ * Marquee's responsive rules, the pages framing (project with banner, card sections and chips, form card,
+ * message) with Marquee's theme framing, the intro row, and the reduced-motion rules (including the tile
+ * hover-lift reset).
+ * Removed (Console and Folio rules, product rules that stay in the frontend, the sign-in dialog,
  * Console-only parts such as the tree rail, prompt, key hint and table rows, and the development
- * gallery), source lines: 1–4, 34, 36–37, 48–56, 58, 64, 69–73, 79–80, 82–102, 128–145, 158, 163–164, 168–171, 176–177, 192–199, 205–214, 216–218, 220, 222–227, 230–233, 257–280, 283–285, 292–296, 304–307, 312–316, 320–326, 331.
- * Selectors, keyframes and layers are scoped to the Folio root by the build (scripts/build.mjs). */
+ * gallery), source lines: 1–4, 34, 36–37, 48–56, 58, 64, 69–73, 79–80, 82–102, 104–126, 159–160, 163–165, 168–175, 192–199, 205–214, 216–218, 220–221, 226–227, 234–235, 257–279, 283–292, 304–311, 317, 320–326.
+ * Selectors, keyframes and layers are scoped to the Marquee root by the build (scripts/build.mjs). */
 /* ───────── Shared parts ───────── */
 .wl-home { min-height: 100vh; background: var(--wl-bg); color: var(--wl-ink); font-family: var(--wl-font-ui); }
 .wl-skip { position: absolute; left: -999px; top: 8px; z-index: 80; padding: 12px 16px; border-radius: var(--wl-radius-control); background: var(--wl-surface); color: var(--wl-ink); }
@@ -64,29 +66,24 @@
 
 .wl-brand { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--wl-ink); text-decoration: none; font-weight: 700; }
 
-/* ───────── B · Folio ───────── */
-.wl-folio .wl-topbar { max-width: 1280px; margin: 0 auto; padding: 16px; border-bottom: 1px solid var(--wl-border); }
-.wl-brand--serif { font-family: var(--wl-font-display); font-size: 1.625rem; font-weight: 600; letter-spacing: -0.01em; }
-.wl-folio-main { max-width: 1280px; margin: 0 auto; padding: 40px 16px 80px; display: grid; gap: 56px; }
-.wl-folio-intro { display: grid; gap: 16px; max-width: 46rem; }
-.wl-folio h1 { font-size: clamp(2.25rem, 5vw, 3.25rem); line-height: 1.1; }
-.wl-folio-intro .wl-lead { font-size: 1.125rem; }
-.wl-folio h2 { font-size: 1.5rem; }
-.wl-folio-mine { display: grid; gap: 20px; }
-.wl-mine-list { display: grid; gap: 0 40px; }
-.wl-mine-link { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-top: 1px solid var(--wl-border); color: var(--wl-ink); text-decoration: none; }
-.wl-mine-link .wl-cover { width: 96px; flex-shrink: 0; }
-.wl-mine-link:hover .wl-entry-title { text-decoration: underline; }
-.wl-folio-catalog { display: grid; gap: 32px; }
-.wl-folio-filters { display: grid; gap: 16px; align-content: start; }
-.wl-folio-index { display: grid; gap: 40px; min-width: 0; }
-.wl-group { display: grid; gap: 4px; }
-.wl-folio .wl-group-title { font-family: var(--wl-font-ui); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wl-muted); }
-.wl-entry-link { display: grid; gap: 16px; padding: 20px 0; border-top: 1px solid var(--wl-border); color: var(--wl-ink); text-decoration: none; }
-.wl-entry-text { display: grid; gap: 6px; min-width: 0; }
-.wl-entry-title { font-family: var(--wl-font-display); font-weight: var(--wl-heading-weight); font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
-.wl-entry-link:hover .wl-entry-title { text-decoration: underline; text-underline-offset: 4px; }
-.wl-entry-tagline { color: var(--wl-muted); font-family: var(--wl-font-prose); line-height: 1.6; max-width: 62ch; }
+/* ───────── C · Marquee ───────── */
+.wl-marquee .wl-topbar { position: sticky; top: 0; z-index: 10; padding: 12px 16px; background: var(--wl-bg); }
+.wl-brand--bold { font-family: var(--wl-font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; }
+.wl-marquee .wl-topbar-search { max-width: 440px; margin-left: auto; }
+.wl-marquee .wl-tools { margin-left: 0; }
+.wl-marquee-main { max-width: 1440px; margin: 0 auto; padding: 16px 16px 80px; display: grid; gap: 48px; }
+.wl-marquee h1 { font-size: clamp(2.25rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; }
+.wl-marquee h2 { font-size: 1.375rem; font-weight: 800; }
+.wl-tiles { display: grid; gap: 20px; }
+.wl-tile { display: grid; gap: 12px; height: 100%; align-content: start; padding: 8px 8px 16px; border-radius: var(--wl-radius-card); background: var(--wl-surface);
+  box-shadow: var(--wl-shadow-card); color: var(--wl-ink); text-decoration: none; transition: transform var(--wl-motion) ease-out, box-shadow var(--wl-motion) ease-out; }
+.wl-tile:hover { transform: translateY(var(--wl-hover-lift)); box-shadow: var(--wl-shadow-pop); }
+.wl-tile-text { display: grid; gap: 6px; padding: 0 8px; }
+.wl-tile-title { font-family: var(--wl-font-display); font-weight: 800; font-size: 1.25rem; line-height: 1.25; overflow-wrap: anywhere; }
+.wl-tile--large .wl-tile-title { font-size: 1.5rem; }
+.wl-tile-tagline { color: var(--wl-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.wl-shelf { display: grid; gap: 16px; margin-top: 24px; }
+.wl-shelf-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px; }
 
 /* ───────── Responsive ───────── */
 @media (max-width: 39.99rem) {
@@ -99,17 +96,13 @@
   .wl-tools { gap: 6px; }
 }
 @media (min-width: 40rem) {
-  .wl-mine-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .wl-folio .wl-topbar, .wl-folio-main { padding-inline: 24px; }
+  .wl-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (min-width: 48rem) {
-  .wl-entry-link { grid-template-columns: 180px minmax(0, 1fr); align-items: start; }
 }
 @media (min-width: 64rem) {
-  .wl-folio .wl-topbar, .wl-folio-main { padding-inline: 32px; }
-  .wl-folio-catalog { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 48px; }
-  .wl-folio-filters { position: sticky; top: 24px; align-self: start; }
-  .wl-mine-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .wl-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .wl-marquee .wl-topbar, .wl-marquee-main { padding-inline: 32px; }
 }
 
 /* ───────── Pages beyond the home (project, proposals, profile, messages) ───────── */
@@ -130,11 +123,16 @@
 .wl-facts dd { margin: 0; overflow-wrap: anywhere; }
 .wl-badge { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: var(--wl-radius-chip); border: 1px solid var(--wl-control); color: var(--wl-ink); }
 .wl-tabpanel { padding-top: 20px; }
-.wl-cover-bounded .wl-cover { max-height: 420px; }
+.wl-banner { overflow: hidden; border-radius: var(--wl-radius-card); }
+.wl-banner .wl-cover { aspect-ratio: 21 / 9; max-height: 360px; border-radius: 0; }
+/* MVP: no approved cover → a short initials band, never a 21:9 placeholder image. */
+.wl-banner--none .wl-cover { aspect-ratio: auto; height: 96px; }
 /* Bounded keyset pagination below a list. */
 .wl-more { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding-block: 8px; }
-.wl-block { display: grid; gap: 12px; }
-.wl-eyebrow { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wl-muted); }
+.wl-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.wl-chips span { padding: 4px 12px; border-radius: var(--wl-radius-chip); background: var(--wl-surface-2); font-size: 0.875rem; font-weight: 600; }
+.wl-card-section { display: grid; gap: 14px; padding: 24px; border-radius: var(--wl-radius-card); background: var(--wl-surface); box-shadow: var(--wl-shadow-card); }
+.wl-card-section h3 { margin: 8px 0 0; font-size: 1.0625rem; }
 .wl-message { display: grid; justify-items: start; gap: 14px; max-width: 40rem; padding: 48px 0; }
 .wl-message h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
 .wl-dialog--confirm { max-width: 28rem; }
@@ -156,14 +154,13 @@
 .wl-radio input { width: 18px; height: 18px; margin: 0; accent-color: var(--wl-action); }
 .wl-readonly { display: grid; gap: 4px; padding: 14px 16px; border-radius: var(--wl-radius-control); background: var(--wl-surface-2); }
 .wl-readonly p { margin: 0; }
+.wl-marquee-intro { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; }
 
 /* Theme framing of the shared pages */
-.wl-folio .wl-page { padding-inline: 16px; }
-.wl-folio .wl-project-head h1, .wl-folio .wl-form-head h1 { font-size: clamp(2.25rem, 5vw, 3rem); line-height: 1.1; }
-.wl-folio .wl-lead--display { font-family: var(--wl-font-display); font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
-.wl-folio .wl-block h2 { font-size: 1.5rem; }
-.wl-folio .wl-form-page .wl-form-head, .wl-folio .wl-form-page .wl-form { margin-inline: auto; width: 100%; }
-.wl-folio .wl-form-page > .wl-back { margin-inline: auto; width: min(46rem, 100%); }
+.wl-marquee .wl-page { max-width: 1440px; }
+.wl-marquee .wl-project-head h1, .wl-marquee .wl-form-head h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; }
+.wl-marquee .wl-card-section h2 { font-size: 1.375rem; font-weight: 800; }
+.wl-marquee .wl-form { padding: 24px; border-radius: var(--wl-radius-card); background: var(--wl-surface); box-shadow: var(--wl-shadow-card); }
 
 @media (min-width: 40rem) {
   .wl-page { padding-inline: 24px; }
@@ -171,15 +168,16 @@
 }
 @media (min-width: 64rem) {
   .wl-page { padding-inline: 32px; }
-  .wl-project--folio .wl-project-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 40px; row-gap: 32px; }
-  .wl-project--folio .wl-project-head { grid-column: 1 / span 8; grid-row: 1; }
-  .wl-project--folio .wl-project-body { grid-column: 1 / span 8; grid-row: 2; gap: 40px; }
-  .wl-project--folio .wl-project-side { grid-column: 9 / span 4; grid-row: 2; position: sticky; top: 24px; align-self: start; }
-  .wl-folio .wl-page { padding-inline: 32px; }
+  .wl-project--marquee .wl-project-grid { grid-template-columns: minmax(0, 1fr) 380px; column-gap: 32px; }
+  .wl-project--marquee .wl-banner { grid-column: 1 / -1; grid-row: 1; }
+  .wl-project--marquee .wl-project-head { grid-column: 1; grid-row: 2; }
+  .wl-project--marquee .wl-project-body { grid-column: 1; grid-row: 3; }
+  .wl-project--marquee .wl-project-side { grid-column: 2; grid-row: 2 / span 2; position: sticky; top: 88px; align-self: start; }
 }
 
 /* ───────── Reduced motion: same layout, no movement ───────── */
 @media (prefers-reduced-motion: reduce) {
   .wl-home *, .wl-home *::after, .wl-dialog, .wl-toast, .wl-skeleton::after { animation: none !important; transition: none !important; }
+  .wl-tile:hover { transform: none; }
   .wl-skeleton::after { display: none; }
 }

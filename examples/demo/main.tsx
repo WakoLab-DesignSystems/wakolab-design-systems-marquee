@@ -1,5 +1,6 @@
-// Folio demo: a presentation page and the neutral example screens, reached through a menu.
-// Original code with synthetic data. It imports the BUILT package ("wakolab-design-systems-folio" is
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/demo/main.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
+// Marquee demo: a presentation page and the neutral example screens, reached through a menu.
+// Original code with synthetic data. It imports the BUILT package ("wakolab-design-systems-marquee" is
 // aliased to dist/ by examples/vite.config.ts), like an external project would.
 // State lives in the URL hash, so it is kept while navigating and survives a reload:
 //   #screen=overview|collection|article|form|message|states|components|registration
@@ -7,17 +8,17 @@
 //   with assetBase "/design/", from examples/config).
 // Not covered here (later kit targets): editing values in the page, choosing local font and logo
 // files, the single offline HTML file, Docker and the Figma companion.
-import "wakolab-design-systems-folio/folio.css";
+import "wakolab-design-systems-marquee/marquee.css";
 import "./demo.css";
 import { StrictMode, useEffect, useState, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import {
   Alert, BackLink, Badge, Button, Card, Checkbox, ChoiceGroup, CodeField, CollectionGroup, CollectionLayout, CollectionStatus,
   ConfirmDialog, ConnectionRow, Cover, DetailLayout, DetailSection, Dialog, EditorialPanel, EmptyState, EntryContent, FilterChips,
-  FolioHeader, FolioRoot, FolioShell, FormPage, IconButton, ItemLink, KeyValueList, LoadMore, LoadingState, LogoSlot, MessagePage,
+  MarqueeHeader, MarqueeRoot, MarqueeShell, FormPage, IconButton, ItemLink, KeyValueList, LoadMore, LoadingState, LogoSlot, MessagePage,
   ModeMenu, Page, Panel, Popover, ProblemState, RegistrationFrame, SearchField, Select, Shortlist, ShortlistContent, Skeleton,
   Stepper, TabPanel, Tabs, TextField, Toast, ToggleChip, ToolButton, type DesignConfig, type FilterItem, type IconSet, type Mode,
-} from "wakolab-design-systems-folio";
+} from "wakolab-design-systems-marquee";
 
 /* ───────── State in the hash ───────── */
 const SCREENS = [
@@ -51,7 +52,7 @@ const ITEMS = [
 /* ───────── Shell and menu ───────── */
 function Header({ state, go }: { state: DemoState; go: (s: Partial<DemoState>) => void }) {
   return (
-    <FolioHeader
+    <MarqueeHeader
       logo={<LogoSlot label="Field Lab" accessibleName="Field Lab, overview" href={hashOf({ ...state, screen: "overview" })} onHome={() => go({ screen: "overview" })} />}
       tools={<>
         <ModeMenu label="Appearance" modeLabel="Mode" labels={{ light: "Light", dark: "Dark", system: "System" }} />
@@ -74,7 +75,7 @@ function Menu({ state, go }: { state: DemoState; go: (s: Partial<DemoState>) => 
   );
 }
 function Shell({ state, go, children }: { state: DemoState; go: (s: Partial<DemoState>) => void; children: ReactNode }) {
-  return <FolioShell header={<><Header state={state} go={go} /><Menu state={state} go={go} /></>}>{children}</FolioShell>;
+  return <MarqueeShell header={<><Header state={state} go={go} /><Menu state={state} go={go} /></>}>{children}</MarqueeShell>;
 }
 
 /* ───────── Screens ───────── */
@@ -84,12 +85,12 @@ function Overview({ state, go }: { state: DemoState; go: (s: Partial<DemoState>)
     <Page className="demo-grid">
       <header className="wl-form-head">
         <p className="wl-eyebrow">Design system</p>
-        <h1>Folio</h1>
-        <p className="wl-lead">An editorial system: sans interface type with a serif display face, a grouped index under group titles, articles with a sticky side card, softer radii and calm 150 ms motion. Everything below is rendered with Folio's own components.</p>
+        <h1>Marquee</h1>
+        <p className="wl-lead">An editorial system: sans interface type with a serif display face, a grouped index under group titles, articles with a sticky side card, softer radii and calm 150 ms motion. Everything below is rendered with Marquee's own components.</p>
       </header>
       <section className="demo-card" aria-labelledby="ov-config">
         <h2 id="ov-config">Configuration</h2>
-        <p className="wl-meta-text">Values in a design-config.json are applied exactly as written; omitted roles keep Folio's defaults. Switch between the shipped defaults and the example configuration (colours, display font and logo from examples/config).</p>
+        <p className="wl-meta-text">Values in a design-config.json are applied exactly as written; omitted roles keep Marquee's defaults. Switch between the shipped defaults and the example configuration (colours, display font and logo from examples/config).</p>
         <div className="demo-row" role="group" aria-label="Configuration">
           <ToggleChip pressed={state.config === "default"} onClick={() => go({ config: "default" })}>Shipped defaults</ToggleChip>
           <ToggleChip pressed={state.config === "example"} onClick={() => go({ config: "example" })}>Example configuration</ToggleChip>
@@ -98,7 +99,7 @@ function Overview({ state, go }: { state: DemoState; go: (s: Partial<DemoState>)
       <section className="demo-card" aria-labelledby="ov-colours">
         <h2 id="ov-colours">Colour roles</h2>
         <div className="demo-swatches">{["bg", "surface", "surface-2", "ink", "muted", "border", "control", "action", "action-hover", "link", "focus", "success", "warning", "danger", "info"].map(swatch)}</div>
-        <h3>Editorial panel (Folio-declared roles)</h3>
+        <h3>Editorial panel (Marquee-declared roles)</h3>
         <div className="demo-panel"><p className="demo-eyebrow">panel-accent</p><p>on-panel text on the panel background. Each of the three roles keeps its own default when omitted.</p></div>
       </section>
       <section className="demo-card" aria-labelledby="ov-type">
@@ -110,8 +111,8 @@ function Overview({ state, go }: { state: DemoState; go: (s: Partial<DemoState>)
       <section className="demo-card" aria-labelledby="ov-use">
         <h2 id="ov-use">Use it</h2>
         <ul className="demo-list">
-          <li>Render every screen inside <code>FolioRoot</code> and import <code>wakolab-design-systems-folio/folio.css</code> once.</li>
-          <li>Pass your own icon set: Folio ships no icon artwork, so icon slots stay empty here.</li>
+          <li>Render every screen inside <code>MarqueeRoot</code> and import <code>wakolab-design-systems-marquee/marquee.css</code> once.</li>
+          <li>Pass your own icon set: Marquee ships no icon artwork, so icon slots stay empty here.</li>
           <li>See README.md, AGENTS.md and docs/rules/ in the repository.</li>
         </ul>
         <p className="wl-meta-text">Kit status: this demo runs with Node (npm run example). The single offline HTML file, Docker start and Figma companion are later kit targets, not delivered yet.</p>
@@ -135,7 +136,7 @@ function CollectionScreen({ go }: { go: (s: Partial<DemoState>) => void }) {
     </li>
   );
   return (
-    <CollectionLayout title="Datasets" lead="Synthetic datasets for the Folio demo, grouped by topic. Nothing here is real."
+    <CollectionLayout title="Datasets" lead="Synthetic datasets for the Marquee demo, grouped by topic. Nothing here is real."
       action={<Button variant="ghost">Suggest a dataset</Button>}
       shortlist={<Shortlist heading="Following">
         {ITEMS.slice(0, 2).map((i) => (
@@ -175,7 +176,7 @@ function ArticleScreen({ go }: { go: (s: Partial<DemoState>) => void }) {
           </Panel>
           <KeyValueList items={[{ key: "Category", value: item.path }, { key: "Access", value: item.access }, { key: "Updated", value: "2026-11-02" }, { key: "Language", value: <span lang="en">English</span> }]} />
         </>}>
-        <DetailSection id="about-h" heading="About"><p className="wl-prose" lang="en">Readings are collected by volunteers at dawn and checked every week. Each buoy reports temperature, salinity and wave height. Synthetic text for the Folio demo.</p></DetailSection>
+        <DetailSection id="about-h" heading="About"><p className="wl-prose" lang="en">Readings are collected by volunteers at dawn and checked every week. Each buoy reports temperature, salinity and wave height. Synthetic text for the Marquee demo.</p></DetailSection>
         <DetailSection id="method-h" heading="Method"><p className="wl-prose" lang="en">Values outside the expected range are flagged, never removed. A short note explains each flag.</p></DetailSection>
         <DetailSection id="files-h" heading="Files"><EmptyState icon="doc" title="No file yet">Files you add appear here.</EmptyState></DetailSection>
       </DetailLayout>
@@ -327,18 +328,18 @@ function App() {
     if (next.screen) scrollTo(0, 0);
   };
   // Test-only hook: icon path data can be injected by a test harness (no icon artwork ships here).
-  const icons = (window as unknown as { __FOLIO_ICONS__?: IconSet }).__FOLIO_ICONS__;
+  const icons = (window as unknown as { __MARQUEE_ICONS__?: IconSet }).__MARQUEE_ICONS__;
   const screens: Record<Screen, () => ReactNode> = {
     overview: () => <Overview state={state} go={go} />, collection: () => <CollectionScreen go={go} />, article: () => <ArticleScreen go={go} />,
     form: () => <FormScreen go={go} />, message: () => <MessageScreen go={go} />, states: () => <StatesScreen />,
     components: () => <ComponentsScreen />, registration: () => <RegistrationScreen state={state} go={go} />,
   };
   return (
-    <FolioRoot mode={state.mode} onModeChange={(mode) => go({ mode })} config={config} assetBase="/design/" icons={icons} className="demo-root">
+    <MarqueeRoot mode={state.mode} onModeChange={(mode) => go({ mode })} config={config} assetBase="/design/" icons={icons} className="demo-root">
       {state.screen === "registration"
         ? <><Menu state={state} go={go} />{screens.registration()}</>
         : <Shell state={state} go={go}>{screens[state.screen]()}</Shell>}
-    </FolioRoot>
+    </MarqueeRoot>
   );
 }
 

@@ -1,11 +1,12 @@
 /* Neutral collection parts.
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/parts/collection.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * Adapted from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272,
  * web/src/features/catalog/parts.tsx: CategoryChips, Cover, ProjectLink, CatalogStatus, LoadMore
  * (standard EXTRACTION_MATRIX §5.3, N1).
  * Changes for standalone use: the catalog view, i18n keys, routes and project contracts are replaced
  * by props (items, selection, labels, handlers). Markup, class names and behaviour are unchanged.
  * Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
- * src/parts/collection.tsx, without FilterTree (the Console rail; Folio uses chips).
+ * src/parts/collection.tsx, without FilterTree (the Console rail; Marquee uses chips).
  */
 import type { ReactNode } from "react";
 import { Button, EmptyState, Skeleton, ToggleChip } from "../components";

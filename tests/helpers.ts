@@ -1,5 +1,6 @@
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, tests/helpers.ts; Folio names → Marquee names (Marquee adaptations noted where they apply).
 // Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
-// tests/helpers.ts; open() targets Folio's demo (state in the URL hash).
+// tests/helpers.ts; open() targets Marquee's demo (state in the URL hash).
 import { expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
@@ -17,6 +18,6 @@ export const noOverflow = (page: Page) => page.evaluate(() => document.documentE
 export async function open(page: Page, hash: string) {
   // A fresh load for every call (the demo keeps its state in the hash).
   await page.goto(`/demo/?r=${Math.random().toString(36).slice(2)}#${hash}`);
-  await expect(page.locator('[data-wds="folio"]')).toBeVisible();
+  await expect(page.locator('[data-wds="marquee"]')).toBeVisible();
   await page.evaluate(() => document.fonts.ready);
 }

@@ -1,4 +1,5 @@
 /* Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/components/popover.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (same path), unchanged.
  * Source: web/src/components/ui/popover.tsx
  * Changes for standalone use: `data-wds-popover`/`data-open` markers on the wrapper; event and focus ownership (standard EXTRACTION_MATRIX §4, R3): Escape only when focus is inside the popover or on its trigger; outside pointer-down closes without moving focus; listeners are added on open and removed on close/unmount. Visual and pointer behaviour unchanged.

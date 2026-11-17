@@ -1,4 +1,5 @@
 /* Runtime font registration for configured font roles. Original code implementing the standard's
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/root/fonts.ts; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * isolation rule for fonts (EXTRACTION_MATRIX §4 Fonts, R2, at 6dc2a7a):
  *  - one internal family per complete face set (all files with their descriptors), never the
  *    consumer's `family` label;
@@ -7,7 +8,7 @@
  *  - a face that fails to load marks its whole set as failed and notifies every root using it, so
  *    each one can fall back to the role's default (configuration §7; review R3 on #5). A failed set
  *    stays failed until it is released by every root; a new configuration (other files) is a new set.
- * Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936, src/root/fonts.ts; internal family prefix wds-folio-font-. */
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936, src/root/fonts.ts; internal family prefix wds-marquee-font-. */
 import type { FontFile } from "./config";
 
 type ResolvedFile = FontFile & { url: string };
@@ -27,7 +28,7 @@ export function familyForFaceSet(files: ResolvedFile[]): string {
   const canon = files
     .map((f) => [f.url, f.weight ?? "", f.style ?? "", f.stretch ?? "", f.unicodeRange ?? ""])
     .sort((a, b) => (a.join("\u0000") < b.join("\u0000") ? -1 : 1));
-  return `wds-folio-font-${fnv1a(JSON.stringify(canon))}`;
+  return `wds-marquee-font-${fnv1a(JSON.stringify(canon))}`;
 }
 
 /** Registers (or reuses) the face set and returns its internal family. `onError` is called for

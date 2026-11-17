@@ -1,11 +1,12 @@
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/fixture/main.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
 // Shared parity fixture (standard EXTRACTION_MATRIX §8; review R4 and S1 on #5). The same screens are
 // rendered by two adapters that export the same names ("parity-sys"):
-//   examples/parity/fixture/folio-sys.tsx        the built Folio package (candidate)
+//   examples/parity/fixture/marquee-sys.tsx        the built Marquee package (candidate)
 //   examples/parity/front-baseline/front-sys.tsx  the WakoLab frontend's own modules at e492bec (baseline,
 //                                                 built only from a separate read-only checkout)
 // ?screen=form|components|confirm|registration|overlays  &mode=light|dark. Original code, copied from
 // wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936 (examples/parity/fixture/main.tsx)
-// with the Folio shell class (wl-folio).
+// with the Marquee shell class (wl-marquee).
 // overlays: the capture script opens the popover by clicking #fx-pop (same action on both sides);
 // the toast is shown from the first render with a timeout far longer than any capture.
 import { createRoot } from "react-dom/client";
@@ -22,7 +23,7 @@ const stack = { display: "grid", gap: 16, alignContent: "start", minWidth: 0 } a
 function FormScreen() {
   const [access, setAccess] = useState("read");
   return (
-    <div className="wl-home wl-folio">
+    <div className="wl-home wl-marquee">
       <Sys.FormPage title={F.title} lead={F.lead}>
         <form noValidate className="wl-form" onSubmit={(e) => e.preventDefault()}>
           <Sys.TextField label={F.name} hint={F.nameHint} defaultValue="Sam Rivera" />
@@ -52,7 +53,7 @@ function ComponentsScreen() {
   const [tab, setTab] = useState<"a" | "b">("a");
   const [choice, setChoice] = useState("weekly");
   return (
-    <div className="wl-home wl-folio">
+    <div className="wl-home wl-marquee">
       <main className="wl-page" style={{ display: "grid", gap: 32 }}>
         <Section title={C.buttons}>
           <div style={row}>
@@ -118,7 +119,7 @@ function RegistrationScreen() {
 }
 function OverlaysScreen() {
   return (
-    <div className="wl-home wl-folio">
+    <div className="wl-home wl-marquee">
       <main className="wl-page" style={{ display: "grid", gap: 16, alignContent: "start" }}>
         <p className="wl-lead">{O.lead}</p>
         <div style={row}>

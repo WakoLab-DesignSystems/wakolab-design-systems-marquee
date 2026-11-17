@@ -1,159 +1,164 @@
-/* Folio compositions with slots.
+/* Marquee compositions with slots.
  * Adapted from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272:
- *  - shell:      web/src/features/catalog/compositions/shells.tsx (FolioHeader, FolioShell), shared.tsx (Tools, Page)
- *  - collection: compositions/FolioHome.tsx (FolioHome, FolioEntry, FolioMineEntry)
- *  - detail:     compositions/projects.tsx (FolioProject)
+ *  - shell:      web/src/features/catalog/compositions/shells.tsx (MarqueeHeader, MarqueeShell), shared.tsx (Tools, Page)
+ *  - collection: compositions/MarqueeHome.tsx (MarqueeHome, MarqueeTile)
+ *  - detail:     compositions/projects.tsx (MarqueeProject)
  *  - form, message: web/src/features/catalog/pages.tsx (`.wl-form-page` framing, MessagePage)
- * (standard KIT_PROPOSAL §8, Folio). Structure follows Console's compositions (wakolab-design-systems-console
- * at 018fe3214e0a118162d202c2f39f1236f37b1936, src/compositions/index.tsx).
+ * (standard KIT_PROPOSAL §8, Marquee). Structure follows Folio's compositions
+ * (wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/compositions/index.tsx), which
+ * follow Console's (018fe3214e0a118162d202c2f39f1236f37b1936).
  * Changes for standalone use: the app context, catalog view, i18n, routes, capabilities and project
  * data are replaced by slots and props; the DOM structure, class names and order are unchanged.
- * Folio has no keyboard layer (none in the source). */
-import type { ReactNode } from "react";
+ * Marquee has no keyboard layer (none in the source). */
+import type { ReactNode, RefObject } from "react";
+import { SearchField } from "../components";
 import { MessageBlock } from "../parts/page";
 
 /* ───────── Shell ───────── */
-/** Folio top bar: logo slot on the left, tools on the right (source: FolioHeader; no header search). */
-export function FolioHeader({ logo, tools }: { logo: ReactNode; tools?: ReactNode }) {
+export interface ShellSearch { label: string; placeholder?: string; clearLabel: string; value: string; onChange: (v: string) => void }
+/** Marquee top bar: bold logo slot, search, compact tools (source: MarqueeHeader). */
+export function MarqueeHeader({ logo, search, tools, searchRef }: {
+  logo: ReactNode; search?: ShellSearch; tools?: ReactNode; searchRef?: RefObject<HTMLInputElement | null>;
+}) {
   return (
     <header className="wl-topbar">
       {logo}
+      {search && (
+        <div className="wl-topbar-search">
+          <SearchField inputRef={searchRef} label={search.label} placeholder={search.placeholder} clearLabel={search.clearLabel} value={search.value} onChange={search.onChange} />
+        </div>
+      )}
       {tools && <div className="wl-tools">{tools}</div>}
     </header>
   );
 }
-/** Folio page frame: header plus content (source: FolioShell). */
-export function FolioShell({ header, children }: { header: ReactNode; children: ReactNode }) {
-  return <div className="wl-home wl-folio">{header}{children}</div>;
+/** Marquee page frame: header plus content (source: MarqueeShell). */
+export function MarqueeShell({ header, children }: { header: ReactNode; children: ReactNode }) {
+  return <div className="wl-home wl-marquee">{header}{children}</div>;
 }
 /** Main content area of a shell page (source: Page). */
 export function Page({ children, className = "", id = "main" }: { children: ReactNode; className?: string; id?: string }) {
   return <main id={id} className={`wl-page ${className}`}>{children}</main>;
 }
 
-/* ───────── Collection (editorial index) ───────── */
-/** Folio collection: intro (serif title, lead, optional action); an optional shortlist section;
- *  then the catalog: filters column (sticky from 64rem: search, chips, live count) and the
- *  grouped index (source: FolioHome). */
-export function CollectionLayout({ title, lead, action, shortlist, filters, count, children, mainId = "main" }: {
+/* ───────── Collection (visual discovery) ───────── */
+/** Marquee collection: intro row (large title, lead, optional action), an optional highlighted
+ *  section, then the catalog section (chips, live count, state, shelves or a tile grid, more)
+ *  (source: MarqueeHome). */
+export function CollectionLayout({ title, lead, action, highlight, label, filters, count, children, mainId = "main" }: {
   title: ReactNode; lead?: ReactNode; action?: ReactNode;
-  /** Optional section above the catalog (source: the "mine" section), e.g. a Shortlist. */
-  shortlist?: ReactNode;
-  /** Filters column content: typically a SearchField and FilterChips. */
+  /** Optional section above the catalog (source: the "mine" section), e.g. a TileGrid with large tiles. */
+  highlight?: ReactNode;
+  /** Accessible name of the catalog section. */
+  label: string;
+  /** Typically FilterChips. */
   filters?: ReactNode;
-  /** Live count under the filters (role="status"). */
+  /** Live count (role="status"). */
   count?: ReactNode;
-  /** The index: CollectionGroup elements, a CollectionStatus and a LoadMore. */
+  /** CollectionStatus, Shelf elements or a TileGrid, and a LoadMore. */
   children: ReactNode; mainId?: string;
 }) {
   return (
-    <main id={mainId} className="wl-folio-main">
-      <div className="wl-folio-intro">
-        <h1>{title}</h1>
-        {lead !== undefined && <p className="wl-lead">{lead}</p>}
-        {action && <div>{action}</div>}
+    <main id={mainId} className="wl-marquee-main">
+      <div className="wl-marquee-intro">
+        <div className="grid gap-3"><h1>{title}</h1>{lead !== undefined && <p className="wl-lead">{lead}</p>}</div>
+        {action}
       </div>
-      {shortlist}
-      <div className="wl-folio-catalog">
-        <div className="wl-folio-filters">
-          {filters}
-          <p role="status" className="wl-count">{count}</p>
-        </div>
-        <div className="wl-folio-index">{children}</div>
-      </div>
+      {highlight}
+      <section aria-label={label} className="wl-section">
+        {filters}
+        <p role="status" className="wl-count">{count}</p>
+        {children}
+      </section>
     </main>
   );
 }
-/** One group of the index, under an uppercase group title (source: `.wl-group`). Without a title the
- *  group is a plain list (search results). */
-export function CollectionGroup({ title, titleId, children }: { title?: ReactNode; titleId?: string; children: ReactNode }) {
+/** A highlighted section above the catalog (source: the "mine" section of MarqueeHome). */
+export function HighlightSection({ heading, headingId = "highlight-h", status, children, more }: {
+  heading: ReactNode; headingId?: string; status?: ReactNode; children?: ReactNode; more?: ReactNode;
+}) {
   return (
-    <section aria-labelledby={title ? titleId : undefined} className="wl-group">
-      {title && <h2 id={titleId} className="wl-group-title">{title}</h2>}
-      <ul>{children}</ul>
+    <section aria-labelledby={headingId} className="wl-section">
+      <h2 id={headingId}>{heading}</h2>
+      {status}
+      {children}
+      {more}
     </section>
   );
 }
-/** One entry of a group: cover, serif title, tagline and a meta line. Wrap it in an ItemLink with
- *  className "wl-entry-link" inside an <li className="wl-entry"> (source: FolioEntry). */
-export function EntryContent({ cover, title, summary, summaryLang, meta }: {
+/** A shelf: heading, optional "See all" action, and up to three tiles (source: `.wl-shelf`). */
+export function Shelf({ heading, headingId, action, children }: { heading: ReactNode; headingId: string; action?: ReactNode; children: ReactNode }) {
+  return (
+    <section aria-labelledby={headingId} className="wl-shelf">
+      <div className="wl-shelf-head">
+        <h2 id={headingId}>{heading}</h2>
+        {action}
+      </div>
+      <ul className="wl-tiles">{children}</ul>
+    </section>
+  );
+}
+/** A wrapping grid of tiles: 1, 2 then 3 columns (source: `.wl-tiles`). */
+export function TileGrid({ children, highlight }: { children: ReactNode; highlight?: boolean }) {
+  return <ul className={`wl-tiles${highlight ? " wl-tiles--mine" : ""}`}>{children}</ul>;
+}
+/** One tile's content: cover (or initials), heavy title, two-line tagline and a meta line. Wrap it in
+ *  an ItemLink with className "wl-tile" (or "wl-tile wl-tile--large") inside <li className="min-w-0">
+ *  (source: MarqueeTile). */
+export function TileContent({ cover, title, summary, summaryLang, meta }: {
   cover?: ReactNode; title: ReactNode; summary?: ReactNode; summaryLang?: string; meta?: ReactNode;
 }) {
   return (
     <>
       {cover}
-      <span className="wl-entry-text">
-        <span className="wl-entry-title">{title}</span>
-        {summary !== undefined && <span lang={summaryLang} className="wl-entry-tagline">{summary}</span>}
-        {meta !== undefined && <span className="wl-entry-meta">{meta}</span>}
-      </span>
-    </>
-  );
-}
-/** A short, highlighted list above the catalog (source: the "mine" section of FolioHome, with
- *  `.wl-mine-list` and `.wl-mine-link`). Items: <li className="wl-mine-entry"> with an ItemLink of
- *  className "wl-mine-link" containing ShortlistContent. */
-export function Shortlist({ heading, headingId = "shortlist-h", status, children, more }: {
-  heading: ReactNode; headingId?: string; status?: ReactNode; children?: ReactNode; more?: ReactNode;
-}) {
-  return (
-    <section aria-labelledby={headingId} className="wl-folio-mine">
-      <h2 id={headingId}>{heading}</h2>
-      {status}
-      {children && <ul className="wl-mine-list">{children}</ul>}
-      {more}
-    </section>
-  );
-}
-export function ShortlistContent({ cover, title, meta }: { cover?: ReactNode; title: ReactNode; meta?: ReactNode }) {
-  return (
-    <>
-      {cover}
-      <span className="grid gap-1 min-w-0">
-        <span className="wl-entry-title">{title}</span>
+      <span className="wl-tile-text">
+        <span className="wl-tile-title">{title}</span>
+        {summary !== undefined && <span lang={summaryLang} className="wl-tile-tagline">{summary}</span>}
         {meta !== undefined && <span className="wl-entry-meta">{meta}</span>}
       </span>
     </>
   );
 }
 
-/* ───────── Detail (article) ───────── */
-/** Folio article: eyebrow path, serif title and display lead; a side column (sticky from 64rem) with
- *  a panel and facts; the body with an optional bounded figure and sections (source: FolioProject).
- *  DOM order = narrow reading order: head, side, body. */
-export function DetailLayout({ back, eyebrow, title, lead, leadLang, side, figure, children, problem }: {
-  back?: ReactNode; eyebrow?: ReactNode; title: ReactNode; lead?: ReactNode; leadLang?: string;
+/* ───────── Detail (banner and section cards) ───────── */
+/** Marquee detail: a bounded 21:9 banner (or a short initials band without an image), path, large title,
+ *  lead and chips; a side column (sticky from 64rem) with a panel; section cards in the body
+ *  (source: MarqueeProject). DOM order = narrow reading order: banner, head, side, body. */
+export function DetailLayout({ back, banner, bannerHasImage, path, title, lead, leadLang, chips, side, children, problem }: {
+  back?: ReactNode;
+  /** Typically a Cover: an image when available, otherwise initials (rendered as a short band). */
+  banner: ReactNode; bannerHasImage?: boolean;
+  path?: ReactNode; title: ReactNode; lead?: ReactNode; leadLang?: string;
+  /** Short labels shown as chips under the lead. */
+  chips?: ReactNode[];
   side?: ReactNode;
-  /** Bounded figure shown only when there is an image (source: `.wl-cover-bounded`). */
-  figure?: ReactNode;
-  /** DetailSection elements. */
+  /** CardSection elements. */
   children: ReactNode;
-  /** Loading or problem state shown instead of the article. */
+  /** Loading or problem state shown instead of the detail. */
   problem?: ReactNode;
 }) {
   return (
-    <Page className="wl-project wl-project--folio">
+    <Page className="wl-project wl-project--marquee">
       {back}
       {problem ?? (
-        <article className="wl-project-grid">
+        <div className="wl-project-grid">
+          <div className={`wl-banner${bannerHasImage ? "" : " wl-banner--none"}`}>{banner}</div>
           <header className="wl-project-head">
-            {eyebrow !== undefined && <p className="wl-eyebrow">{eyebrow}</p>}
+            {path !== undefined && <p className="wl-path">{path}</p>}
             <h1>{title}</h1>
-            {lead !== undefined && <p lang={leadLang} className="wl-lead wl-lead--display">{lead}</p>}
+            {lead !== undefined && <p lang={leadLang} className="wl-lead">{lead}</p>}
+            {chips?.length ? <p className="wl-chips">{chips.map((c, i) => <span key={i}>{c}</span>)}</p> : null}
           </header>
           <aside className="wl-project-side">{side}</aside>
-          <div className="wl-project-body">
-            {figure && <div className="wl-cover-bounded">{figure}</div>}
-            {children}
-          </div>
-        </article>
+          <div className="wl-project-body">{children}</div>
+        </div>
       )}
     </Page>
   );
 }
-/** One article section with a serif heading (source: `.wl-block`). */
-export function DetailSection({ id, heading, children }: { id: string; heading: ReactNode; children: ReactNode }) {
-  return <section aria-labelledby={id} className="wl-block"><h2 id={id}>{heading}</h2>{children}</section>;
+/** A raised section card with a heavy heading (source: `.wl-card-section`). */
+export function CardSection({ id, heading, children }: { id: string; heading: ReactNode; children: ReactNode }) {
+  return <section aria-labelledby={id} className="wl-card-section"><h2 id={id}>{heading}</h2>{children}</section>;
 }
 /** Bordered side panel (source: `.wl-panel`). */
 export function Panel({ children }: { children: ReactNode }) {
@@ -161,7 +166,7 @@ export function Panel({ children }: { children: ReactNode }) {
 }
 
 /* ───────── Form and message pages ───────── */
-/** Folio form page: centered column with a serif title (source: `.wl-form-page` pages in Folio framing). */
+/** Marquee form page: large heading; the form (`.wl-form`) is a raised card (source: `.wl-form-page` pages in Marquee framing). */
 export function FormPage({ back, title, lead, children, wide }: { back?: ReactNode; title: ReactNode; lead?: ReactNode; children: ReactNode; wide?: boolean }) {
   return (
     <Page className={`wl-form-page${wide ? " wl-wide-page" : ""}`}>

@@ -1,111 +1,98 @@
-/* Folio tokens: light and dark palettes and structural values.
- * Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/themes.css lines 82–160
- * (the three [data-direction="folio"] blocks), and the :root block of design-system/theme.css
- * (fallback stack and durations, now on the Folio root).
- * Structure and the changes below follow Console's tokens.css (wakolab-design-systems-console at
- * 018fe3214e0a118162d202c2f39f1236f37b1936). Changes for standalone use:
- *  - selector [data-direction="folio"] → [data-wds="folio"] (the Folio root, never :root);
+/* Marquee tokens: light and dark palettes and structural values.
+ * Copied from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/themes.css lines 161–237
+ * (the three [data-direction="marquee"] blocks), and the :root block of design-system/theme.css
+ * (fallback stack and durations, now on the Marquee root).
+ * Structure and the changes below follow Folio's tokens.css (wakolab-design-systems-folio at
+ * 0856c723bcf1047b61b093b9bf92d36d71f7a402, itself following Console at 018fe32). Changes for standalone use:
+ *  - selector [data-direction="marquee"] → [data-wds="marquee"] (the Marquee root, never :root);
  *  - removed the WakoLab product roles --wl-agent and --wl-agent-soft (both modes);
- *  - default font families renamed to internal aliases of the same files (wds-folio-default-*),
+ *  - default font families renamed to internal aliases of the same files (wds-marquee-default-*),
  *    emitted by the build from the declared @fontsource-variable packages;
  *  - added --wl-action-pressed (default: the effective --wl-action-hover, as the source's
- *    brand-active), --wl-font-code (own default, see below) and the three Folio-declared panel
- *    roles --wl-panel, --wl-on-panel, --wl-panel-accent with the source's values in both modes.
- * Values are otherwise unchanged. */
-/* ───────────── B · Folio ───────────── */
-[data-wds="folio"] {
-  --wl-font-ui: "wds-folio-default-dm-sans", var(--wl-fallback-sans);
-  --wl-font-display:
-    "wds-folio-default-source-serif-4", "Noto Serif", Georgia, var(--wl-fallback-sans);
-  --wl-font-prose: "wds-folio-default-dm-sans", var(--wl-fallback-sans);
-  --wl-heading-weight: 600;
-  --wl-heading-tracking: -0.01em;
+ *    brand-active) and --wl-font-code (own default, see below).
+ * Values are otherwise unchanged: link (#a3361a / #ff9d7d) keeps its own default, distinct from action;
+ * focus defaults equal the ink defaults (#19181d / #f3f1ed) but are separate roles; shadows in both modes. */
+/* ───────────── C · Marquee ───────────── */
+[data-wds="marquee"] {
+  --wl-font-ui: "wds-marquee-default-dm-sans", var(--wl-fallback-sans);
+  --wl-font-display: "wds-marquee-default-manrope", var(--wl-fallback-sans);
+  --wl-font-prose: "wds-marquee-default-dm-sans", var(--wl-fallback-sans);
+  --wl-heading-weight: 800;
+  --wl-heading-tracking: -0.015em;
   --wl-ui-size: 1rem;
-  --wl-radius-control: 8px;
-  --wl-radius-card: 12px;
+  --wl-radius-control: 10px;
+  --wl-radius-card: 16px;
   --wl-radius-chip: 999px;
-  --wl-radius-cover: 8px;
+  --wl-radius-cover: 12px;
   --wl-border-width: 1px;
   --wl-row-height: 56px;
-  --wl-motion: var(--wl-dur-base);
-  --wl-hover-lift: 0px;
+  --wl-motion: var(--wl-dur-slow);
+  --wl-hover-lift: -3px;
   /* Added for standalone use (configuration). The common code role has no visible consumer in
-     Folio (the source has no code or key-hint element); its default is its own stack, the ui
+     Marquee (the source has no code or key-hint element); its default is its own stack, the ui
      default, never an alias of --wl-font-ui. Fallback stack and durations come from the :root
      block of design-system/theme.css. */
-  --wl-font-code: "wds-folio-default-dm-sans", var(--wl-fallback-sans);
-  --wl-fallback-sans: "wds-folio-default-noto-sans-sc", "wds-folio-default-noto-sans-devanagari", system-ui, sans-serif;
+  --wl-font-code: "wds-marquee-default-dm-sans", var(--wl-fallback-sans);
+  --wl-fallback-sans: "wds-marquee-default-noto-sans-sc", "wds-marquee-default-noto-sans-devanagari", system-ui, sans-serif;
   --wl-dur-fast: 100ms;
   --wl-dur-base: 150ms;
   --wl-dur-slow: 180ms;
 }
-[data-wds="folio"][data-mode="light"] {
+[data-wds="marquee"][data-mode="light"] {
   color-scheme: light;
   --wl-on-danger: #ffffff;
-  --wl-bg: #faf9f5;
+  --wl-bg: #f4f2ef;
   --wl-surface: #ffffff;
-  --wl-surface-2: #eff2ee;
-  --wl-ink: #172b36;
-  --wl-muted: #52656d;
-  --wl-border: #dde3e1;
-  --wl-control: #75877f;
-  --wl-action: #236b54;
-  --wl-action-hover: #195841;
+  --wl-surface-2: #ebe7e2;
+  --wl-ink: #19181d;
+  --wl-muted: #57545e;
+  --wl-border: #dcd7d0;
+  --wl-control: #7d7882;
+  --wl-action: #b23a1c;
+  --wl-action-hover: #93301a;
   --wl-action-pressed: var(--wl-action-hover);
   --wl-on-action: #ffffff;
-  --wl-link: #236b54;
-  --wl-focus: #236b54;
-  --wl-accent: #cef1c5;
-  --wl-success: #226139;
-  --wl-success-soft: #eaf5eb;
-  --wl-warning: #795313;
-  --wl-warning-soft: #fff4de;
-  --wl-danger: #a32f41;
-  --wl-danger-soft: #fff0ef;
-  --wl-info: #245a79;
-  --wl-info-soft: #edf5fa;
-  --wl-shadow-card: 0 1px 2px rgb(21 46 55 / 0.06);
-  --wl-shadow-pop: 0 24px 64px rgb(21 46 55 / 0.2);
-  --wl-scrim: rgb(21 46 55 / 0.45);
-  /* Folio-declared roles (standard CONFIGURATION §2.1, KIT_PROPOSAL §8): the editorial panel. The
-     source used shared literals in design-system/theme.css lines 17–19 (--color-panel,
-     --color-on-panel, --color-accent), the same in both modes. */
-  --wl-panel: #152e37;
-  --wl-on-panel: #edf6ee;
-  --wl-panel-accent: #cef1c5;
+  --wl-link: #a3361a;
+  --wl-focus: #19181d;
+  --wl-accent: #f2b33d;
+  --wl-success: #23683a;
+  --wl-success-soft: #e6f3e9;
+  --wl-warning: #7d560e;
+  --wl-warning-soft: #fbf0d8;
+  --wl-danger: #a92b3a;
+  --wl-danger-soft: #fcebec;
+  --wl-info: #2a5a86;
+  --wl-info-soft: #e8f0f8;
+  --wl-shadow-card: 0 2px 8px rgb(25 24 29 / 0.08);
+  --wl-shadow-pop: 0 24px 60px rgb(25 24 29 / 0.25);
+  --wl-scrim: rgb(25 24 29 / 0.5);
 }
-[data-wds="folio"][data-mode="dark"] {
+[data-wds="marquee"][data-mode="dark"] {
   color-scheme: dark;
   --wl-on-danger: #19090d;
-  --wl-bg: #0f1a1e;
-  --wl-surface: #16242a;
-  --wl-surface-2: #1e3037;
-  --wl-ink: #e8efec;
-  --wl-muted: #a2b4b1;
-  --wl-border: #2b3e45;
-  --wl-control: #74898b;
-  --wl-action: #7fcdaa;
-  --wl-action-hover: #a2ddc2;
+  --wl-bg: #0e0e11;
+  --wl-surface: #18181c;
+  --wl-surface-2: #232329;
+  --wl-ink: #f3f1ed;
+  --wl-muted: #aba8b2;
+  --wl-border: #2f2f36;
+  --wl-control: #827f8a;
+  --wl-action: #ff8c66;
+  --wl-action-hover: #ffa888;
   --wl-action-pressed: var(--wl-action-hover);
-  --wl-on-action: #0a2018;
-  --wl-link: #7fcdaa;
-  --wl-focus: #cef1c5;
-  --wl-accent: #2f5c4c;
-  --wl-success: #8cd3a0;
-  --wl-success-soft: #15291d;
-  --wl-warning: #e9c47a;
-  --wl-warning-soft: #2b2414;
-  --wl-danger: #f4a1aa;
-  --wl-danger-soft: #301a1e;
-  --wl-info: #93c5e4;
-  --wl-info-soft: #13263a;
-  --wl-shadow-card: none;
-  --wl-shadow-pop: 0 24px 64px rgb(0 0 0 / 0.5);
-  --wl-scrim: rgb(0 0 0 / 0.6);
-  /* Folio-declared roles (standard CONFIGURATION §2.1, KIT_PROPOSAL §8): the editorial panel. The
-     source used shared literals in design-system/theme.css lines 17–19 (--color-panel,
-     --color-on-panel, --color-accent), the same in both modes. */
-  --wl-panel: #152e37;
-  --wl-on-panel: #edf6ee;
-  --wl-panel-accent: #cef1c5;
+  --wl-on-action: #1d0c06;
+  --wl-link: #ff9d7d;
+  --wl-focus: #f3f1ed;
+  --wl-accent: #f2b33d;
+  --wl-success: #86d39c;
+  --wl-success-soft: #14281b;
+  --wl-warning: #f0c56e;
+  --wl-warning-soft: #2c2412;
+  --wl-danger: #ff9da6;
+  --wl-danger-soft: #33171b;
+  --wl-info: #9cc3f0;
+  --wl-info-soft: #142336;
+  --wl-shadow-card: 0 2px 10px rgb(0 0 0 / 0.4);
+  --wl-shadow-pop: 0 24px 60px rgb(0 0 0 / 0.6);
+  --wl-scrim: rgb(0 0 0 / 0.65);
 }

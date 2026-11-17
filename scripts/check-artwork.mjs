@@ -1,3 +1,4 @@
+// Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, scripts/check-artwork.mjs; Folio names → Marquee names (Marquee adaptations noted where they apply).
 // Icon artwork exclusion check (standard EXTRACTION_MATRIX §10, E4 at 6dc2a7a; review R1 on #5).
 // Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
 // scripts/check-artwork.mjs, unchanged (same excluded frontend icons, same hash file).

@@ -1,27 +1,28 @@
 /* Neutral shell parts.
+ * Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, src/parts/shell.tsx; Folio names → Marquee names (Marquee adaptations noted where they apply).
  * Adapted from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272,
- * web/src/features/catalog/parts.tsx: Brand (variant "serif"), the `.wl-tool` trigger markup of
+ * web/src/features/catalog/parts.tsx: Brand (variant "bold"), the `.wl-tool` trigger markup of
  * AppearanceMenu/LanguageMenu/AccountArea, and the mode part of AppearanceMenu
  * (standard EXTRACTION_MATRIX §5.3, §5.7 M3).
  * Changes for standalone use:
  *  - Brand becomes a logo slot: without logo files the text fallback is identical to the source's
- *    serif brand (the label in the display face); with files it renders the configured mark and/or wordmark.
+ *    bold brand (the label in the heavy display face); with files it renders the configured mark and/or wordmark.
  *    A file that fails to load is reported (logo.mark, logo.wordmark, logo.wordmark.light|dark)
  *    and dropped as if omitted; with nothing left the text fallback returns; a new file is retried.
  *    The hard-coded product name is replaced by the `label` prop.
  *  - Tool triggers take their icon, label and value as props (no i18n, theme list or account logic).
- *  - The mode menu takes its labels as props and controls the Folio root's mode only.
+ *  - The mode menu takes its labels as props and controls the Marquee root's mode only.
  * Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
- * src/parts/shell.tsx. Changes for Folio: the Brand variant is "serif" (class wl-brand--serif, no prompt
- * glyph), as FolioHeader uses it in the source; Console names → Folio names.
+ * src/parts/shell.tsx. Changes for Marquee: the Brand variant is "bold" (class wl-brand--bold, no prompt
+ * glyph), as MarqueeHeader uses it in the source; Console names → Marquee names.
  */
 import { useEffect, useId, useState, type ReactNode, type Ref } from "react";
 import { Popover } from "../components";
 import { Icon, type IconName } from "../components/icons";
-import { useFolio } from "../root/context";
+import { useMarquee } from "../root/context";
 import type { Mode } from "../root/context";
 
-/** Logo slot (source: Brand, variant "serif"). */
+/** Logo slot (source: Brand, variant "bold"). */
 export function LogoSlot({ label, accessibleName, href = "./", onHome }: {
   /** Product label shown by the text fallback, and the default accessible name. */
   label: string;
@@ -29,7 +30,7 @@ export function LogoSlot({ label, accessibleName, href = "./", onHome }: {
   accessibleName?: string;
   href?: string; onHome?: () => void;
 }) {
-  const { logo, resolvedMode, report } = useFolio();
+  const { logo, resolvedMode, report } = useMarquee();
   const [broken, setBroken] = useState<ReadonlySet<string>>(() => new Set());
   useEffect(() => setBroken(new Set()), [logo]); // a new logo configuration is tried afresh
   const name = accessibleName ?? logo.alt ?? label;
@@ -43,7 +44,7 @@ export function LogoSlot({ label, accessibleName, href = "./", onHome }: {
   };
   const hasLogo = Boolean(mark || word);
   return (
-    <a href={href} className={`wl-brand wl-brand--serif${hasLogo ? " wl-brand--logo" : ""}${mark ? " wl-brand--has-mark" : ""}`} aria-label={name}
+    <a href={href} className={`wl-brand wl-brand--bold${hasLogo ? " wl-brand--logo" : ""}${mark ? " wl-brand--has-mark" : ""}`} aria-label={name}
       onClick={(e) => { if (!onHome) return; e.preventDefault(); onHome(); }}>
       {hasLogo ? (
         <>
@@ -69,11 +70,11 @@ export function ToolButton({ icon, label, value, compact, valueLang, ...rest }: 
   );
 }
 
-/** Light / dark / system menu for the Folio root (source: the mode fieldset of AppearanceMenu). */
+/** Light / dark / system menu for the Marquee root (source: the mode fieldset of AppearanceMenu). */
 export function ModeMenu({ label, modeLabel, labels, compact, value }: {
   label: string; modeLabel: string; labels: Record<Mode, string>; compact?: boolean; value?: ReactNode;
 }) {
-  const { mode, setMode } = useFolio();
+  const { mode, setMode } = useMarquee();
   const name = useId();
   return (
     <Popover label={label} trigger={(p) => (
