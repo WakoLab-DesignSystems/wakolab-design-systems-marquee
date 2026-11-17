@@ -1,8 +1,9 @@
 // Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, tests/config.spec.ts; Folio names → Marquee names (Marquee adaptations noted where they apply).
 // Explicit configuration (standard CONFIGURATION.md and INDEPENDENCE_CHECK §3; CONFIGURATION §2.1 at c2ca848).
 // Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
-// tests/config.spec.ts; expected values are Marquee's (defaults, example configuration, font stacks), and the
-// Marquee-declared panel roles are tested below.
+// tests/config.spec.ts; expected values are Marquee's (defaults, example configuration, font stacks). Marquee
+// declares no system roles: Folio's panel roles are reported as unknown, and the role independence and
+// configurable shadows that matter for Marquee are tested below.
 // Values are applied as written; omitted keys keep defaults; nothing is judged.
 import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
@@ -30,12 +31,15 @@ test("example file: values exactly as written in each mode; omitted roles keep d
   for (const [role, value] of Object.entries(example.colors.light)) expect(await v(page, "a", `--wl-${role}`), `light ${role}`).toBe(value);
   for (const role of ["surface", "ink", "on-action", "danger", "accent", "scrim"]) expect(await v(page, "a", `--wl-${role}`), `light ${role} default`).toBe(defaults.colors.light[role].replace(/rgb\((\d+) (\d+) (\d+) \/ ([\d.]+)\)/, "rgb($1 $2 $3 / $4)"));
   expect(await v(page, "a", "--wl-action-pressed")).toBe(example.colors.light["action-hover"]);
-  expect(await page.locator("#a-primary").evaluate((b) => getComputedStyle(b).backgroundColor)).toBe("rgb(138, 59, 18)");
+  expect(await page.locator("#a-primary").evaluate((b) => getComputedStyle(b).backgroundColor)).toBe("rgb(45, 91, 215)");
+  expect(await page.locator("#a-link").evaluate((b) => getComputedStyle(b).color)).toBe("rgb(31, 79, 191)");
+  await expect.poll(() => page.locator("#root-a .wl-tile").evaluate((b) => getComputedStyle(b).boxShadow)).toBe("rgba(20, 30, 80, 0.12) 0px 4px 16px 0px");
   await update(page, "a", { config: example, assetBase: "/design/", mode: "dark" });
   await settle(page);
   for (const [role, value] of Object.entries(example.colors.dark)) expect(await v(page, "a", `--wl-${role}`), `dark ${role}`).toBe(value);
   expect(await v(page, "a", "--wl-focus")).toBe(defaults.colors.dark.focus);
   expect(await v(page, "a", "--wl-action-pressed")).toBe(example.colors.dark["action-hover"]);
+  await expect.poll(() => page.locator("#root-a .wl-tile").evaluate((b) => getComputedStyle(b).boxShadow)).toBe("rgba(0, 0, 0, 0.55) 0px 4px 18px 0px");
 });
 
 test("explicit action-pressed wins; any CSS colour syntax is used as written, even low contrast", async ({ page }) => {
@@ -80,14 +84,14 @@ test("fonts and logos from the consumer's files; removal restores defaults; text
   await mount(page, "a", "slot-a", { mode: "light" });
   await settle(page);
   await expect(page.locator("#root-a .wl-brand")).toHaveText("Root a");
-  // The example configures the display role (Marquee's serif headings) with its own file.
+  // The example configures the display role (Marquee's Manrope headings) with its own file.
   const defaultFont = await page.locator("#a-display").evaluate((e) => getComputedStyle(e).fontFamily);
-  expect(defaultFont).toContain("wds-marquee-default-source-serif-4");
+  expect(defaultFont).toMatch(/^"?wds-marquee-default-manrope"?,/);
   await update(page, "a", { mode: "light", config: example, assetBase: "/design/" });
   await page.waitForFunction(() => [...document.fonts].some((f) => f.family.startsWith("wds-marquee-font-") && f.status === "loaded") || document.fonts.ready);
   await page.evaluate(() => document.fonts.ready);
   const fam = await page.locator("#a-display").evaluate((e) => getComputedStyle(e).fontFamily);
-  expect(fam).toMatch(/^"?wds-marquee-font-[0-9a-f]{8}"?, "Noto Serif", Georgia/);
+  expect(fam).toMatch(/^"?wds-marquee-font-[0-9a-f]{8}"?, "?wds-marquee-default-noto-sans-sc"?, "?wds-marquee-default-noto-sans-devanagari"?, system-ui, sans-serif$/);
   expect(await page.locator("#a-ui").evaluate((e) => getComputedStyle(e).fontFamily)).toMatch(/^"?wds-marquee-default-dm-sans"?,/);
   expect(fam).not.toContain("Example Sans");
   expect(await page.evaluate(() => [...document.fonts].filter((f) => f.family.startsWith("wds-marquee-font-")).map((f) => f.status))).toContain("loaded");
@@ -111,7 +115,7 @@ test("fonts and logos from the consumer's files; removal restores defaults; text
 
 test("structural diagnostics only: wrong types, unknown keys and roles, unresolved and missing assets; defaults kept", async ({ page }) => {
   await harness(page);
-  const bad = { system: "marquee", extra: 1, colors: { light: { action: 12, nope: "#000", link: "not a colour at all" }, sepia: {} },
+  const bad = { system: "folio", extra: 1, colors: { light: { action: 12, nope: "#000", link: "not a colour at all" }, sepia: {} },
     fonts: { ui: { family: "X", files: [{ src: "fonts/missing.woff2" }] }, display: { files: [] } }, logo: { mark: "logo/mark.svg", alt: 3 } };
   await mount(page, "a", "slot-a", { mode: "light", config: bad }); // no assetBase
   await settle(page);
@@ -140,7 +144,7 @@ test("fonts: ui alone leaves display and code at their defaults; each role is se
   await mount(page, "a", "slot-a", { mode: "light" });
   await page.waitForTimeout(50);
   const initial = { ui: await fam("a", "ui"), display: await fam("a", "display"), code: await fam("a", "code"), prose: await fam("a", "prose") };
-  expect(initial.display).toMatch(/^"?wds-marquee-default-source-serif-4"?,/);
+  expect(initial.display).toMatch(/^"?wds-marquee-default-manrope"?,/);
   expect(initial.code).toMatch(/^"?wds-marquee-default-dm-sans"?,/);
   const file = (q: string) => ({ family: "Example Sans", files: [{ src: `fonts/example-sans.woff2?${q}` }] });
   const set = (fonts: object) => update(page, "a", { mode: "light", assetBase: "/design/", config: { ...base, fonts } });
@@ -277,54 +281,60 @@ test("fonts: distinct regular, bold, italic and subset files are selected by des
   expect(new Set(widths.map((w) => w.toFixed(1))).size).toBe(3);
 });
 
-// Marquee-declared panel roles (CONFIGURATION §2.1; KIT_PROPOSAL §8): applied exactly as written per mode;
-// an omitted panel role keeps its own default and never follows accent, focus, action or another role.
-test("panel roles: defaults, exact application per mode, independence from other roles, removal", async ({ page }) => {
+// Marquee role independence (C1/C2): link never follows action, focus never follows ink; shadows are
+// configurable roles applied exactly as written per mode, and each omitted one keeps its own default.
+// Tiles animate their shadow over --wl-motion, so shadow reads wait for the transition (expect.poll).
+test("independent roles and shadows: link not from action, focus not from ink, shadow-card and shadow-pop as written, removal", async ({ page }) => {
   await harness(page);
-  const panel = () => page.locator("#a-panel").evaluate((e) => [getComputedStyle(e).backgroundColor, getComputedStyle(e).color, getComputedStyle(e.querySelector(".editorial-eyebrow")!).color]);
-  const DEF = ["rgb(21, 46, 55)", "rgb(237, 246, 238)", "rgb(206, 241, 197)"];
+  const state = () => page.evaluate(() => {
+    const link = document.getElementById("a-link")!, tile = document.querySelector("#root-a .wl-tile")!, card = document.querySelector("#root-a .wl-card-section")!;
+    return { link: getComputedStyle(link).color, outline: getComputedStyle(link).outlineColor, ink: getComputedStyle(document.getElementById("a-ui")!).color,
+      tile: getComputedStyle(tile).boxShadow, card: getComputedStyle(card).boxShadow };
+  });
   await mount(page, "a", "slot-a", { mode: "light" });
   await settle(page);
-  expect(await panel()).toEqual(DEF);
-  for (const mode of ["light", "dark"]) expect(defaults.colors[mode]).toMatchObject({ panel: "#152e37", "on-panel": "#edf6ee", "panel-accent": "#cef1c5" });
-  // Other roles configured, panel roles omitted: unchanged.
-  await update(page, "a", { mode: "light", config: { ...base, colors: { light: { accent: "#ff0000", focus: "#00ff00", action: "#0000ff", ink: "#111111", "surface-2": "#222222" } } } });
+  await page.locator("#a-primary").focus(); await page.keyboard.press("Shift+Tab"); await page.keyboard.press("Tab"); // keyboard modality
+  await page.locator("#a-link").focus();
+  const DEF = await state();
+  expect(DEF).toEqual({ link: "rgb(163, 54, 26)", outline: "rgb(25, 24, 29)", ink: "rgb(25, 24, 29)",
+    tile: "rgba(25, 24, 29, 0.08) 0px 2px 8px 0px", card: "rgba(25, 24, 29, 0.08) 0px 2px 8px 0px" });
+  // action and ink set: link and focus keep their own defaults.
+  await update(page, "a", { mode: "light", config: { ...base, colors: { light: { action: "#0000ff", "action-hover": "#000088", ink: "#333333" } } } });
   await settle(page);
-  expect(await panel()).toEqual(DEF);
-  // One panel role set: only it changes, as written (any CSS colour syntax).
-  await update(page, "a", { mode: "light", config: { ...base, colors: { light: { panel: "rgb(10 20 30)" } } } });
+  await expect.poll(state).toEqual({ ...DEF, ink: "rgb(51, 51, 51)" });
+  await expect.poll(() => page.locator("#a-primary").evaluate((b) => getComputedStyle(b).backgroundColor)).toBe("rgb(0, 0, 255)"); // buttons animate colours
+  // Shadows as written (any CSS shadow syntax), light only; dark keeps its defaults.
+  const shadows = { ...base, colors: { light: { "shadow-card": "0 0 0 3px rgb(255 0 0)", "shadow-pop": "none" } } };
+  await update(page, "a", { mode: "light", config: shadows });
   await settle(page);
-  expect(await v(page, "a", "--wl-panel")).toBe("rgb(10 20 30)");
-  expect(await panel()).toEqual(["rgb(10, 20, 30)", DEF[1], DEF[2]]);
-  // All three, light only: dark keeps the defaults.
-  const cfg = { ...base, colors: { light: { panel: "#101010", "on-panel": "#fafafa", "panel-accent": "#ffcc00" } } };
-  await update(page, "a", { mode: "light", config: cfg });
+  expect(await v(page, "a", "--wl-shadow-card")).toBe("0 0 0 3px rgb(255 0 0)");
+  await expect.poll(state).toMatchObject({ tile: "rgb(255, 0, 0) 0px 0px 0px 3px", card: "rgb(255, 0, 0) 0px 0px 0px 3px" });
+  await page.locator("#root-a .wl-tile").hover();
+  await expect.poll(() => page.locator("#root-a .wl-tile").evaluate((e) => getComputedStyle(e).boxShadow)).toBe("none");
+  await page.mouse.move(0, 0);
+  await update(page, "a", { mode: "dark", config: shadows });
   await settle(page);
-  expect(await panel()).toEqual(["rgb(16, 16, 16)", "rgb(250, 250, 250)", "rgb(255, 204, 0)"]);
-  await page.locator("#a-panel-link").focus();
-  await update(page, "a", { mode: "dark", config: cfg });
-  await settle(page);
-  expect(await panel()).toEqual(DEF);
-  // Removal restores the defaults; no diagnostic for declared roles.
+  expect(await v(page, "a", "--wl-shadow-card")).toBe(defaults.colors.dark["shadow-card"]);
+  await expect.poll(() => page.locator("#root-a .wl-tile").evaluate((e) => getComputedStyle(e).boxShadow)).toBe("rgba(0, 0, 0, 0.4) 0px 2px 10px 0px");
+  // Removal restores every default; nothing was reported.
   await update(page, "a", { mode: "light" });
   await settle(page);
-  expect(await panel()).toEqual(DEF);
-  expect(await page.evaluate(() => (window as any).harness.diagnostics.filter((d: any) => /panel/.test(d.key)))).toEqual([]);
-  // The example configuration sets panel and panel-accent in light and panel in dark.
-  await update(page, "a", { mode: "light", config: example, assetBase: "/design/" });
-  await settle(page);
-  expect(await panel()).toEqual(["rgb(44, 29, 20)", DEF[1], "rgb(244, 199, 161)"]);
-  await update(page, "a", { mode: "dark", config: example, assetBase: "/design/" });
-  await settle(page);
-  expect(await panel()).toEqual(["rgb(58, 36, 22)", DEF[1], DEF[2]]);
+  await page.locator("#a-link").focus();
+  await expect.poll(state).toEqual(DEF);
+  expect(await page.evaluate(() => (window as any).harness.diagnostics)).toEqual([]);
 });
 
-test("panel roles are not common roles: a Console-targeted file reports system, and an unknown role is reported", async ({ page }) => {
+test("Folio's panel roles are not Marquee roles: reported as unknown and not applied; a Console-targeted file reports system", async ({ page }) => {
   await harness(page);
-  await mount(page, "a", "slot-a", { mode: "light", config: { system: "console", systemVersion: "0.1.0", colors: { light: { "panel-ink": "#000000" } } } });
+  await mount(page, "a", "slot-a", { mode: "light", config: { ...base, colors: { light: { panel: "#152e37", "on-panel": "#edf6ee" } } } });
   await settle(page);
-  const keys = await page.evaluate(() => (window as any).harness.diagnostics.map((d: any) => d.key));
-  expect(keys).toEqual(expect.arrayContaining(["system", "colors.light.panel-ink"]));
+  let keys = await page.evaluate(() => (window as any).harness.diagnostics.map((d: any) => d.key));
+  expect(keys).toEqual(expect.arrayContaining(["colors.light.panel", "colors.light.on-panel"]));
+  expect(await v(page, "a", "--wl-panel")).toBe("");
+  await update(page, "a", { mode: "light", config: { system: "console", systemVersion: "0.1.0" } });
+  await settle(page);
+  keys = await page.evaluate(() => (window as any).harness.diagnostics.map((d: any) => d.key));
+  expect(keys).toContain("system");
 });
 
 // Review F-R1 on #5: an invalid font declaration (missing or empty family, empty files) is reported

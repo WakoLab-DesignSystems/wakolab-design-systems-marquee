@@ -16,7 +16,7 @@ const HOST_CSS = `
   @property --tw-ring-offset-width { syntax: "<length>"; inherits: true; initial-value: 7px; }
   @property --tw-shadow { syntax: "*"; inherits: true; initial-value: host-shadow; }
   @font-face { font-family: "DM Sans Variable"; src: url(/design/fonts/test-bold.woff2) format("woff2"); }
-  @font-face { font-family: "Source Serif 4 Variable"; src: url(/design/fonts/example-sans.woff2) format("woff2"); }
+  @font-face { font-family: "Manrope Variable"; src: url(/design/fonts/example-sans.woff2) format("woff2"); }
   .host-anim { animation: wl-rise 10s linear infinite; transition: color 3s; }
 `;
 
@@ -70,8 +70,8 @@ for (const order of ["host stylesheet first", "host stylesheet last"]) {
     expect(ring[0]).toBe("0px");
     // A host face named like the source's default family does not reach Marquee.
     expect(await page.locator("#a-ui").evaluate((e) => getComputedStyle(e).fontFamily)).toMatch(/^"?wds-marquee-default-dm-sans"?,/);
-    expect(await page.locator("#a-display").evaluate((e) => getComputedStyle(e).fontFamily)).toMatch(/^"?wds-marquee-default-source-serif-4"?,/);
-    for (const id of ["#a-ui", "#a-display"]) expect(await page.locator(id).evaluate((e) => getComputedStyle(e).fontFamily)).not.toMatch(/DM Sans Variable|Source Serif 4 Variable/);
+    expect(await page.locator("#a-display").evaluate((e) => getComputedStyle(e).fontFamily)).toMatch(/^"?wds-marquee-default-manrope"?,/);
+    for (const id of ["#a-ui", "#a-display"]) expect(await page.locator(id).evaluate((e) => getComputedStyle(e).fontFamily)).not.toMatch(/DM Sans Variable|Manrope Variable/);
   });
 }
 
@@ -120,7 +120,7 @@ test("two roots: modes independent; overlays keep each root's scrim; theme switc
   const surf = (id: string) => page.locator(`#root-${id}`).evaluate((e) => [e.getAttribute("data-mode"), getComputedStyle(e).backgroundColor]);
   const [la, db] = [await surf("a"), await surf("b")];
   expect(la[0]).toBe("light"); expect(db[0]).toBe("dark"); expect(la[1]).not.toBe(db[1]);
-  for (const [id, scrim] of [["a", "rgba(21, 46, 55, 0.45)"], ["b", "rgba(0, 0, 0, 0.6)"]]) {
+  for (const [id, scrim] of [["a", "rgba(25, 24, 29, 0.5)"], ["b", "rgba(0, 0, 0, 0.65)"]]) {
     await page.click(`#${id}-open-dialog`);
     const dlg = page.locator(`#root-${id} dialog[open]`);
     await expect(dlg).toBeVisible();

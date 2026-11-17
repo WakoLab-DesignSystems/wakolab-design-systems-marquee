@@ -2,7 +2,7 @@
 // External consumer check (standard INDEPENDENCE_CHECK §1–§3 and EXTRACTION_MATRIX S3 at 6dc2a7a).
 // Copied from WakoLab-DesignSystems/wakolab-design-systems-console at 018fe3214e0a118162d202c2f39f1236f37b1936,
 // scripts/external-consumer.mjs. Changes for Marquee: names, example configuration path, the font
-// assertions (the example configures display), and the panel-role assertion.
+// assertions (the example configures display), and link/shadow assertions in place of Folio's panel roles.
 // Original code. Steps, all outside this working copy:
 //   1. clone the repository (default: this repository's committed HEAD) into an empty temporary folder;
 //   2. in the clone: npm ci (runs `prepare`, which builds), npm run check, check-dist, theme-tokens, npm pack;
@@ -62,7 +62,7 @@ function makeApp(name, dependency) {
 <style>body{margin:0;font-family:Georgia,serif;background:#fafafa;color:#111}.grid{display:grid;grid-template-columns:1fr 1fr}</style></head>
 <body><p id="host">Host page content</p><div class="grid"><div id="a"></div><div id="b"></div></div><script type="module" src="/src/main.jsx"></script></body></html>\n`);
   writeFileSync(join(app, "src/main.jsx"), `import { createRoot } from "react-dom/client";
-import { MarqueeRoot, MarqueeShell, MarqueeHeader, LogoSlot, Page, Button, KeyValueList, ModeMenu, RegistrationFrame, EditorialPanel } from "wakolab-design-systems-marquee";
+import { MarqueeRoot, MarqueeShell, MarqueeHeader, LogoSlot, Page, Button, KeyValueList, ModeMenu, CardSection } from "wakolab-design-systems-marquee";
 import "wakolab-design-systems-marquee/marquee.css";
 const config = await fetch("/design/design-config.json").then((r) => r.json());
 function App({ id, mode, cfg }) {
@@ -71,7 +71,8 @@ function App({ id, mode, cfg }) {
       <MarqueeShell header={<MarqueeHeader logo={<LogoSlot label={"Neutral " + id} href="#" />} tools={<ModeMenu label="Theme" modeLabel="Mode" labels={{ light: "Light", dark: "Dark", system: "System" }} />} />}>
         <Page><h1 id={id + "-title"}>Inventory</h1><Button id={id + "-primary"}>Add item</Button>
           <KeyValueList items={[{ key: "Owner", value: "Team A" }, { key: "Updated", value: "Today" }]} />
-          <aside data-surface="dark" className="registration-editorial" id={id + "-panel"}><EditorialPanel label={"Neutral " + id} title="Panel" /></aside></Page>
+          <a href="#" className="wl-back" id={id + "-link"}>Back</a>
+          <CardSection id={id + "-card-h"} heading="Card"><p id={id + "-card"}>Card text</p></CardSection></Page>
       </MarqueeShell>
     </MarqueeRoot>
   );
@@ -119,10 +120,11 @@ async function serveAndCheck(name, app) {
     if (!/^"?wds-marquee-default-dm-sans/.test(famUi)) throw new Error(`${name}: omitted ui role changed (${famUi})`);
     if (!/^"?wds-marquee-font-[0-9a-f]{8}/.test(fam)) throw new Error(`${name}: configured font not used (${fam})`);
     const famB = await page.evaluate(() => getComputedStyle(document.getElementById("b-title")).fontFamily);
-    if (!/^"?wds-marquee-default-source-serif-4/.test(famB)) throw new Error(`${name}: default font (${famB})`);
-    // Marquee panel roles: the example sets panel in light; root b keeps the default.
-    const panels = await page.evaluate(() => ["a", "b"].map((i) => getComputedStyle(document.getElementById(i + "-panel")).backgroundColor));
-    if (JSON.stringify(panels) !== JSON.stringify(["rgb(44, 29, 20)", "rgb(21, 46, 55)"])) throw new Error(`${name}: panel roles ${panels}`);
+    if (!/^"?wds-marquee-default-manrope/.test(famB)) throw new Error(`${name}: default font (${famB})`);
+    // link and shadow-card: the example sets both (light for root a); root b (dark, no configuration) keeps the defaults.
+    const roles = await page.evaluate(() => ["a", "b"].map((i) => [getComputedStyle(document.getElementById(i + "-link")).color, getComputedStyle(document.querySelector("#root-" + i + " .wl-card-section")).boxShadow]));
+    const expectedRoles = [["rgb(31, 79, 191)", "rgba(20, 30, 80, 0.12) 0px 4px 16px 0px"], ["rgb(255, 157, 125)", "rgba(0, 0, 0, 0.4) 0px 2px 10px 0px"]];
+    if (JSON.stringify(roles) !== JSON.stringify(expectedRoles)) throw new Error(`${name}: link and shadow ${JSON.stringify(roles)}`);
     const logo = await page.evaluate(() => [...document.querySelectorAll("#root-a .wl-brand img")].map((i) => [i.getAttribute("src"), i.complete && i.naturalWidth > 0]));
     if (!logo.length || logo.some(([, ok]) => !ok)) throw new Error(`${name}: logo ${JSON.stringify(logo)}`);
     const textB = await page.locator("#root-b .wl-brand").innerText();
@@ -135,7 +137,7 @@ async function serveAndCheck(name, app) {
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.screenshot({ path: join(work, `${name}.png`), fullPage: true });
     await browser.close();
-    pass(`consumer (${name})`, `configured colours per mode, omitted roles default, display font ${fam.split(",")[0]}, ui font default, panel roles as configured and default, ${logo.length} logo images, text fallback, host untouched, ${requests.length} requests all same-origin`);
+    pass(`consumer (${name})`, `configured colours per mode, omitted roles default, display font ${fam.split(",")[0]}, ui font default, link and card shadow as configured and default, ${logo.length} logo images, text fallback, host untouched, ${requests.length} requests all same-origin`);
   } finally {
     try { process.kill(-server.pid); } catch { /* already stopped */ }
   }
