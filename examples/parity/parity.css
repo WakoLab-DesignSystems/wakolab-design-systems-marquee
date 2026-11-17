@@ -1,0 +1,14 @@
+/* Parity page host styles. Original, except where noted. */
+/* Copied from WakoLab-DesignSystems/wakolab-design-systems-folio at 0856c723bcf1047b61b093b9bf92d36d71f7a402, examples/parity/parity.css; Folio names → Marquee names (Marquee adaptations noted where they apply). */
+body { margin: 0; }
+/* Product content that the frontend composes into the detail side slot (JoinPanel, Access).
+ * These rules stay in the frontend (standard EXTRACTION_MATRIX §6); they are copied here, unchanged,
+ * from WakoLab/wakolab-front at e492bec9ced8893d6940879aa8186ac75a48a272, design-system/catalog.css
+ * lines 192, 195–197 and 226, so that the comparison measures Marquee and not missing product
+ * rules. They are not part of the Marquee package. Copied from wakolab-design-systems-console at
+ * 018fe3214e0a118162d202c2f39f1236f37b1936, examples/parity/parity.css (Marquee root selector). */
+[data-wds="marquee"] .wl-join .wl-meta-text { margin: 0; }
+[data-wds="marquee"] .wl-access { display: flex; gap: 12px; padding: 14px; border-radius: var(--wl-radius-control); background: var(--wl-surface-2); }
+[data-wds="marquee"] .wl-access p { margin: 0; }
+[data-wds="marquee"] .wl-access svg { flex-shrink: 0; margin-top: 2px; }
+[data-wds="marquee"] .wl-join-title { font-weight: 600; }

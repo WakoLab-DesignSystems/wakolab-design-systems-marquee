@@ -1,0 +1,91 @@
+{
+ "case": "unavailable-dark-1440",
+ "exact": 4,
+ "maxChannelDelta": 1,
+ "clusters": [
+  {
+   "box": [
+    33,
+    255,
+    34,
+    257
+   ],
+   "count": 4,
+   "maxDelta": 1
+  }
+ ],
+ "crops": [
+  {
+   "file": "evidence/unavailable-dark-1440-cluster1.png",
+   "region": [
+    27,
+    249,
+    41,
+    264
+   ],
+   "maskedIconAreas": []
+  }
+ ],
+ "pixels": [
+  {
+   "x": 34,
+   "y": 255,
+   "delta": 1,
+   "baseline": [
+    243,
+    241,
+    236
+   ],
+   "candidate": [
+    243,
+    241,
+    237
+   ]
+  },
+  {
+   "x": 33,
+   "y": 256,
+   "delta": 1,
+   "baseline": [
+    167,
+    166,
+    163
+   ],
+   "candidate": [
+    167,
+    166,
+    164
+   ]
+  },
+  {
+   "x": 33,
+   "y": 257,
+   "delta": 1,
+   "baseline": [
+    65,
+    65,
+    65
+   ],
+   "candidate": [
+    64,
+    64,
+    65
+   ]
+  },
+  {
+   "x": 34,
+   "y": 257,
+   "delta": 1,
+   "baseline": [
+    226,
+    224,
+    221
+   ],
+   "candidate": [
+    226,
+    224,
+    220
+   ]
+  }
+ ]
+}

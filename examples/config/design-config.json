@@ -1,0 +1,31 @@
+{
+  "$schema": "../../config.schema.json",
+  "system": "marquee",
+  "systemVersion": "0.1.0",
+  "colors": {
+    "light": {
+      "action": "#2d5bd7",
+      "action-hover": "#2449ad",
+      "link": "#1f4fbf",
+      "shadow-card": "0 4px 16px rgb(20 30 80 / 0.12)"
+    },
+    "dark": {
+      "action": "#8fb1ff",
+      "action-hover": "#b3caff",
+      "on-action": "#0a1430",
+      "link": "#a9c2ff",
+      "shadow-card": "0 4px 18px rgb(0 0 0 / 0.55)"
+    }
+  },
+  "fonts": {
+    "display": {
+      "family": "Example Sans",
+      "files": [{ "src": "fonts/example-sans.woff2", "weight": "100 1000", "style": "normal" }]
+    }
+  },
+  "logo": {
+    "mark": "logo/mark.svg",
+    "wordmark": { "light": "logo/wordmark-light.svg", "dark": "logo/wordmark-dark.svg" },
+    "alt": "Example App home"
+  }
+}

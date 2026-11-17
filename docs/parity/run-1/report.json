@@ -1,0 +1,2297 @@
+{
+  "settings": {
+    "prototypeBaseline": "http://127.0.0.1:5174/prototype/index.html",
+    "prototypeCandidate": "http://127.0.0.1:5193/parity/index.html",
+    "fixtureBaseline": "http://127.0.0.1:5175/index.html",
+    "fixtureCandidate": "http://127.0.0.1:5193/parity/fixture/index.html",
+    "browser": "Chromium 153.0.8010.12",
+    "playwright": "1.56.1",
+    "viewportHeight": 900,
+    "deviceScaleFactor": 1,
+    "reducedMotion": "reduce",
+    "fullPage": true,
+    "animations": "disabled",
+    "control": "second browser launch, same settings",
+    "icons": "injected into candidates at run time from the frontend checkout (25 names)"
+  },
+  "rows": [
+    {
+      "screen": "collection",
+      "mode": "light",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        2811
+      ],
+      "candidateSize": [
+        360,
+        2811
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "collection",
+      "mode": "light",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        1668
+      ],
+      "candidateSize": [
+        768,
+        1668
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "collection",
+      "mode": "light",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        1617
+      ],
+      "candidateSize": [
+        1024,
+        1617
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "collection",
+      "mode": "light",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        1801
+      ],
+      "candidateSize": [
+        1440,
+        1801
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "collection",
+      "mode": "dark",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        2811
+      ],
+      "candidateSize": [
+        360,
+        2811
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "collection",
+      "mode": "dark",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        1668
+      ],
+      "candidateSize": [
+        768,
+        1668
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "collection",
+      "mode": "dark",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        1617
+      ],
+      "candidateSize": [
+        1024,
+        1617
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "collection",
+      "mode": "dark",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        1801
+      ],
+      "candidateSize": [
+        1440,
+        1801
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "detail",
+      "mode": "light",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        1353
+      ],
+      "candidateSize": [
+        360,
+        1353
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "detail",
+      "mode": "light",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        1071
+      ],
+      "candidateSize": [
+        768,
+        1071
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "detail",
+      "mode": "light",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "detail",
+      "mode": "light",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "detail",
+      "mode": "dark",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        1353
+      ],
+      "candidateSize": [
+        360,
+        1353
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "detail",
+      "mode": "dark",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        1071
+      ],
+      "candidateSize": [
+        768,
+        1071
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "detail",
+      "mode": "dark",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "detail",
+      "mode": "dark",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "notFound",
+      "mode": "light",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        900
+      ],
+      "candidateSize": [
+        360,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "notFound",
+      "mode": "light",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "notFound",
+      "mode": "light",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "notFound",
+      "mode": "light",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "notFound",
+      "mode": "dark",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        900
+      ],
+      "candidateSize": [
+        360,
+        900
+      ],
+      "differentExact": 9,
+      "differentOver16": 0,
+      "maxChannelDelta": 1,
+      "clusters": [
+        {
+          "box": [
+            16,
+            74,
+            17,
+            77
+          ],
+          "count": 5,
+          "maxDelta": 1
+        },
+        {
+          "box": [
+            16,
+            102,
+            17,
+            104
+          ],
+          "count": 4,
+          "maxDelta": 1
+        }
+      ],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 9,
+      "secondLaunchMaxDelta": 1
+    },
+    {
+      "screen": "notFound",
+      "mode": "dark",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "notFound",
+      "mode": "dark",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "notFound",
+      "mode": "dark",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "message",
+      "mode": "light",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        900
+      ],
+      "candidateSize": [
+        360,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "message",
+      "mode": "light",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "message",
+      "mode": "light",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "message",
+      "mode": "light",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "message",
+      "mode": "dark",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        900
+      ],
+      "candidateSize": [
+        360,
+        900
+      ],
+      "differentExact": 9,
+      "differentOver16": 0,
+      "maxChannelDelta": 1,
+      "clusters": [
+        {
+          "box": [
+            16,
+            74,
+            17,
+            77
+          ],
+          "count": 5,
+          "maxDelta": 1
+        },
+        {
+          "box": [
+            16,
+            102,
+            17,
+            104
+          ],
+          "count": 4,
+          "maxDelta": 1
+        }
+      ],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 9,
+      "secondLaunchMaxDelta": 1
+    },
+    {
+      "screen": "message",
+      "mode": "dark",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "message",
+      "mode": "dark",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "message",
+      "mode": "dark",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "loading",
+      "mode": "light",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        1253
+      ],
+      "candidateSize": [
+        360,
+        1253
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "loading",
+      "mode": "light",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "loading",
+      "mode": "light",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "loading",
+      "mode": "light",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "loading",
+      "mode": "dark",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        1253
+      ],
+      "candidateSize": [
+        360,
+        1253
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "loading",
+      "mode": "dark",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 29,
+      "differentOver16": 0,
+      "maxChannelDelta": 4,
+      "clusters": [
+        {
+          "box": [
+            16,
+            229,
+            18,
+            246
+          ],
+          "count": 19,
+          "maxDelta": 4
+        },
+        {
+          "box": [
+            88,
+            246,
+            101,
+            246
+          ],
+          "count": 3,
+          "maxDelta": 1
+        },
+        {
+          "box": [
+            159,
+            246,
+            171,
+            246
+          ],
+          "count": 3,
+          "maxDelta": 1
+        },
+        {
+          "box": [
+            283,
+            246,
+            295,
+            246
+          ],
+          "count": 3,
+          "maxDelta": 1
+        },
+        {
+          "box": [
+            388,
+            246,
+            388,
+            246
+          ],
+          "count": 1,
+          "maxDelta": 1
+        }
+      ],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 29,
+      "secondLaunchMaxDelta": 4
+    },
+    {
+      "screen": "loading",
+      "mode": "dark",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "loading",
+      "mode": "dark",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "unavailable",
+      "mode": "light",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        900
+      ],
+      "candidateSize": [
+        360,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "unavailable",
+      "mode": "light",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "unavailable",
+      "mode": "light",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "unavailable",
+      "mode": "light",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "unavailable",
+      "mode": "dark",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        900
+      ],
+      "candidateSize": [
+        360,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "unavailable",
+      "mode": "dark",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 29,
+      "differentOver16": 0,
+      "maxChannelDelta": 4,
+      "clusters": [
+        {
+          "box": [
+            16,
+            229,
+            18,
+            246
+          ],
+          "count": 19,
+          "maxDelta": 4
+        },
+        {
+          "box": [
+            88,
+            246,
+            101,
+            246
+          ],
+          "count": 3,
+          "maxDelta": 1
+        },
+        {
+          "box": [
+            159,
+            246,
+            171,
+            246
+          ],
+          "count": 3,
+          "maxDelta": 1
+        },
+        {
+          "box": [
+            283,
+            246,
+            295,
+            246
+          ],
+          "count": 3,
+          "maxDelta": 1
+        },
+        {
+          "box": [
+            388,
+            246,
+            388,
+            246
+          ],
+          "count": 1,
+          "maxDelta": 1
+        }
+      ],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 29,
+      "secondLaunchMaxDelta": 4
+    },
+    {
+      "screen": "unavailable",
+      "mode": "dark",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 4,
+      "differentOver16": 0,
+      "maxChannelDelta": 1,
+      "clusters": [
+        {
+          "box": [
+            33,
+            255,
+            34,
+            257
+          ],
+          "count": 4,
+          "maxDelta": 1
+        }
+      ],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 4,
+      "secondLaunchMaxDelta": 1
+    },
+    {
+      "screen": "unavailable",
+      "mode": "dark",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 4,
+      "differentOver16": 0,
+      "maxChannelDelta": 1,
+      "clusters": [
+        {
+          "box": [
+            33,
+            255,
+            34,
+            257
+          ],
+          "count": 4,
+          "maxDelta": 1
+        }
+      ],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 4,
+      "secondLaunchMaxDelta": 1
+    },
+    {
+      "screen": "dialog",
+      "mode": "light",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        2811
+      ],
+      "candidateSize": [
+        360,
+        2811
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "dialog",
+      "mode": "light",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        1668
+      ],
+      "candidateSize": [
+        768,
+        1668
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "dialog",
+      "mode": "light",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        1617
+      ],
+      "candidateSize": [
+        1024,
+        1617
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "dialog",
+      "mode": "light",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        1801
+      ],
+      "candidateSize": [
+        1440,
+        1801
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "dialog",
+      "mode": "dark",
+      "width": 360,
+      "source": "prototype",
+      "baselineSize": [
+        360,
+        2811
+      ],
+      "candidateSize": [
+        360,
+        2811
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "dialog",
+      "mode": "dark",
+      "width": 768,
+      "source": "prototype",
+      "baselineSize": [
+        768,
+        1668
+      ],
+      "candidateSize": [
+        768,
+        1668
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "dialog",
+      "mode": "dark",
+      "width": 1024,
+      "source": "prototype",
+      "baselineSize": [
+        1024,
+        1617
+      ],
+      "candidateSize": [
+        1024,
+        1617
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "dialog",
+      "mode": "dark",
+      "width": 1440,
+      "source": "prototype",
+      "baselineSize": [
+        1440,
+        1801
+      ],
+      "candidateSize": [
+        1440,
+        1801
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "form",
+      "mode": "light",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        1409
+      ],
+      "candidateSize": [
+        360,
+        1409
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "form",
+      "mode": "light",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        1241
+      ],
+      "candidateSize": [
+        768,
+        1241
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "form",
+      "mode": "light",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        1227
+      ],
+      "candidateSize": [
+        1024,
+        1227
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "form",
+      "mode": "light",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        1227
+      ],
+      "candidateSize": [
+        1440,
+        1227
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "form",
+      "mode": "dark",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        1409
+      ],
+      "candidateSize": [
+        360,
+        1409
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "form",
+      "mode": "dark",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        1241
+      ],
+      "candidateSize": [
+        768,
+        1241
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "form",
+      "mode": "dark",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        1227
+      ],
+      "candidateSize": [
+        1024,
+        1227
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "form",
+      "mode": "dark",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        1227
+      ],
+      "candidateSize": [
+        1440,
+        1227
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "components",
+      "mode": "light",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        2427
+      ],
+      "candidateSize": [
+        360,
+        2427
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "components",
+      "mode": "light",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        2267
+      ],
+      "candidateSize": [
+        768,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "components",
+      "mode": "light",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        2267
+      ],
+      "candidateSize": [
+        1024,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "components",
+      "mode": "light",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        2267
+      ],
+      "candidateSize": [
+        1440,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "components",
+      "mode": "dark",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        2427
+      ],
+      "candidateSize": [
+        360,
+        2427
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "components",
+      "mode": "dark",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        2267
+      ],
+      "candidateSize": [
+        768,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "components",
+      "mode": "dark",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        2267
+      ],
+      "candidateSize": [
+        1024,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "components",
+      "mode": "dark",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        2267
+      ],
+      "candidateSize": [
+        1440,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "confirm",
+      "mode": "light",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        2427
+      ],
+      "candidateSize": [
+        360,
+        2427
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "confirm",
+      "mode": "light",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        2267
+      ],
+      "candidateSize": [
+        768,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "confirm",
+      "mode": "light",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        2267
+      ],
+      "candidateSize": [
+        1024,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "confirm",
+      "mode": "light",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        2267
+      ],
+      "candidateSize": [
+        1440,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "confirm",
+      "mode": "dark",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        2427
+      ],
+      "candidateSize": [
+        360,
+        2427
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "confirm",
+      "mode": "dark",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        2267
+      ],
+      "candidateSize": [
+        768,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "confirm",
+      "mode": "dark",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        2267
+      ],
+      "candidateSize": [
+        1024,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "confirm",
+      "mode": "dark",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        2267
+      ],
+      "candidateSize": [
+        1440,
+        2267
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "registration",
+      "mode": "light",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        1324
+      ],
+      "candidateSize": [
+        360,
+        1324
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "registration",
+      "mode": "light",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        1105
+      ],
+      "candidateSize": [
+        768,
+        1105
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "registration",
+      "mode": "light",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        1142
+      ],
+      "candidateSize": [
+        1024,
+        1142
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "registration",
+      "mode": "light",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        1102
+      ],
+      "candidateSize": [
+        1440,
+        1102
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "registration",
+      "mode": "dark",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        1324
+      ],
+      "candidateSize": [
+        360,
+        1324
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "registration",
+      "mode": "dark",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        1105
+      ],
+      "candidateSize": [
+        768,
+        1105
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "registration",
+      "mode": "dark",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        1142
+      ],
+      "candidateSize": [
+        1024,
+        1142
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "registration",
+      "mode": "dark",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        1102
+      ],
+      "candidateSize": [
+        1440,
+        1102
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "overlays",
+      "mode": "light",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        900
+      ],
+      "candidateSize": [
+        360,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "overlays",
+      "mode": "light",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "overlays",
+      "mode": "light",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "overlays",
+      "mode": "light",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "overlays",
+      "mode": "dark",
+      "width": 360,
+      "source": "fixture",
+      "baselineSize": [
+        360,
+        900
+      ],
+      "candidateSize": [
+        360,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "overlays",
+      "mode": "dark",
+      "width": 768,
+      "source": "fixture",
+      "baselineSize": [
+        768,
+        900
+      ],
+      "candidateSize": [
+        768,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "overlays",
+      "mode": "dark",
+      "width": 1024,
+      "source": "fixture",
+      "baselineSize": [
+        1024,
+        900
+      ],
+      "candidateSize": [
+        1024,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    },
+    {
+      "screen": "overlays",
+      "mode": "dark",
+      "width": 1440,
+      "source": "fixture",
+      "baselineSize": [
+        1440,
+        900
+      ],
+      "candidateSize": [
+        1440,
+        900
+      ],
+      "differentExact": 0,
+      "differentOver16": 0,
+      "maxChannelDelta": 0,
+      "clusters": [],
+      "controlBaseline": 0,
+      "controlCandidate": 0,
+      "secondLaunch": 0,
+      "secondLaunchMaxDelta": 0
+    }
+  ]
+}
