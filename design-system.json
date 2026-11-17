@@ -1,0 +1,30 @@
+{
+  "system": "marquee",
+  "name": "Marquee",
+  "version": "0.1.0",
+  "standard": {
+    "repository": "https://github.com/WakoLab-DesignSystems/wakolab-design-systems-standard",
+    "commit": "c2ca848d0b44c62a2864f1c23d99b7ec7d34bdc1"
+  },
+  "entryPoints": {
+    "readme": "README.md",
+    "agents": "AGENTS.md",
+    "rules": "docs/rules/README.md",
+    "configDefaults": "config.default.json",
+    "configSchema": "config.schema.json",
+    "configExample": "examples/config/design-config.json",
+    "demo": "examples/demo/index.html",
+    "provenance": "docs/PROVENANCE.md",
+    "parity": "docs/PARITY.md",
+    "acceptance": "docs/ACCEPTANCE.md"
+  },
+  "declaredRoles": [],
+  "deliverables": {
+    "htmlFile": "not-delivered",
+    "docker": "not-delivered",
+    "figma": "not-delivered"
+  },
+  "platforms": {
+    "web": "React 19.2 components with a prebuilt, root-scoped stylesheet (dist/marquee.css)"
+  }
+}
