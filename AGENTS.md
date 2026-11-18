@@ -38,6 +38,7 @@ This repository is the **Marquee** design system. It must stay **autonomous**: e
 - Files copied or adapted from the WakoLab frontend, Folio or Console start with their sources (repository, path, commit) and changes; keep these headers accurate and update [docs/PROVENANCE.md](docs/PROVENANCE.md) when you change the mapping.
 - Run `npm run build`, `npm run check` and `npm test` before proposing a change; run `npm run consumer` when packaging, dependencies or exports change, and `npm run parity` (with the frontend baselines) when visible output changes. No pixel tolerance is granted, and no exception accepted for Console or Folio applies to Marquee.
 - Do not add icon artwork until its provenance and licence are settled in an issue.
+- `marquee-kit.html` is generated: never edit it. When the demo or the package changes, commit the source, then run `npm run kit` and commit the regenerated file alone (two commits; no amend or force-push). In a clean clone at the source commit it embeds, `npm ci && npm run kit` must give the same bytes.
 
 Follow the integration and promotion gates in [CONTRIBUTING.md](CONTRIBUTING.md#integration-and-promotion). Orc authorizes the reviewed HEAD and Rel executes the merge; integration does not grant staging, release or production approval.
 

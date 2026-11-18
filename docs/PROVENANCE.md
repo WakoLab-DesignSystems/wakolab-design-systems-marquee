@@ -89,3 +89,20 @@ The build (`scripts/build.mjs`, copied from Folio) prefixes every selector with 
 - `examples/parity`: parity candidates following the prototype's Marquee DOM, with the fixture texts copied from what the frontend renders.
 - `tests/*.spec.ts`: expected values are Marquee's own.
 - `scripts/*`, including `check-artwork.mjs` with the same one-way icon hashes.
+
+## Single HTML file ([#6](https://github.com/WakoLab-DesignSystems/wakolab-design-systems-marquee/issues/6))
+
+Following the integrated kit standard at `8e3b818ece8dbb57f48a2dc779ee743fe441aba4` (DIRECTIONS §4, KIT_PROPOSAL §2 and batch F), with the method copied from WakoLab-DesignSystems/wakolab-design-systems-folio at `a6b153fbc9a7cd4c879ccf569345c5088680b3f5` (Folio #6, #7):
+
+| Marquee file | Source in Folio at `a6b153f` | Changes |
+|---|---|---|
+| `scripts/build-html.mjs` | `scripts/build-html.mjs` | Names only (output file, alias, build constant, meta names, banner) |
+| `examples/demo/env/shared.ts`, `http.ts`, `offline.ts` | `examples/demo/env/` (same names) | Names only |
+| `examples/demo/main.tsx` (loading through `marquee-demo-env`, *Your configuration*, *Licences*, kit status) | `examples/demo/main.tsx` (the same parts) | Marquee's names, texts, fonts and licence list; Marquee's screens and header are unchanged |
+| `examples/demo/demo.css` (`.demo-local`, `.demo-file`, `.demo-licence`) | `examples/demo/demo.css` | None |
+| `examples/env.d.ts`, `examples/vite.config.ts`, `tsconfig.json`, `package.json` (`kit`), `.gitattributes` | Same files | Names only |
+| `tests/kit-html.spec.ts` | `tests/kit-html.spec.ts` | Marquee's expected values and licence list; **original** additions: keyboard-only navigation and every screen at 360 px, in the delivered file |
+| `licenses/react-MIT.txt` | Copied from `node_modules/react/LICENSE` (React 19.2.0; identical in React DOM 19.2.0 and Scheduler 0.27.0, and to Folio's copy) | None |
+
+- `marquee-kit.html`: **generated** from `examples/demo/` and `dist/` by that script; it embeds the source commit and the standard commit. It inlines the default fonts and Tailwind output listed above, the example configuration with its font and synthetic logos, and React, React DOM and Scheduler (MIT); see [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
+- `docs/screenshots/kit-*.png`: captured from that file (no icon artwork: Marquee ships none).

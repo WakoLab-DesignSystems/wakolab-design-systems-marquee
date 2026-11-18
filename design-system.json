@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "standard": {
     "repository": "https://github.com/WakoLab-DesignSystems/wakolab-design-systems-standard",
-    "commit": "c2ca848d0b44c62a2864f1c23d99b7ec7d34bdc1"
+    "commit": "8e3b818ece8dbb57f48a2dc779ee743fe441aba4"
   },
   "entryPoints": {
     "readme": "README.md",
@@ -16,11 +16,12 @@
     "demo": "examples/demo/index.html",
     "provenance": "docs/PROVENANCE.md",
     "parity": "docs/PARITY.md",
-    "acceptance": "docs/ACCEPTANCE.md"
+    "acceptance": "docs/ACCEPTANCE.md",
+    "htmlFile": "marquee-kit.html"
   },
   "declaredRoles": [],
   "deliverables": {
-    "htmlFile": "not-delivered",
+    "htmlFile": "marquee-kit.html",
     "docker": "not-delivered",
     "figma": "not-delivered"
   },
