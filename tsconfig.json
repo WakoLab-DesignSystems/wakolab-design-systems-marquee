@@ -19,6 +19,9 @@
     "paths": {
       "parity-sys": [
         "./examples/parity/fixture/marquee-sys.tsx"
+      ],
+      "marquee-demo-env": [
+        "./examples/demo/env/http.ts"
       ]
     }
   },

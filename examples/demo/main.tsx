@@ -2,15 +2,33 @@
 // Marquee demo: a presentation page and the neutral example screens, reached through a menu.
 // Original code with synthetic data. It imports the BUILT package ("wakolab-design-systems-marquee" is
 // aliased to dist/ by examples/vite.config.ts), like an external project would.
+// One source, two loading modes (standard DIRECTIONS §4 at 8e3b818; #6): `npm run example` serves it
+// over HTTP ("marquee-demo-env" → env/http.ts); scripts/build-html.mjs builds the same source into the
+// single offline file marquee-kit.html ("marquee-demo-env" → env/offline.ts, everything embedded).
+// The kit changes (local configuration, Licences section, loading through "marquee-demo-env") are
+// copied from Folio at a6b153fbc9a7cd4c879ccf569345c5088680b3f5, examples/demo/main.tsx, with Marquee's
+// names, fonts and licence list.
 // State lives in the URL hash, so it is kept while navigating and survives a reload:
 //   #screen=overview|collection|article|form|message|states|components|registration
-//   &mode=light|dark|system   &config=default|example (example loads /design/design-config.json,
-//   with assetBase "/design/", from examples/config).
-// Not covered here (later kit targets): editing values in the page, choosing local font and logo
-// files, the single offline HTML file, Docker and the Figma companion.
+//   &mode=light|dark|system   &config=default|example|local
+//   &local=<the selected design-config.json, base64url> (scalar values only; never file bytes).
+// Font and logo files chosen from the disk are kept in memory while the page stays open; after a
+// reload they must be selected again (a browser does not keep access to local files).
+// Not covered here (later kit targets): editing values field by field in the page, Docker and the
+// Figma companion.
 import "wakolab-design-systems-marquee/marquee.css";
 import "./demo.css";
-import { StrictMode, useEffect, useState, type ReactNode } from "react";
+import { StrictMode, useEffect, useMemo, useState, type ReactNode } from "react";
+import { EXAMPLE_FILES, KIT, loadExample } from "marquee-demo-env";
+import { decodeConfig, encodeConfig, fileName, namedFiles, withFiles } from "./env/shared";
+import licence from "../../LICENSE?raw";
+import notices from "../../THIRD_PARTY_NOTICES.md?raw";
+import dmSansLicence from "../../licenses/dm-sans-OFL-1.1.txt?raw";
+import manropeLicence from "../../licenses/manrope-OFL-1.1.txt?raw";
+import scLicence from "../../licenses/noto-sans-sc-OFL-1.1.txt?raw";
+import devanagariLicence from "../../licenses/noto-sans-devanagari-OFL-1.1.txt?raw";
+import tailwindLicence from "../../licenses/tailwindcss-MIT.txt?raw";
+import reactLicence from "../../licenses/react-MIT.txt?raw";
 import { createRoot } from "react-dom/client";
 import {
   Alert, BackLink, Badge, Button, Card, CardSection, Checkbox, ChoiceGroup, CodeField, CollectionLayout, CollectionStatus,
@@ -26,14 +44,26 @@ const SCREENS = [
   ["message", "Message"], ["states", "States"], ["components", "Components"], ["registration", "Editorial frame"],
 ] as const;
 type Screen = (typeof SCREENS)[number][0];
-interface DemoState { screen: Screen; mode: Mode; config: "default" | "example" }
+type ConfigChoice = "default" | "example" | "local";
+interface DemoState { screen: Screen; mode: Mode; config: ConfigChoice; local?: string }
 function readHash(): DemoState {
   const p = new URLSearchParams(location.hash.slice(1));
   const screen = (SCREENS.some(([id]) => id === p.get("screen")) ? p.get("screen") : "overview") as Screen;
   const mode = (["light", "dark", "system"].includes(p.get("mode") ?? "") ? p.get("mode") : "system") as Mode;
-  return { screen, mode, config: p.get("config") === "example" ? "example" : "default" };
+  const local = p.get("local") ?? undefined;
+  const config = p.get("config") === "example" ? "example" : p.get("config") === "local" && local ? "local" : "default";
+  return { screen, mode, config, local };
 }
-const hashOf = (s: DemoState) => `#screen=${s.screen}&mode=${s.mode}&config=${s.config}`;
+const hashOf = (s: DemoState) => `#screen=${s.screen}&mode=${s.mode}&config=${s.config}${s.local ? `&local=${s.local}` : ""}`;
+/** Font and logo files selected from the disk, by file name, as blob: URLs (memory only). */
+type LocalFiles = Map<string, { name: string; url: string }>;
+// Marquee's own LICENSE first, read from the repository file, so that the MIT notice travels with the
+// single HTML file (Revex's H-R1 on folio#7); then every third-party notice and licence text.
+const LICENCES: [string, string][] = [
+  ["Marquee (MIT): LICENSE", licence], ["Third-party notices", notices], ["DM Sans (OFL-1.1)", dmSansLicence], ["Manrope (OFL-1.1)", manropeLicence],
+  ["Noto Sans SC (OFL-1.1)", scLicence], ["Noto Sans Devanagari (OFL-1.1)", devanagariLicence],
+  ["Tailwind CSS (MIT)", tailwindLicence], ["React, React DOM, Scheduler (MIT; in the HTML file only)", reactLicence],
+];
 
 /* ───────── Synthetic data ───────── */
 const CATEGORIES: FilterItem[] = [
@@ -84,7 +114,10 @@ function Shell({ state, go, search, children }: { state: DemoState; go: (s: Part
 }
 
 /* ───────── Screens ───────── */
-function Overview({ state, go }: { state: DemoState; go: (s: Partial<DemoState>) => void }) {
+function Overview({ state, go, files, addFiles, problem, setProblem }: {
+  state: DemoState; go: (s: Partial<DemoState>) => void; files: LocalFiles; addFiles: (list: FileList) => void;
+  problem?: string; setProblem: (p?: string) => void;
+}) {
   const swatch = (role: string) => <div key={role} className="demo-swatch"><span style={{ background: `var(--wl-${role})` }} /><code>{role}</code></div>;
   return (
     <Page className="demo-grid">
@@ -95,11 +128,13 @@ function Overview({ state, go }: { state: DemoState; go: (s: Partial<DemoState>)
       </header>
       <section className="demo-card" aria-labelledby="ov-config">
         <h2 id="ov-config">Configuration</h2>
-        <p className="wl-meta-text">Values in a design-config.json are applied exactly as written; omitted roles keep Marquee's defaults. Switch between the shipped defaults and the example configuration (colours, display font and logo from examples/config).</p>
+        <p className="wl-meta-text">Values in a design-config.json are applied exactly as written; omitted roles keep Marquee's defaults. Switch between the shipped defaults, the example configuration (colours, display font and logo from examples/config) and your own file.</p>
         <div className="demo-row" role="group" aria-label="Configuration">
           <ToggleChip pressed={state.config === "default"} onClick={() => go({ config: "default" })}>Shipped defaults</ToggleChip>
           <ToggleChip pressed={state.config === "example"} onClick={() => go({ config: "example" })}>Example configuration</ToggleChip>
+          {state.local && <ToggleChip pressed={state.config === "local"} onClick={() => go({ config: "local" })}>Your configuration</ToggleChip>}
         </div>
+        <LocalConfig state={state} go={go} files={files} addFiles={addFiles} problem={problem} setProblem={setProblem} />
       </section>
       <section className="demo-card" aria-labelledby="ov-colours">
         <h2 id="ov-colours">Colour roles</h2>
@@ -123,9 +158,60 @@ function Overview({ state, go }: { state: DemoState; go: (s: Partial<DemoState>)
           <li>Pass your own icon set: Marquee ships no icon artwork, so icon slots stay empty here.</li>
           <li>See README.md, AGENTS.md and docs/rules/ in the repository.</li>
         </ul>
-        <p className="wl-meta-text">Kit status: this demo runs with Node (npm run example). The single offline HTML file, Docker start and Figma companion are later kit targets, not delivered yet.</p>
+        <p className="wl-meta-text" id="kit-status">{KIT.offline
+          ? <>Offline file built from source <code>{KIT.sourceSha}</code>, standard <code>{KIT.standardSha.slice(0, 7)}</code>. Everything it needs is inside this file; it makes no network request.</>
+          : <>HTTP demo (npm run example), standard <code>{KIT.standardSha.slice(0, 7)}</code>. The same demo is also built as the single offline file marquee-kit.html.</>}
+          {" "}Docker start and the Figma companion are later kit targets, not delivered yet.</p>
+      </section>
+      <section className="demo-card" aria-labelledby="ov-licences">
+        <h2 id="ov-licences">Licences</h2>
+        <p className="wl-meta-text">Marquee's own code and documentation are MIT (LICENSE, below). The fonts, the Tailwind CSS output and, in the offline file, React keep their own licences:</p>
+        {LICENCES.map(([title, text]) => (
+          <details key={title} className="demo-licence"><summary>{title}</summary><pre className="demo-code">{text}</pre></details>
+        ))}
       </section>
     </Page>
+  );
+}
+
+/** Your own configuration: a design-config.json and the font and logo files it names, all chosen from
+ *  the disk. Nothing is uploaded: files are read in memory (blob: URLs). Paths in the configuration
+ *  are matched to selected files by file name. */
+function LocalConfig({ state, go, files, addFiles, problem, setProblem }: {
+  state: DemoState; go: (s: Partial<DemoState>) => void; files: LocalFiles; addFiles: (list: FileList) => void;
+  problem?: string; setProblem: (p?: string) => void;
+}) {
+  const local = useMemo(() => { try { return state.local ? decodeConfig(state.local) : undefined; } catch { return undefined; } }, [state.local]);
+  const named = local ? namedFiles(local) : [];
+  const onConfig = async (list: FileList | null) => {
+    const file = list?.[0];
+    if (!file) return;
+    try { go({ config: "local", local: encodeConfig(JSON.parse(await file.text())) }); setProblem(undefined); }
+    catch (e) { setProblem(`${file.name} is not a valid JSON file (${(e as Error).message}). Nothing was changed.`); }
+  };
+  return (
+    <div className="demo-local">
+      <h3>Your configuration</h3>
+      <p className="wl-meta-text">Choose a design-config.json, then the font and logo files it names. Files are matched by file name and stay on your computer.</p>
+      <div className="demo-row">
+        <label className="demo-file"><span>Configuration file</span>
+          <input id="local-config" type="file" accept=".json,application/json" onChange={(e) => { onConfig(e.currentTarget.files); e.currentTarget.value = ""; }} /></label>
+        <label className="demo-file"><span>Font and logo files</span>
+          <input id="local-files" type="file" multiple accept=".woff2,.woff,.ttf,.otf,.svg,.png,.jpg,.jpeg,.webp,.gif" onChange={(e) => { if (e.currentTarget.files) addFiles(e.currentTarget.files); e.currentTarget.value = ""; }} /></label>
+      </div>
+      {problem && <Alert tone="error">{problem}</Alert>}
+      {named.length > 0 && (
+        <ul className="demo-list" id="local-file-status" aria-label="Files named by your configuration">
+          {named.map((path) => {
+            const hit = files.get(fileName(path));
+            return <li key={path}><code>{path}</code>: {hit ? <>selected ({hit.name})</> : <strong>not selected yet</strong>}</li>;
+          })}
+        </ul>
+      )}
+      <p className="wl-meta-text">After a reload, the configuration values come back from the page address. The font and logo files must be selected again: until then, a font role without its file keeps Marquee's default and a missing logo shows the text logo.</p>
+      <p className="wl-meta-text">To start from the example, download its files:{" "}
+        {EXAMPLE_FILES.map((f, i) => <span key={f.path}>{i ? ", " : ""}<a href={f.url} download={fileName(f.path)}>{f.path}</a></span>)}.</p>
+    </div>
   );
 }
 
@@ -316,18 +402,32 @@ function RegistrationScreen({ state, go }: { state: DemoState; go: (s: Partial<D
 function App() {
   const [state, setState] = useState<DemoState>(readHash);
   const [query, setQuery] = useState("");
-  const [config, setConfig] = useState<DesignConfig | undefined>();
+  const [example, setExample] = useState<{ config: DesignConfig; assetBase: string | undefined }>();
+  const [files, setFiles] = useState<LocalFiles>(() => new Map());
+  const [problem, setProblem] = useState<string>();
+  const addFiles = (list: FileList) => setFiles((old) => {
+    const next = new Map(old);
+    for (const f of Array.from(list)) next.set(f.name, { name: f.name, url: URL.createObjectURL(f) });
+    return next;
+  });
   useEffect(() => {
     const onHash = () => setState(readHash());
     addEventListener("hashchange", onHash);
     return () => removeEventListener("hashchange", onHash);
   }, []);
   useEffect(() => {
-    if (state.config !== "example") { setConfig(undefined); return; }
+    if (state.config !== "example" || example) return;
     let live = true;
-    fetch("/design/design-config.json").then((r) => r.json()).then((c) => { if (live) setConfig(c); });
+    loadExample().then((e) => { if (live) setExample(e); });
     return () => { live = false; };
-  }, [state.config]);
+  }, [state.config, example]);
+  // Your configuration: no assetBase, so a path without a selected file is reported and ignored
+  // (the role keeps its default) and nothing is requested from the disk or the network.
+  const local = useMemo(() => {
+    if (state.config !== "local" || !state.local) return undefined;
+    try { return withFiles(decodeConfig(state.local), (path) => files.get(fileName(path))?.url).config; } catch { return undefined; }
+  }, [state.config, state.local, files]);
+  const applied = state.config === "example" ? example : state.config === "local" ? { config: local, assetBase: undefined } : undefined;
   const go = (next: Partial<DemoState>) => {
     const s = { ...state, ...next };
     if (hashOf(s) !== location.hash) location.hash = hashOf(s);
@@ -337,12 +437,12 @@ function App() {
   // Test-only hook: icon path data can be injected by a test harness (no icon artwork ships here).
   const icons = (window as unknown as { __MARQUEE_ICONS__?: IconSet }).__MARQUEE_ICONS__;
   const screens: Record<Screen, () => ReactNode> = {
-    overview: () => <Overview state={state} go={go} />, collection: () => <CollectionScreen go={go} query={query} setQuery={setQuery} />, article: () => <ArticleScreen go={go} />,
+    overview: () => <Overview state={state} go={go} files={files} addFiles={addFiles} problem={problem} setProblem={setProblem} />, collection: () => <CollectionScreen go={go} query={query} setQuery={setQuery} />, article: () => <ArticleScreen go={go} />,
     form: () => <FormScreen go={go} />, message: () => <MessageScreen go={go} />, states: () => <StatesScreen />,
     components: () => <ComponentsScreen />, registration: () => <RegistrationScreen state={state} go={go} />,
   };
   return (
-    <MarqueeRoot mode={state.mode} onModeChange={(mode) => go({ mode })} config={config} assetBase="/design/" icons={icons} className="demo-root">
+    <MarqueeRoot mode={state.mode} onModeChange={(mode) => go({ mode })} config={applied?.config} assetBase={applied?.assetBase} icons={icons} className="demo-root">
       {state.screen === "registration"
         ? <><Menu state={state} go={go} />{screens.registration()}</>
         : <Shell state={state} go={go} search={{ value: query, onChange: setQuery }}>{screens[state.screen]()}</Shell>}

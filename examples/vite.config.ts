@@ -51,6 +51,9 @@ export default defineConfig({
       { find: /^wakolab-design-systems-marquee\/marquee\.css$/, replacement: resolve(dist, "marquee.css") },
       { find: /^wakolab-design-systems-marquee$/, replacement: resolve(dist, "index.js") },
       { find: /^parity-sys$/, replacement: resolve(root, "parity/fixture/marquee-sys.tsx") },
+      // HTTP mode of the demo; scripts/build-html.mjs maps this to demo/env/offline.ts instead (#6, as in
+      // Folio a6b153fbc9a7cd4c879ccf569345c5088680b3f5, examples/vite.config.ts).
+      { find: /^marquee-demo-env$/, replacement: resolve(root, "demo/env/http.ts") },
     ],
   },
   server: { host: "127.0.0.1", port: 5192, strictPort: true, fs: { allow: [resolve(__dirname, "..")] } },

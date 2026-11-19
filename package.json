@@ -38,6 +38,7 @@
     "check": "tsc --noEmit -p tsconfig.json",
     "test": "node scripts/check-dist.mjs && node scripts/check-artwork.mjs && node scripts/check-schema.mjs && node scripts/theme-tokens.mjs && playwright test --trace off",
     "example": "vite --config examples/vite.config.ts",
+    "kit": "node scripts/build.mjs && node scripts/build-html.mjs",
     "consumer": "node scripts/external-consumer.mjs",
     "parity": "node scripts/parity.mjs"
   },
